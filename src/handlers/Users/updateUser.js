@@ -5,7 +5,7 @@ const updateUser = async(req, res)=>{
     try {
         const {id} = req.params
         const {name, lastName, gender, dayBirth, email, phone, creditCardWarranty, avatarImg, password} = req.body
-        const userUpdated = await putUser(name, lastName, gender, dayBirth, email, phone, creditCardWarranty, avatarImg, password, id)
+        const userUpdated = await putUser(id, name, lastName, gender, dayBirth, email, phone, creditCardWarranty, avatarImg, password)
 
         if(userUpdated) return res.status(200).json({status: true, userUpdated})
 

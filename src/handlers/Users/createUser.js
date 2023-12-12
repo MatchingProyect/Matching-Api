@@ -1,4 +1,4 @@
-const addUserInDb = require("../../controllers/addInDB")
+const {addUserInDb} = require("../../controllers/addInDB")
 
 
 const createUser = async(req, res)=>{
