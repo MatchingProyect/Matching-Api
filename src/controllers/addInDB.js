@@ -1,5 +1,5 @@
 const dataBase = require('../dataBase/dataBase')
-const {User, Profile, Sport} = dataBase.models
+const {User, Profile, Sport, Club} = dataBase.models
 
 const addUserInDb = async(name, lastName, gender, dayBirth, email, phone, creditCardWarranty, avatarImg, password) =>{
     try {
@@ -30,8 +30,19 @@ const addProfileInDb = async(laterality, courtSide, matchType, dayPreference, ti
 
 const addSportInDb = async(name)=>{
     try {
+        if(!name) return "faltan datos"
         const sportAdding = await Sport.create({name})
         if(sportAdding) return sportAdding
+    } catch (error) {
+        throw error.message
+    }
+}
+
+const addClubInDb = async(schedule, price)=>{
+    try {
+        if(!schedule || !price) return 'faltan datos';
+        const addClub = await Club.create({schedule, price})
+        if(addClub) return addClub
     } catch (error) {
         throw error.message
     }
@@ -40,5 +51,6 @@ const addSportInDb = async(name)=>{
 module.exports= {
     addUserInDb,
     addProfileInDb,
-    addSportInDb
+    addSportInDb,
+    addClubInDb
 }
