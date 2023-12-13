@@ -1,4 +1,4 @@
-const { getSportsInDb, filterSportInDb } = require("../../controllers/getInDB")
+const { getSportsInDb, filterSportInDb } = require("../../controllers/filtersAndGet")
 
 
 const getAllSport = async(req, res) =>{

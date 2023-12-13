@@ -1,4 +1,4 @@
-const { getClubsInDb, filterByClubs } = require("../../controllers/getInDB");
+const { getClubsInDb, filterByClubs } = require("../../controllers/filtersAndGet");
 
 const getAllClubs = async(req, res) =>{
     try {
