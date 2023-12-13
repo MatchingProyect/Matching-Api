@@ -53,20 +53,23 @@ const getSportsInDb = async() =>{
     }
 }
 
-const filterSportInDb = async(sports) =>{
+const filterSportInDb = async(search) => {
     try {
-        const sportsFiltrades = await getSportsInDb()
-        if(sportsFiltrades){
-            return sportsFiltrades.filter((sport) => {
-                sport.name.toLowerCase().includes(sports.toLowerCase())
-            })
-         
-            
-        }
+      if(!search) {
+        return [];
+      }
+      const sports = await getSportsInDb();
+      if(!sports) {
+        return [];
+      }
+      return sports.filter((sport) => {
+        const regex = new RegExp(search, "i");  
+        return sport.name.match(regex);
+      });
     } catch (error) {
-        throw error.message
+      throw error;
     }
-}
+  }
 
 const searchByName = async(name) => {
     try {
