@@ -1,16 +1,18 @@
 const dataBase = require('../dataBase/dataBase')
-const {User, Profile, Sport, Club} = dataBase.models
+const { Sport, Club} = dataBase.models
 
-const getSportsInDb = async() =>{
+const getSportsInDb = async () => {
+  
     try {
-        const sports = await Sport.findAll()
-
-        if(sports) return sports
-        
+    
+     const sports = await Sport.findAll();
+      return sports;
     } catch (error) {
-        throw error.message
+      throw error.message;
+  
     }
-}
+  
+  }
 
 const getClubsInDb = async()=>{
     try {
