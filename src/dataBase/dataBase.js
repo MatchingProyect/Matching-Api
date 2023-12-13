@@ -2,6 +2,8 @@ const {Sequelize} = require('sequelize');
 require("dotenv").config();
 const UserModel = require('../models/User');
 const ProfileModel = require('../models/Profile');
+const SportModel = require('../models/Sport')
+
 
 const {DB_USERNAME, DB_PASSWORD, DB_PORT, DB_NAME} = process.env;
 
@@ -9,6 +11,7 @@ const dataBase = new Sequelize(`postgres:${DB_USERNAME}:${DB_PASSWORD}@localhost
 
 UserModel(dataBase);
 ProfileModel(dataBase);
+SportModel(dataBase)
 
 const {User, Profile} = dataBase.models;
 

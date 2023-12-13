@@ -1,5 +1,5 @@
 const dataBase = require('../dataBase/dataBase')
-const {User, Profile} = dataBase.models
+const {User, Profile, Sport} = dataBase.models
 
 const getAllProfInDb = async()=>{
     try {
@@ -42,9 +42,48 @@ const getUserInDb = async(id)=>{
     }
 }
 
+const getSportsInDb = async() =>{
+    try {
+        const sports = await Sport.findAll()
+
+        if(sports) return sports
+        
+    } catch (error) {
+        throw error.message
+    }
+}
+
+const filterSportInDb = async(sports) =>{
+    try {
+        const sportsFiltrades = await getSportsInDb()
+        if(sportsFiltrades){
+            return sportsFiltrades.filter((sport) => {
+                sport.name.toLowerCase().includes(sports.toLowerCase())
+            })
+         
+            
+        }
+    } catch (error) {
+        throw error.message
+    }
+}
+
+const searchByName = async(name) => {
+    try {
+        const searchName = await User.findOne({where: {name}});
+        if(searchName) return searchName;
+        
+    } catch (error) {
+        throw error.message;
+    }
+}
+
 module.exports = {
     getAllProfInDb,
     getAllUsersInDb,
     getUserInDb,
-    getProfileInDb
+    getProfileInDb,
+    getSportsInDb,
+    filterSportInDb,
+    searchByName
 }

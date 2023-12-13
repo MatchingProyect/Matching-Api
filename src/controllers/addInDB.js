@@ -1,10 +1,12 @@
 const dataBase = require('../dataBase/dataBase')
-const {User, Profile} = dataBase.models
+const {User, Profile, Sport} = dataBase.models
 
 const addUserInDb = async(name, lastName, gender, dayBirth, email, phone, creditCardWarranty, avatarImg, password) =>{
     try {
         if(!name || !lastName || !dayBirth || !email || !phone || !creditCardWarranty || !password) return "faltan datos"
-        const [newUser, create] = await User.findOrCreate({where: {name}},{default: {name, lastName, gender, dayBirth, email, phone, creditCardWarranty, avatarImg, password}})
+        const [newUser, create] = await User.findOrCreate({where: {name}, 
+            defaults: {name, lastName, gender, dayBirth, email, phone, creditCardWarranty, avatarImg, password}
+        })
 
         if(!create)return "este usuario ya existe"
 
@@ -26,7 +28,17 @@ const addProfileInDb = async(laterality, courtSide, matchType, dayPreference, ti
     }
 }
 
+const addSportInDb = async(name)=>{
+    try {
+        const sportAdding = await Sport.create({name})
+        if(sportAdding) return sportAdding
+    } catch (error) {
+        throw error.message
+    }
+}
+
 module.exports= {
     addUserInDb,
-    addProfileInDb
+    addProfileInDb,
+    addSportInDb
 }
