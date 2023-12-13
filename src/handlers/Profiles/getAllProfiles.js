@@ -1,8 +1,5 @@
 const { getAllProfInDb } = require("../../controllers/getInDB")
 
-
-
-
 const getAllProfiles = async(req, res)=>{
     try {
         const allProfiles = await getAllProfInDb()
