@@ -1,3 +1,5 @@
+const createLocation = require('../handlers/Location/createLocation');
+const getAllLocations = require('../handlers/Location/getAllLocations');
 const createProfile = require('../handlers/Profiles/createProfile');
 const deleteProfile = require('../handlers/Profiles/deleteProfile');
 const getAllProfiles = require('../handlers/Profiles/getAllProfiles');
@@ -12,14 +14,20 @@ const getUser = require('../handlers/Users/getUser');
 const updateUser = require('../handlers/Users/updateUser');
 
 
+
+
 const router = require("express").Router();
+
+
 
 router.get('/profiles', getAllProfiles)
 router.get('/profiles/:id', getProfile)
 router.get('/users', getAllUsers)
 router.get('/users/:id', getUser)
 router.get('/sports', getAllSport)
+router.get('/locations', getAllLocations)
 
+router.post('/locations', createLocation)
 router.post('/sports', createSport)
 router.post('/profiles', createProfile)
 router.post('/users', createUser)

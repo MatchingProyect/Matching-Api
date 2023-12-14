@@ -1,3 +1,6 @@
+const { filterBylocations, getLocationsInDb } = require("../../controllers/filtersAndGet");
+
+
 const getAllLocations = async(req, res) =>{
     try {
         const {locations} = req.query;
@@ -11,3 +14,5 @@ const getAllLocations = async(req, res) =>{
         
     }
 }
+
+module.exports = getAllLocations
