@@ -1,5 +1,5 @@
 const dataBase = require('../dataBase/dataBase')
-const {User, Profile, Sport, Club} = dataBase.models
+const {User, Profile, Sport, Club, Location} = dataBase.models
 
 const addUserInDb = async(name, lastName, gender, dayBirth, email, phone, creditCardWarranty, avatarImg, password) =>{
     try {
@@ -47,9 +47,19 @@ const addClubInDb = async(name, showers, grills, parking, security)=>{
     }
 }
 
+const addLocationInDb = async(name, adress, city, state, postalCode, country)=>{
+    try {
+        const addLocation = await Location.create({name, adress, city, state, postalCode, country})
+        if(addLocation) return addLocation
+    } catch (error) {
+        
+    }
+}
+
 module.exports= {
     addUserInDb,
     addProfileInDb,
     addSportInDb,
-    addClubInDb
+    addClubInDb,
+    addLocationInDb
 }
