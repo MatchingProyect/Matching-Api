@@ -30,28 +30,28 @@ const {DB_USERNAME, DB_PASSWORD, DB_PORT, DB_NAME} = process.env;
 
 const dataBase = new Sequelize(`postgres:${DB_USERNAME}:${DB_PASSWORD}@localhost:${DB_PORT}/${DB_NAME}`);
 
-ShiftScheduleModel(dataBase)
-PaymentModel(dataBase)
-PaymentStatusModel(dataBase)
-ReservationModel(dataBase)
-TeamMatchModel(dataBase)
-ScoreMatchModel(dataBase)
-CourtModel(dataBase)
-PaymentTypeModel(dataBase)
-PointSystemModel(dataBase)
-PointEventModel(dataBase)
-AdvertisingSystemModel(dataBase)
-MatchResultModel(dataBase)
-MatchTypeModel(dataBase)
-RatingUserModel(dataBase)
-ReservationTypeModel(dataBase)
-AdvertisingEventModel(dataBase)
+ShiftScheduleModel(dataBase);
+PaymentModel(dataBase);
+PaymentStatusModel(dataBase);
+ReservationModel(dataBase);
+TeamMatchModel(dataBase);
+ScoreMatchModel(dataBase);
+CourtModel(dataBase);
+PaymentTypeModel(dataBase);
+PointSystemModel(dataBase);
+PointEventModel(dataBase);
+AdvertisingSystemModel(dataBase);
+MatchResultModel(dataBase);
+MatchTypeModel(dataBase);
+RatingUserModel(dataBase);
+ReservationTypeModel(dataBase);
+AdvertisingEventModel(dataBase);
 
 UserModel(dataBase);
 ProfileModel(dataBase);
-SportModel(dataBase)
-ClubModel(dataBase)
-LocationModel(dataBase)
+SportModel(dataBase);
+ClubModel(dataBase);
+LocationModel(dataBase);
 
 const {User,
     Reservation,
@@ -83,13 +83,13 @@ Reservation.belongsTo(User);
 User.hasMany(GuestReservation);
 GuestReservation.belongsTo(User);
 
-User.hasMany(Location);
-Location.belongsTo(User);
+Location.hasMany(User)
+User.belongsTo(Location)
 
 User.hasMany(RatingUser);
 RatingUser.belongsTo(User);
 
-User.hasOne(Profile);
+User.hasMany(Profile)
 Profile.belongsTo(User);
 
 User.belongsToMany(Sport, { through: 'UserSport' });
@@ -111,14 +111,14 @@ Court.hasMany(Reservation);
 Reservation.hasOne(MatchType);
 MatchType.belongsTo(Reservation);
 
-Reservation.belongsTo(GuestReservation);
 GuestReservation.hasMany(Reservation);
+Reservation.belongsTo(GuestReservation);
 
-Reservation.belongsTo(ReservationType);
-ReservationType.hasMany(Reservation);
+ReservationType.belongsTo(Reservation)
+Reservation.hasMany(ReservationType)
 
-Reservation.belongsTo(RatingUser);
-RatingUser.hasMany(Reservation);
+RatingUser.belongsTo(Reservation)
+Reservation.hasMany(RatingUser)
 
 // Court relationships
 Court.belongsTo(Location);
@@ -127,25 +127,26 @@ Location.hasMany(Court);
 Court.belongsTo(Club);
 Club.hasMany(Court);
 
-Court.hasOne(ShiftSchedule);
+Court.hasMany(ShiftSchedule)
 ShiftSchedule.belongsTo(Court);
 
 // Profile relationships
 Profile.belongsTo(Club);
 Club.hasOne(Profile);
 
-Profile.belongsTo(RatingUser);
-RatingUser.hasMany(Profile);
+RatingUser.belongsTo(Profile)
+Profile.hasMany(RatingUser)
 
 Profile.belongsToMany(Sport, { through: 'ProfileSport' });
 Sport.belongsToMany(Profile, { through: 'ProfileSport' });
 
 // Payment relationships
-Payment.belongsTo(PaymentType);
-PaymentType.hasMany(Payment);
 
-Payment.belongsTo(PaymentStatus);
-PaymentStatus.hasMany(Payment);
+PaymentType.belongsTo(Payment)
+Payment.hasMany(PaymentType)
+
+PaymentStatus.belongsTo(Payment)
+Payment.hasMany(PaymentStatus)
 
 // TeamMatch relationships
 TeamMatch.hasOne(MatchResult);
