@@ -1,5 +1,5 @@
 const dataBase = require('../dataBase/dataBase')
-const { Sport, Club} = dataBase.models
+const { Sport, Club, Location} = dataBase.models
 
 const getSportsInDb = async () => {
   
@@ -18,6 +18,28 @@ const getClubsInDb = async()=>{
     try {
         const clubs = await Club.findAll()
         if(clubs) return clubs
+    } catch (error) {
+        throw error.message
+    }
+}
+
+const getLocationsInDb = async()=>{
+    try {
+        const allLocation = await Location.findAll()
+        if(allLocation) return allLocation
+    } catch (error) {
+        throw error.message
+    }
+}
+
+const filterBylocations = async(search)=>{
+    try {
+        const totalLocations = await getLocationsInDb();
+
+        return totalLocations.filter((location) => {
+          const regex = new RegExp(search, "i");  
+          return location.name.match(regex);
+        });
     } catch (error) {
         throw error.message
     }
@@ -43,7 +65,7 @@ const filterSportInDb = async(search) => {
 
       return clubs.filter((club) => {
         const regex = new RegExp(search, "i");  
-        return club.schedule.match(regex);
+        return club.name.match(regex);
       });
     } catch (error) {
         throw error.message
@@ -55,4 +77,6 @@ const filterSportInDb = async(search) => {
     getClubsInDb,
     filterSportInDb,
     filterByClubs,
+    getLocationsInDb,
+    filterBylocations
   }

@@ -38,10 +38,9 @@ const addSportInDb = async(name)=>{
     }
 }
 
-const addClubInDb = async(schedule, price)=>{
+const addClubInDb = async(name, showers, grills, parking, security)=>{
     try {
-        if(!schedule || !price) return 'faltan datos';
-        const addClub = await Club.create({schedule, price})
+        const addClub = await Club.create({name, showers, grills, parking, security})
         if(addClub) return addClub
     } catch (error) {
         throw error.message

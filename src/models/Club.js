@@ -8,13 +8,25 @@ module.exports = (dataBase) => {
             allowNull: false,
             defaultValue: DataTypes.UUIDV4
         },
-        schedule:{
+        name: {
             type: DataTypes.STRING,
             allowNull: false
         },
-        price:{
-            type: DataTypes.INTEGER,
+        showers: {
+            type: DataTypes.STRING,
+            allowNull: false
+        },
+        grills: {
+            type: DataTypes.STRING,
+            allowNull: false
+        },
+        parking: {
+            type: DataTypes.STRING,
+            allowNull: false
+        },
+        security: {
+            type: DataTypes.STRING,
             allowNull: false
         }
-    })
+    }, {timestamps: false})
 }
