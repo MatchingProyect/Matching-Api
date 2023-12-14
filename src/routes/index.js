@@ -12,8 +12,8 @@ const deleteUser = require('../handlers/Users/deleteUser');
 const getAllUsers = require('../handlers/Users/getAllUsers');
 const getUser = require('../handlers/Users/getUser');
 const updateUser = require('../handlers/Users/updateUser');
-
-
+const {register, login} = require("../controllers/authController")
+const loginValidators = require("../middlewares/validators")
 
 
 const router = require("express").Router();
@@ -27,6 +27,8 @@ router.get('/users/:id', getUser)
 router.get('/sports', getAllSport)
 router.get('/locations', getAllLocations)
 
+router.post('/login', loginValidators, login)
+router.post('/register', register) 
 router.post('/locations', createLocation)
 router.post('/sports', createSport)
 router.post('/profiles', createProfile)
