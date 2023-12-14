@@ -53,9 +53,116 @@ SportModel(dataBase)
 ClubModel(dataBase)
 LocationModel(dataBase)
 
-const {User, Profile} = dataBase.models;
+const {User,
+    Reservation,
+    GuestReservation,
+    Location,
+    RatingUser,
+    Profile,
+    Sport,
+    PointEvent,
+    AdvertisingEvent,
+    Payment,
+    Court,
+    Club,
+    ScoreMatch,
+    ShiftSchedule,
+    PaymentType,
+    PaymentStatus,
+    TeamMatch,
+    MatchResult,
+    ReservationType,
+    MatchType,
+    PointSystem,
+    AdvertisingSystem} = dataBase.models;
 
-User.hasMany(Profile);
+// User relationships
+User.hasMany(Reservation);
+Reservation.belongsTo(User);
+
+User.hasMany(GuestReservation);
+GuestReservation.belongsTo(User);
+
+User.hasMany(Location);
+Location.belongsTo(User);
+
+User.hasMany(RatingUser);
+RatingUser.belongsTo(User);
+
+User.hasOne(Profile);
 Profile.belongsTo(User);
+
+User.belongsToMany(Sport, { through: 'UserSport' });
+Sport.belongsToMany(User, { through: 'UserSport' });
+
+User.belongsToMany(PointEvent, { through: 'UserPointEvent' });
+PointEvent.belongsToMany(User, { through: 'UserPointEvent' });
+
+User.belongsToMany(AdvertisingEvent, { through: 'UserAdvertisingEvent' });
+AdvertisingEvent.belongsToMany(User, { through: 'UserAdvertisingEvent' });
+
+// Reservation relationships
+Reservation.hasOne(Payment);
+Payment.belongsTo(Reservation);
+
+Reservation.belongsTo(Court);
+Court.hasMany(Reservation);
+
+Reservation.hasOne(MatchType);
+MatchType.belongsTo(Reservation);
+
+Reservation.belongsTo(GuestReservation);
+GuestReservation.hasMany(Reservation);
+
+Reservation.belongsTo(ReservationType);
+ReservationType.hasMany(Reservation);
+
+Reservation.belongsTo(RatingUser);
+RatingUser.hasMany(Reservation);
+
+// Court relationships
+Court.belongsTo(Location);
+Location.hasMany(Court);
+
+Court.belongsTo(Club);
+Club.hasMany(Court);
+
+Court.hasOne(ShiftSchedule);
+ShiftSchedule.belongsTo(Court);
+
+// Profile relationships
+Profile.belongsTo(Club);
+Club.hasOne(Profile);
+
+Profile.belongsTo(RatingUser);
+RatingUser.hasMany(Profile);
+
+Profile.belongsToMany(Sport, { through: 'ProfileSport' });
+Sport.belongsToMany(Profile, { through: 'ProfileSport' });
+
+// Payment relationships
+Payment.belongsTo(PaymentType);
+PaymentType.hasMany(Payment);
+
+Payment.belongsTo(PaymentStatus);
+PaymentStatus.hasMany(Payment);
+
+// TeamMatch relationships
+TeamMatch.hasOne(MatchResult);
+MatchResult.belongsTo(TeamMatch);
+
+TeamMatch.hasOne(ScoreMatch);
+ScoreMatch.belongsTo(TeamMatch);
+
+TeamMatch.belongsTo(GuestReservation);
+GuestReservation.hasMany(TeamMatch);
+
+// PointSystem relationships
+PointSystem.hasOne(PointEvent);
+PointEvent.belongsTo(PointSystem);
+
+// AdvertisingSystem relationships
+AdvertisingSystem.hasOne(AdvertisingEvent);
+AdvertisingEvent.belongsTo(AdvertisingSystem);
 
 module.exports = dataBase;
