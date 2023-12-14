@@ -10,7 +10,7 @@ const getAllClubs = async(req, res) =>{
         const allClubes = await getClubsInDb()
         if(allClubes) return res.status(200).json({status: true, allClubes})
     } catch (error) {
-        throw error.message
+        return res.status(500).json({status: false, message: error.message})
     }
 }
 

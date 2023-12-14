@@ -11,7 +11,7 @@ const getAllLocations = async(req, res) =>{
         const allLocations = await getLocationsInDb()
         if(allLocations) return res.status(200).json({status: true, allLocations})
     } catch (error) {
-        
+        return res.status(200).json({status: false, message: error.message})
     }
 }
 

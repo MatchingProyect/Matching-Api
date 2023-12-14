@@ -6,7 +6,7 @@ const createClub = async(req, res)=>{
         const newClub = await addClubInDb(name, showers, grills, parking, security)
         if(newClub) return res.status(200).json({status: true, newClub})
     } catch (error) {
-        return res.status(500).json({status: true, message: error.message})
+        return res.status(500).json({status: false, message: error.message})
     }
 }
 

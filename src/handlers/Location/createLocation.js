@@ -6,7 +6,7 @@ const createLocation= async(req, res)=>{
         const newLocation = await addLocationInDb(name, adress, city, state, postalCode, country)
         if(newLocation) return res.status(200).json({status: true, newLocation})
     } catch (error) {
-        return res.status(500).json({status: true, message: error.message})
+        return res.status(500).json({status: false, message: error.message})
     }
 }
 
