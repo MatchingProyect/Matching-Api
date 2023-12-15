@@ -20,5 +20,5 @@ module.exports = (dataBase) => {
             type: DataTypes.INTEGER,
             allowNull: false
         }
-    })
+    }, {timestamps: false})
 }

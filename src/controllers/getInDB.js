@@ -1,15 +1,12 @@
 const dataBase = require('../dataBase/dataBase')
-const {User, Profile, Sport, Club} = dataBase.models
+const {User, Profile, Sport, Club, Court, Payment, PaymentType, Reservation, ScoreMatch, TeamMatch} = dataBase.models
 
 const getAllProfInDb = async()=>{
     try {
         const profiles = await Profile.findAll()
         if(profiles){
             return profiles
-        }else{
-            console.log('error find profiles')
         }
-        
     } catch (error) {
         throw error.message
     }
@@ -53,6 +50,87 @@ const searchByName = async(name) => {
     }
 }
 
+const getAllCourtsInDb = async() => {
+    try {
+        const courts = await Court.findAll();
+        if(courts) return courts;
+    } catch (error) {
+        throw error.message;
+    }
+}
+
+const getAllPaymentsInDb = async() => {
+    try {
+        const payments = await Payment.findAll();
+        if(payments) return payments;
+    } catch (error) {
+        throw error.message;
+    }
+}
+
+const getOnePaymentInDb = async(id) => {
+    try {
+        const onePayment = await Payment.findOne({where: {id}});
+        if(onePayment) return onePayment;
+    } catch (error) {
+        throw error.message;
+    }
+}
+
+const getAllPaymentsTypesInDb = async() => {
+    try {
+        const paymentsType = await PaymentType.findAll();
+        if(paymentsType) return paymentsType;
+    } catch (error) {
+        throw error.message;
+    }
+}
+
+const getAllReservationsInDb = async() => {
+    try {
+        const reservations = await Reservation.findAll();
+        if(reservations) return reservations;
+    } catch (error) {
+        throw error.message;
+    }
+} 
+
+const getOneReservationInDb = async(id) => {
+    try {
+        const oneReservation = await Reservation.findOne({where: {id}});
+        if(oneReservation) return oneReservation;
+    } catch (error) {
+        throw error.message
+    }
+}
+
+const getAllScoreMatchesInDb = async() => {
+    try {
+        const scoreMatches = await ScoreMatch.findAll();
+        if(scoreMatches) return scoreMatches;
+    } catch (error) {
+        throw error.message;
+    }
+}
+
+const getAllTeamMatchesInDb = async() => {
+    try {
+        const teamMatches = await TeamMatch.findAll();
+        if(teamMatches) return teamMatches;
+    } catch (error) {
+        throw error.message;
+    }
+}
+
+const getOneTeamMatchInDb = async(id) => {
+    try {
+        const teamMatch = await TeamMatch.findOne({where: {id}});
+        if(teamMatch) return teamMatch;
+    } catch (error) {
+        throw error.message;
+    }
+}
+
 //FILTROS
 
 
@@ -62,5 +140,14 @@ module.exports = {
     getAllUsersInDb,
     getUserInDb,
     getProfileInDb,
-    searchByName
+    searchByName,
+    getAllCourtsInDb,
+    getAllPaymentsInDb,
+    getOnePaymentInDb,
+    getAllPaymentsTypesInDb,
+    getAllReservationsInDb,
+    getOneReservationInDb,
+    getAllScoreMatchesInDb,
+    getAllTeamMatchesInDb,
+    getOneTeamMatchInDb
 }

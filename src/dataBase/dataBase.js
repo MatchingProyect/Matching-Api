@@ -6,7 +6,6 @@ const SportModel = require('../models/Sport')
 const ClubModel = require('../models/Club')
 const LocationModel = require('../models/Location')
 
-
 const PointSystemModel = require('../models/PointSystem')
 const PointEventModel = require('../models/PointEvent')
 const AdvertisingSystemModel = require('../models/AdvertisingSystem')
@@ -15,7 +14,6 @@ const MatchTypeModel = require('../models/MatchType')
 const RatingUserModel = require('../models/RatingUser')
 const ReservationTypeModel = require('../models/ReservationType')
 const AdvertisingEventModel = require('../models/AdvertisingEvent')
-
 
 const ShiftScheduleModel = require('../models/ShiftSchedule')
 const PaymentStatusModel = require('../models/PaymentStatus')
@@ -30,32 +28,33 @@ const {DB_USERNAME, DB_PASSWORD, DB_PORT, DB_NAME} = process.env;
 
 const dataBase = new Sequelize(`postgres:${DB_USERNAME}:${DB_PASSWORD}@localhost:${DB_PORT}/${DB_NAME}`);
 
-ShiftScheduleModel(dataBase);
-PaymentModel(dataBase);
-PaymentStatusModel(dataBase);
-ReservationModel(dataBase);
-TeamMatchModel(dataBase);
-ScoreMatchModel(dataBase);
-CourtModel(dataBase);
-PaymentTypeModel(dataBase);
-PointSystemModel(dataBase);
-PointEventModel(dataBase);
-AdvertisingSystemModel(dataBase);
-MatchResultModel(dataBase);
-MatchTypeModel(dataBase);
-RatingUserModel(dataBase);
-ReservationTypeModel(dataBase);
-AdvertisingEventModel(dataBase);
-
 UserModel(dataBase);
+ReservationModel(dataBase);
+LocationModel(dataBase);
+RatingUserModel(dataBase);
 ProfileModel(dataBase);
 SportModel(dataBase);
+PointEventModel(dataBase);
+AdvertisingEventModel(dataBase);
+PaymentModel(dataBase);
+CourtModel(dataBase);
 ClubModel(dataBase);
-LocationModel(dataBase);
+ScoreMatchModel(dataBase);
+ShiftScheduleModel(dataBase);
+PaymentTypeModel(dataBase);
+PaymentStatusModel(dataBase);
+TeamMatchModel(dataBase);
+MatchResultModel(dataBase);
+ReservationTypeModel(dataBase);
+MatchTypeModel(dataBase);
+PointSystemModel(dataBase);
+AdvertisingSystemModel(dataBase);
+
+
 
 const {User,
     Reservation,
-    GuestReservation,
+    // GuestReservation,
     Location,
     RatingUser,
     Profile,
@@ -80,8 +79,8 @@ const {User,
 User.hasMany(Reservation);
 Reservation.belongsTo(User);
 
-User.hasMany(GuestReservation);
-GuestReservation.belongsTo(User);
+// User.hasMany(GuestReservation);
+// GuestReservation.belongsTo(User);
 
 Location.hasMany(User)
 User.belongsTo(Location)
@@ -111,42 +110,42 @@ Court.hasMany(Reservation);
 Reservation.hasOne(MatchType);
 MatchType.belongsTo(Reservation);
 
-GuestReservation.hasMany(Reservation);
-Reservation.belongsTo(GuestReservation);
+// GuestReservation.hasMany(Reservation);
+// Reservation.belongsTo(GuestReservation);
 
-ReservationType.belongsTo(Reservation)
 Reservation.hasMany(ReservationType)
+ReservationType.belongsTo(Reservation)
 
-RatingUser.belongsTo(Reservation)
 Reservation.hasMany(RatingUser)
+RatingUser.belongsTo(Reservation)
 
 // Court relationships
 Court.belongsTo(Location);
 Location.hasMany(Court);
 
-Court.belongsTo(Club);
 Club.hasMany(Court);
+Court.belongsTo(Club);
 
 Court.hasMany(ShiftSchedule)
 ShiftSchedule.belongsTo(Court);
 
 // Profile relationships
-Profile.belongsTo(Club);
 Club.hasOne(Profile);
+Profile.belongsTo(Club);
 
-RatingUser.belongsTo(Profile)
 Profile.hasMany(RatingUser)
+RatingUser.belongsTo(Profile)
 
 Profile.belongsToMany(Sport, { through: 'ProfileSport' });
 Sport.belongsToMany(Profile, { through: 'ProfileSport' });
 
 // Payment relationships
 
-PaymentType.belongsTo(Payment)
 Payment.hasMany(PaymentType)
+PaymentType.belongsTo(Payment)
 
-PaymentStatus.belongsTo(Payment)
 Payment.hasMany(PaymentStatus)
+PaymentStatus.belongsTo(Payment)
 
 // TeamMatch relationships
 TeamMatch.hasOne(MatchResult);
@@ -155,8 +154,8 @@ MatchResult.belongsTo(TeamMatch);
 TeamMatch.hasOne(ScoreMatch);
 ScoreMatch.belongsTo(TeamMatch);
 
-TeamMatch.belongsTo(GuestReservation);
-GuestReservation.hasMany(TeamMatch);
+// TeamMatch.belongsTo(GuestReservation);
+// GuestReservation.hasMany(TeamMatch);
 
 // PointSystem relationships
 PointSystem.hasOne(PointEvent);
