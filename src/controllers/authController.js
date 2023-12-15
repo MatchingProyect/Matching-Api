@@ -1,18 +1,16 @@
-const { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } = require('firebase-admin/auth');
-const auth = getAuth();
+
+const admin = require('firebase-admin'); 
+
+const auth = admin.auth();
 
 
 const register = async (req, res, next) => {
   try {
-    if (!req.body.email || !req.body.password) {
-      throw new Error('Email y contraseña son requeridos');
-    }
-
-    const userCredential = await createUserWithEmailAndPassword(auth, req.body.email, req.body.password);
-    const uid = userCredential.user.uid;
-
-    // Devuelve solo el UID del usuario
-    return res.json({ uid });
+    const user = await auth.createUser({
+      email: req.body.email,
+      password: req.body.password
+    })
+    return res.json({uid: user.uid})
 
   } catch (error) {
     console.error(error);
@@ -28,15 +26,10 @@ const register = async (req, res, next) => {
 
 const login = async (req, res, next) => {
   try {
-    if (!req.body.email || !req.body.password) {
-      throw new Error('Credenciales inválidas');
-    }
+    const user = await auth.getUserByEmail(req.body.email);
+    await auth.signInWhithPassword(user, req.body.password);
 
-    const userCredential = await signInWithEmailAndPassword(auth, req.body.email, req.body.password);
-    const uid = userCredential.user.uid;
-
-    // Devuelve solo el UID del usuario
-    return res.json({ uid });
+    return res.json({uid: user.uid})
 
   } catch (error) {
     console.error(error);
@@ -50,7 +43,36 @@ const login = async (req, res, next) => {
   }
 };
 
+
+
+const loginGoogle = async (req, res) => {
+
+  try {
+    const user = await auth.signInWithPopup(auth.GoogleAuthProvider());
+    
+    const uid = user.uid;
+    return res.json({uid});
+
+  } catch (error) {
+    return handleError(res, error);
+  }
+
+} 
+
+const resetPassword = async (req, res) => {
+  
+  try {
+    await auth.sendPasswordResetEmail(req.body.email);
+    return res.json({mensaje: 'Email reset enviado'});
+
+  } catch (error) {
+    return handleError(res, error);
+  }  
+}
+
 module.exports = {
   register,
-  login
+  login,
+  loginGoogle,
+  resetPassword
 };

@@ -6,8 +6,8 @@ try {
     const {name, amount, dateTimeUpdated} = req.body;
     const paymentUpdated = await putPayment(id, name, amount, dateTimeUpdated);
 
-    if(paymentUpdated) return res.satus(200).json({
-        stats: true,
+    if(paymentUpdated) return res.status(200).json({
+        status: true,
         paymentUpdated
     })
 } catch (error) {

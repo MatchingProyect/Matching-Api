@@ -19,7 +19,7 @@ const putUser = async(id, name, lastName, gender, dayBirth, email, phone, credit
     }
 }
 
-const putCourt = async(name, description, priceFee, warrantyReservation, grassType, lighting, doorsType, wallsType, reputation) => {
+const putCourt = async(id, name, description, priceFee, warrantyReservation, grassType, lighting, doorsType, wallsType, reputation) => {
     try {
         const courtUpdated = await Court.update({name, description, priceFee, warrantyReservation, grassType, lighting, doorsType, wallsType, reputation}, {where: {id}});
         if(courtUpdated) return courtUpdated;
@@ -28,7 +28,7 @@ const putCourt = async(name, description, priceFee, warrantyReservation, grassTy
     }
 }
 
-const putPayment = async(name, amount, dateTimeUpdated) => {
+const putPayment = async(id, name, amount, dateTimeUpdated) => {
     try {
         const paymentUpdated = await Payment.update({name, amount, dateTimeUpdated}, {where: {id}});
         if(paymentUpdated) return paymentUpdated;

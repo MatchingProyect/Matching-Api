@@ -1,5 +1,5 @@
 const dataBase = require('../dataBase/dataBase')
-const {User, Profile, Court, Payment, Reservation, TeamMatch} = dataBase.models
+const {User, Profile, Court, Payment, Reservation, TeamMatch, PointEvent, PointSystem} = dataBase.models
 
 const deleteProfileInDb = async(id) =>{
     try {
