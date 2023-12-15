@@ -1,7 +1,6 @@
 const { putUser } = require("../../controllers/putInDB")
 
 const updateUser = async(req, res)=>{
-    console.log("update user")
     try {
         const {id} = req.params
         const {name, lastName, gender, dayBirth, email, phone, creditCardWarranty, avatarImg, password} = req.body

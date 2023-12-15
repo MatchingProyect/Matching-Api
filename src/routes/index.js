@@ -1,8 +1,7 @@
-const createAdvertisingEvent = require('../handlers/AdvertisingEvent/createAdvertisingEvent');
-const deleteAdvertisingEvent = require('../handlers/AdvertisingEvent/deleteAdvertisingEvent');
-const getAdvertisingEvent = require('../handlers/AdvertisingEvent/getAdvertisingEvent');
-const createAdvertisingSystem = require('../handlers/AdvertisingSystem/createAdvertisingSystem');
-const getAdvertisingSystem = require('../handlers/AdvertisingSystem/getAdvetisingSystem');
+const updateCourt = require('../handlers/Court/updateCourt');
+const createCourt = require('../handlers/Court/createCourt');
+const deleteCourt = require('../handlers/Court/deleteCourt');
+const getAllCourts = require('../handlers/Court/getAllCourts');
 const createLocation = require('../handlers/Location/createLocation');
 const getAllLocations = require('../handlers/Location/getAllLocations');
 const createMatchResult = require('../handlers/MatchResult/createMatchResult');
@@ -24,6 +23,10 @@ const deleteUser = require('../handlers/Users/deleteUser');
 const getAllUsers = require('../handlers/Users/getAllUsers');
 const getUser = require('../handlers/Users/getUser');
 const updateUser = require('../handlers/Users/updateUser');
+
+
+
+
 const router = require("express").Router();
 router.post('/advertisingEvent', createAdvertisingEvent)
 router.delete('/advertisingEvent/:id', deleteAdvertisingEvent)
@@ -50,8 +53,6 @@ router.get('/users/:id', getUser)
 router.get('/sports', getAllSport)
 router.get('/locations', getAllLocations)
 
-router.post('/login', loginValidators, login)
-router.post('/register', register) 
 router.post('/locations', createLocation)
 router.post('/sports', createSport)
 router.post('/profiles', createProfile)

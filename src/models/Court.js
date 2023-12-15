@@ -44,5 +44,5 @@ module.exports = (dataBase) => {
             type: DataTypes.STRING,
             allowNull: false
         },
-    })
+    }, {timestamps: false})
 }

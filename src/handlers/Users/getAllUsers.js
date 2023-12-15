@@ -1,7 +1,5 @@
 const { getAllUsersInDb, searchByName } = require("../../controllers/getInDB")
 
-
-
 const getAllUsers = async(req, res) =>{
     try {
         const {name} = req.query;
