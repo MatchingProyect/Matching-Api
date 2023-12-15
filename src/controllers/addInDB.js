@@ -112,6 +112,48 @@ const addMatchInDB = async (type) => {
        throw error; 
   }
 }
+
+const addCourtInDb = async(name, description, priceFee, warrantyReservation, grassType, lighting, doorsType, wallsType, reputation) => {
+    try {
+        const addCourt = await Court.create({name, description, priceFee, warrantyReservation, grassType, lighting, doorsType, wallsType, reputation})
+        if(addCourt) return addCourt;
+    } catch (error) {
+        throw error.message;
+    }
+}
+
+const addPaymentInDb = async(name, amount, dateTimeUpdated) => {
+    try {
+        const addPayment = await Payment.create({name, amount, dateTimeUpdated});
+        if(addPayment) return addPayment;
+    } catch (error) {
+        throw error.message;
+    }
+}
+const addScoreMatchInDb = async(firstSet, secondSet ,thirdSet) => {
+    try {
+        const addScoreMatch = await ScoreMatch.create({firstSet, secondSet ,thirdSet});
+        if(addScoreMatch) return addScoreMatch;
+    } catch (error) {
+        throw error.message;
+    }
+}
+const addTeamMatchesInDb = async(name) => {
+    try {
+        const addTeamMatch = await TeamMatch.create({name});
+        if(addTeamMatch) return addTeamMatch;
+    } catch (error) {
+        throw error.message;
+    }
+}
+const addPaymentTypeInDb = async(name) => {
+    try {
+        const addPaymentType = await PaymentType.create({name});
+        if(addPaymentType) return addPaymentType;
+    } catch (error) {
+        throw error.message;
+    }
+}
 module.exports= {
     createMatchResultInDb,
     addUserInDb,
@@ -119,12 +161,10 @@ module.exports= {
     addSportInDb,
     addClubInDb,
     addLocationInDb,
-<<<<<<< HEAD
     addPointSystemInDb,
     addPointEventInDb,
     addAdvertisingSystem,
-    addAdvertisingEventInDb
-=======
+    addAdvertisingEventInDb,
     addCourtInDb,
     addPaymentInDb,
     addPaymentTypeInDb,
