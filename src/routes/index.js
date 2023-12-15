@@ -40,7 +40,6 @@ const getTeamMatch = require('../handlers/TeamMatch/getTeamMatch');
 const {register, login} = require("../controllers/authController")
 const loginValidators = require("../middlewares/validators")
 
-
 const router = require("express").Router();
 
 router.get('/profiles', getAllProfiles);
@@ -58,6 +57,12 @@ router.get('/reservation', getReservation);
 router.get('/scoreMatches', getAllScoreMatches);
 router.get('/teamMatches', getAllTeamMatches);
 router.get('/teamMatch', getTeamMatch);
+router.get('/profiles', getAllProfiles)
+router.get('/profiles/:id', getProfile)
+router.get('/users', getAllUsers)
+router.get('/users/:id', getUser)
+router.get('/sports', getAllSport)
+router.get('/locations', getAllLocations)
 
 // <<<<<<< HEAD
 router.post('/locations', createLocation);
@@ -71,13 +76,6 @@ router.post('/reservations', createReservation);
 router.post('/scoreMatches', createScoreMatch);
 router.post('/teamMatches', createTeamMatches);
 // =======
-
-router.get('/profiles', getAllProfiles)
-router.get('/profiles/:id', getProfile)
-router.get('/users', getAllUsers)
-router.get('/users/:id', getUser)
-router.get('/sports', getAllSport)
-router.get('/locations', getAllLocations)
 
 router.post('/login', loginValidators, login)
 // >>>>>>> eaafc16d9870991bf15d6f0408d5dc3e1ea77fd2

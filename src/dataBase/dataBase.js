@@ -130,8 +130,8 @@ Court.hasMany(ShiftSchedule)
 ShiftSchedule.belongsTo(Court);
 
 // Profile relationships
-Club.hasOne(Profile);
-Profile.belongsTo(Club);
+Club.belongsToMany(Profile, {through: 'ClubProfile'});
+Profile.belongsToMany(Club, {through: 'ClubProfile'});
 
 Profile.hasMany(RatingUser)
 RatingUser.belongsTo(Profile)
