@@ -5,6 +5,39 @@ const ProfileModel = require('../models/Profile');
 const SportModel = require('../models/Sport')
 const ClubModel = require('../models/Club')
 const LocationModel = require('../models/Location')
+const admin =require('../config/firebase');
+
+
+// Importa la biblioteca de Firebase
+
+
+// Ruta al archivo JSON que contiene las credenciales de servicio de Firebase
+const serviceAccount = require('../../firebase.json');
+
+const appName = 'matching';
+
+admin.initializeApp({
+  credential: admin.credential.cert(serviceAccount),
+}, appName);
+
+const db = admin.firestore();
+
+// Firestore para obtener datos
+const obtenerDatos = async () => {
+  try {
+    const snapshot = await db.collection('matching').get();
+    snapshot.forEach(doc => {
+      console.log(doc.id, '=>', doc.data());
+    });
+  } catch (error) {
+    console.error('Error al obtener datos:', error);
+  }
+};
+
+// Llama a la función después de inicializar Firebase
+obtenerDatos();
+
+
 
 const PointSystemModel = require('../models/PointSystem')
 const PointEventModel = require('../models/PointEvent')

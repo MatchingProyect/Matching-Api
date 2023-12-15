@@ -12,7 +12,7 @@ const getAllTeamMatches = async(req, res) => {
             status: false,
             message: 'TeamMatches not found'
         })
-    } catch (error) {
+    } catch (error) { 
         res.status(500).json({
             status: false,
             message: error.message

@@ -1,5 +1,6 @@
-const dataBase = require('../dataBase/dataBase')
-const { Sport, Club, Location} = dataBase.models
+const dataBase = require('../dataBase/dataBase');
+
+const { Sport,MatchResult, Club, Location} = dataBase.models
 
 const getSportsInDb = async () => {
   
@@ -13,6 +14,34 @@ const getSportsInDb = async () => {
     }
   
   }
+
+  const getMatchResultInDb = async () => {
+  
+    try {
+    
+     const matchResults = await MatchResult.findAll();
+      return matchResults;
+    } catch (error) {
+      throw error.message;
+  
+    }
+  
+  }
+
+  const matchResultFilter = async(search)=>{
+    try {
+      const totalMatchResults = await getMatchResultInDb();
+      
+
+      return totalMatchResults.filter((match) => {
+        const regex = new RegExp(search, "i");  
+        return match.name.match(regex);
+      });
+    } catch (error) {
+      throw error.message;
+    }
+  }
+
 
 const getClubsInDb = async()=>{
     try {
@@ -78,5 +107,7 @@ const filterSportInDb = async(search) => {
     filterSportInDb,
     filterByClubs,
     getLocationsInDb,
-    filterBylocations
+    filterBylocations,
+    getMatchResultInDb,
+    matchResultFilter
   }

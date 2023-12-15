@@ -1,5 +1,5 @@
 const dataBase = require('../dataBase/dataBase')
-const {User, Profile, Sport, Club, Location, Court, Payment, PaymentType, Reservation, ScoreMatch, TeamMatch} = dataBase.models
+const {User,AdvertisingEvent,MatchResult, Profile, Sport, Club, Location, PointSystem, PointEvent, AdvertisingSystem} = dataBase.models
 
 const addUserInDb = async(name, lastName, gender, dayBirth, email, phone, creditCardWarranty, avatarImg, password) =>{
     try {
@@ -52,70 +52,79 @@ const addLocationInDb = async(name, adress, city, state, postalCode, country)=>{
         const addLocation = await Location.create({name, adress, city, state, postalCode, country})
         if(addLocation) return addLocation
     } catch (error) {
-        throw error.message;
+        throw error.message
     }
 }
 
-const addCourtInDb = async(name, description, priceFee, warrantyReservation, grassType, lighting, doorsType, wallsType, reputation) => {
+const addPointSystemInDb = async(name, description, pointsQuantityGain)=>{
     try {
-        const addCourt = await Court.create({name, description, priceFee, warrantyReservation, grassType, lighting, doorsType, wallsType, reputation})
-        if(addCourt) return addCourt;
+        const newPointSys = await PointSystem.create({name, description, pointsQuantityGain})
+        if(newPointSys) return newPointSys
     } catch (error) {
-        throw error.message;
+        throw error.message
     }
 }
 
-const addPaymentInDb = async(name, amount, dateTimeUpdated) => {
+const addPointEventInDb = async(dateTime, qrCode)=>{
     try {
-        const addPayment = await Payment.create({name, amount, dateTimeUpdated});
-        if(addPayment) return addPayment;
+        const newPointEve = await PointEvent.create({dateTime, qrCode})
+        if(newPointEve) return newPointEve
     } catch (error) {
-        throw error.message;
+        throw error.message
     }
 }
 
-const addPaymentTypeInDb = async(name) => {
+const addAdvertisingSystem = async(name, descriptionDiscount, pointsQuantityRedeem) =>{
     try {
-        const addPaymentType = await PaymentType.create({name});
-        if(addPaymentType) return addPaymentType;
+        const addedAdvertisingSys = await AdvertisingSystem.create({name, descriptionDiscount, pointsQuantityRedeem})
+        if(addedAdvertisingSys) return addedAdvertisingSys
     } catch (error) {
-        throw error.message;
+        throw error.message
     }
 }
 
-const addReservationInDb = async(dateTimeStart, dateTimeEnd, totalCost) => {
+const addAdvertisingEventInDb = async(dateTime, qrCode)=>{
     try {
-        const addReservation = await Reservation.create({dateTimeStart, dateTimeEnd, totalCost});
-        if(addReservation) return addReservation;
+        const addAdvertising = await AdvertisingEvent.create({dateTime, qrCode})
+        if(addAdvertising) return addAdvertising
     } catch (error) {
-        throw error.message;
+        throw error.message
     }
 }
 
-const addScoreMatchInDb = async(firstSet, secondSet ,thirdSet) => {
+const createMatchResultInDb = async(name)=>{
     try {
-        const addScoreMatch = await ScoreMatch.create({firstSet, secondSet ,thirdSet});
-        if(addScoreMatch) return addScoreMatch;
+        const resultMatched = await MatchResult.create({name})
+        if(resultMatched) return resultMatched
     } catch (error) {
-        throw error.message;
+        throw error.message
     }
 }
+//samir
 
-const addTeamMatchesInDb = async(name) => {
-    try {
-        const addTeamMatch = await TeamMatch.create({name});
-        if(addTeamMatch) return addTeamMatch;
-    } catch (error) {
-        throw error.message;
-    }
+const addMatchInDB = async (type) => {
+  try {
+    const matchType = new Match({
+      type
+    })
+    return await matchType.save();
+  } catch (error) {
+       throw error; 
+  }
 }
-
 module.exports= {
+    createMatchResultInDb,
     addUserInDb,
     addProfileInDb,
     addSportInDb,
     addClubInDb,
     addLocationInDb,
+<<<<<<< HEAD
+    addPointSystemInDb,
+    addPointEventInDb,
+    addAdvertisingSystem,
+    addAdvertisingEventInDb
+=======
     addCourtInDb,
     addPaymentInDb,
     addPaymentTypeInDb,
