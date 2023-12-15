@@ -16,7 +16,6 @@ const deleteUser = require('../handlers/Users/deleteUser');
 const getAllUsers = require('../handlers/Users/getAllUsers');
 const getUser = require('../handlers/Users/getUser');
 const updateUser = require('../handlers/Users/updateUser');
-// <<<<<<< HEAD
 const getAllPayments = require('../handlers/Payment/getAllPayments');
 const getPayment = require('../handlers/Payment/getPayment');
 const createPayment = require('../handlers/Payment/createPayment');
@@ -35,8 +34,6 @@ const deleteTeamMatch = require('../handlers/TeamMatch/deleteTeamMatch');
 const getReservation = require('../handlers/Reservation/getReservation');
 const getTeamMatch = require('../handlers/TeamMatch/getTeamMatch');
 
-// =======
-// >>>>>>> eaafc16d9870991bf15d6f0408d5dc3e1ea77fd2
 const {register, login} = require("../controllers/authController")
 const loginValidators = require("../middlewares/validators")
 
@@ -64,7 +61,6 @@ router.get('/users/:id', getUser)
 router.get('/sports', getAllSport)
 router.get('/locations', getAllLocations)
 
-// <<<<<<< HEAD
 router.post('/locations', createLocation);
 router.post('/sports', createSport);
 router.post('/profiles', createProfile);
@@ -75,10 +71,7 @@ router.post('/paymentsTypes', createPaymentType);
 router.post('/reservations', createReservation);
 router.post('/scoreMatches', createScoreMatch);
 router.post('/teamMatches', createTeamMatches);
-// =======
-
 router.post('/login', loginValidators, login)
-// >>>>>>> eaafc16d9870991bf15d6f0408d5dc3e1ea77fd2
 router.post('/register', register) 
 router.post('/locations', createLocation)
 router.post('/sports', createSport)
