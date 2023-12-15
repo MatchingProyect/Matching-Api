@@ -80,5 +80,7 @@ module.exports = {
      deleteCourtInDb,
      deletePaymentInDb,
      deleteReservationInDb,
-     deleteTeamMatchInDb
+     deleteTeamMatchInDb,
+     destroyPointEvent,
+     deleteAdvertisingEventInDb
 }
