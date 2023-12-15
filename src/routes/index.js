@@ -34,8 +34,8 @@ const deleteTeamMatch = require('../handlers/TeamMatch/deleteTeamMatch');
 const getReservation = require('../handlers/Reservation/getReservation');
 const getTeamMatch = require('../handlers/TeamMatch/getTeamMatch');
 
-const {register, login} = require("../controllers/authController")
-const loginValidators = require("../middlewares/validators")
+const {register, login} = require("../controllers/authController");
+const loginValidators = require("../middlewares/validators");
 
 const router = require("express").Router();
 
@@ -54,12 +54,12 @@ router.get('/reservation', getReservation);
 router.get('/scoreMatches', getAllScoreMatches);
 router.get('/teamMatches', getAllTeamMatches);
 router.get('/teamMatch', getTeamMatch);
-router.get('/profiles', getAllProfiles)
-router.get('/profiles/:id', getProfile)
-router.get('/users', getAllUsers)
-router.get('/users/:id', getUser)
-router.get('/sports', getAllSport)
-router.get('/locations', getAllLocations)
+router.get('/profiles', getAllProfiles);
+router.get('/profiles/:id', getProfile);
+router.get('/users', getAllUsers);
+router.get('/users/:id', getUser);
+router.get('/sports', getAllSport);
+router.get('/locations', getAllLocations);
 
 router.post('/locations', createLocation);
 router.post('/sports', createSport);
@@ -71,20 +71,20 @@ router.post('/paymentsTypes', createPaymentType);
 router.post('/reservations', createReservation);
 router.post('/scoreMatches', createScoreMatch);
 router.post('/teamMatches', createTeamMatches);
-router.post('/login', loginValidators, login)
-router.post('/register', register) 
-router.post('/locations', createLocation)
-router.post('/sports', createSport)
-router.post('/profiles', createProfile)
-router.post('/users', createUser)
-router.post('/login', loginValidators, login)
+router.post('/login', loginValidators, login);
+router.post('/register', register) ;
+router.post('/locations', createLocation);
+router.post('/sports', createSport);
+router.post('/profiles', createProfile);
+router.post('/users', createUser);
+router.post('/login', loginValidators, login);
 
 router.put('/profiles/:id', updateProfile);
 router.put('/users/:id', updateUser);
 router.put('/courts/:id', updateCourt);
 router.put('/payments/:id', updatePayment);
-router.put('/profiles/:id', updateProfile)
-router.put('/users/:id', updateUser)
+router.put('/profiles/:id', updateProfile);
+router.put('/users/:id', updateUser);
 
 router.delete('/profiles/:id', deleteProfile);
 router.delete('/users/:id', deleteUser);
@@ -92,7 +92,7 @@ router.delete('/courts/:id', deleteCourt);
 router.delete('/payments/:id', deletePayment);
 router.delete('/reservation/:id', deleteReservation);
 router.delete('/teamMatches/:id', deleteTeamMatch);
-router.delete('/profiles/:id', deleteProfile)
-router.delete('/users/:id', deleteUser)
+router.delete('/profiles/:id', deleteProfile);
+router.delete('/users/:id', deleteUser);
 
 module.exports = router;
