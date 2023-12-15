@@ -39,9 +39,15 @@ const getReservation = require('../handlers/Reservation/getReservation');
 const getAllScoreMatches = require('../handlers/ScoreMatch/getAllScoreMatchs');
 const getAllTeamMatches = require('../handlers/TeamMatch/getAllTeamMatchs');
 const getTeamMatch = require('../handlers/TeamMatch/getTeamMatch');
-
-const {register, login} = require("../controllers/authController");
-const loginValidators = require("../middlewares/validators");
+const createPayment = require('../handlers/Payment/createPayment');
+const createPaymentType = require('../handlers/PaymentType/createPaymentType');
+const createReservation = require('../handlers/Reservation/createReservation');
+const createScoreMatch = require('../handlers/ScoreMatch/createScoreMatch');
+const createTeamMatches = require('../handlers/TeamMatch/createTeamMatch');
+const updatePayment = require('../handlers/Payment/updatePayment');
+const deletePayment = require('../handlers/Payment/deletePayment');
+const deleteReservation = require('../handlers/Reservation/deleteReservation');
+const deleteTeamMatch = require('../handlers/TeamMatch/deleteTeamMatch');
 
 const router = require("express").Router();
 
@@ -60,7 +66,11 @@ router.get('/reservation', getReservation);
 router.get('/scoreMatches', getAllScoreMatches);
 router.get('/teamMatches', getAllTeamMatches);
 router.get('/teamMatch', getTeamMatch);
-
+router.get('/advertisingEvent', getAdvertisingEvent);
+router.get('/advertisingSystem', getAdvertisingSystem);
+router.get('/matchResult', getMatchResult);
+router.get('/pointEvent', getPointEvent);
+router.get('/pointSystem', getPointSystem);
 
 router.post('/locations', createLocation);
 router.post('/sports', createSport);
@@ -72,8 +82,14 @@ router.post('/paymentsTypes', createPaymentType);
 router.post('/reservations', createReservation);
 router.post('/scoreMatches', createScoreMatch);
 router.post('/teamMatches', createTeamMatches);
-router.post('/login', loginValidators, login);
-router.post('/register', register) ;
+router.post('/login', login);
+router.post('/register', register);
+router.post('/locations', createLocation);
+router.post('/advertisingEvent', createAdvertisingEvent);
+router.post('/advertisingSystem', createAdvertisingSystem);
+router.post('/matchResult', createMatchResult);
+router.post('/pointEvent', createPointEvent);
+router.post('/pointSystem', createPointSystem);
 
 router.put('/profiles/:id', updateProfile);
 router.put('/users/:id', updateUser);
@@ -86,18 +102,7 @@ router.delete('/courts/:id', deleteCourt);
 router.delete('/payments/:id', deletePayment);
 router.delete('/reservation/:id', deleteReservation);
 router.delete('/teamMatches/:id', deleteTeamMatch);
-
-router.post('/advertisingEvent', createAdvertisingEvent);
 router.delete('/advertisingEvent/:id', deleteAdvertisingEvent);
-router.get('/advertisingEvent', getAdvertisingEvent);
-router.post('/advertisingSystem', createAdvertisingSystem);
-router.get('/advertisingSystem', getAdvertisingSystem);
-router.post('/matchResult', createMatchResult);
-router.get('/matchResult', getMatchResult);
-router.post('/pointEvent', createPointEvent);
 router.delete('/pointEvent/:id', deletePointEvent);
-router.get('/pointEvent', getPointEvent);
-router.post('/pointSystem', createPointSystem);
-router.get('/pointSystem', getPointSystem);
 
 module.exports = router;
