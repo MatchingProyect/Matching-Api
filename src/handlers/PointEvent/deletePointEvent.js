@@ -1,3 +1,5 @@
+const { destroyPointEvent } = require("../../controllers/deleteInDB");
+
 const deletePointEvent = async(req, res)=>{
     try {
         const {id} = req.params;

@@ -1,166 +1,171 @@
 const dataBase = require('../dataBase/dataBase')
-const {User, Profile, Sport, Club, Court, Payment, PaymentType, Reservation, ScoreMatch, TeamMatch} = dataBase.models
+const { User, Profile, Court, Payment, PaymentType, Reservation, ScoreMatch, TeamMatch, PointEvent, PointSystem, AdvertisingSystem, AdvertisingEvent } = dataBase.models
 
-const getAllProfInDb = async()=>{
+const getAllProfInDb = async () => {
     try {
         const profiles = await Profile.findAll()
-        if(profiles){
+        if (profiles) {
             return profiles
         }
-    } catch (error) { 
-        throw error.message
-    }
-}
-
-const getProfileInDb = async(id)=>{
-    try {
-        const profile = await Profile.findOne({where: {id}})
-        if(profile) return profile
     } catch (error) {
         throw error.message
     }
 }
 
-const getAllUsersInDb = async()=>{
+const getProfileInDb = async (id) => {
+    try {
+        const profile = await Profile.findOne({ where: { id } })
+        if (profile) return profile
+    } catch (error) {
+        throw error.message
+    }
+}
+
+const getAllUsersInDb = async () => {
     try {
         const users = await User.findAll()
-        if(users) return users
+        if (users) return users
     } catch (error) {
         throw error.message
     }
 }
 
-const getUserInDb = async(id)=>{
+const getUserInDb = async (id) => {
     try {
-        const user = await User.findOne({where: {id}})
-        if(user) return user
+        const user = await User.findOne({ where: { id } })
+        if (user) return user
     } catch (error) {
         throw error.message
     }
 }
 
 
-const searchByName = async(name) => {
+const searchByName = async (name) => {
     try {
-        const searchName = await User.findOne({where: {name}});
-        if(searchName) return searchName;
-        
+        const searchName = await User.findOne({ where: { name } });
+        if (searchName) return searchName;
+
     } catch (error) {
         throw error.message;
     }
 }
 
-const getAllCourtsInDb = async() => {
+const getAllCourtsInDb = async () => {
     try {
         const courts = await Court.findAll();
-        if(courts) return courts;
+        if (courts) return courts;
     } catch (error) {
         throw error.message;
     }
 }
 
-const getAllPaymentsInDb = async() => {
+const getAllPaymentsInDb = async () => {
     try {
         const payments = await Payment.findAll();
-        if(payments) return payments;
+        if (payments) return payments;
     } catch (error) {
         throw error.message;
     }
 }
 
-const getOnePaymentInDb = async(id) => {
+const getOnePaymentInDb = async (id) => {
     try {
-        const onePayment = await Payment.findOne({where: {id}});
-        if(onePayment) return onePayment;
+        const onePayment = await Payment.findOne({ where: { id } });
+        if (onePayment) return onePayment;
     } catch (error) {
         throw error.message;
     }
 }
 
-const getAllPaymentsTypesInDb = async() => {
+const getAllPaymentsTypesInDb = async () => {
     try {
         const paymentsType = await PaymentType.findAll();
-        if(paymentsType) return paymentsType;
+        if (paymentsType) return paymentsType;
     } catch (error) {
         throw error.message;
     }
 }
 
-const getAllReservationsInDb = async() => {
+const getAllReservationsInDb = async () => {
     try {
         const reservations = await Reservation.findAll();
-        if(reservations) return reservations;
+        if (reservations) return reservations;
     } catch (error) {
         throw error.message;
     }
-} 
+}
 
-const getOneReservationInDb = async(id) => {
+const getOneReservationInDb = async (id) => {
     try {
-        const oneReservation = await Reservation.findOne({where: {id}});
-        if(oneReservation) return oneReservation;
+        const oneReservation = await Reservation.findOne({ where: { id } });
+        if (oneReservation) return oneReservation;
     } catch (error) {
         throw error.message
     }
 }
 
-const getAllScoreMatchesInDb = async() => {
+const getAllScoreMatchesInDb = async () => {
     try {
         const scoreMatches = await ScoreMatch.findAll();
-        if(scoreMatches) return scoreMatches;
+        if (scoreMatches) return scoreMatches;
     } catch (error) {
         throw error.message;
     }
 }
 
-const getAllTeamMatchesInDb = async() => {
+const getAllTeamMatchesInDb = async () => {
     try {
         const teamMatches = await TeamMatch.findAll();
-        if(teamMatches) return teamMatches;
+        if (teamMatches) return teamMatches;
     } catch (error) {
         throw error.message;
     }
 }
 
-const getOneTeamMatchInDb = async(id) => {
+const getOneTeamMatchInDb = async (id) => {
     try {
-        const teamMatch = await TeamMatch.findOne({where: {id}});
-        if(teamMatch) return teamMatch;
+        const teamMatch = await TeamMatch.findOne({ where: { id } });
+        if (teamMatch) return teamMatch;
     } catch (error) {
         throw error.message;
     }
 }
 
-
-//FILTROS
-
-const getPointEventInDb = async()=>{
+const getPointEventInDb = async () => {
     try {
         const pointsEvents = await PointEvent.findAll()
-        if(pointsEvents) return pointsEvents
+        if (pointsEvents) return pointsEvents
     } catch (error) {
         throw error.message;
     }
 }
 
-const getAdvertisingSystemInDb = async()=>{
+const getPointSystemInDb = async () => {
+    try {
+        const pointSystem = await PointSystem.findAll();
+        if(pointSystem) return pointSystem;
+    } catch (error) {
+        throw error.message;
+    }
+}
+
+const getAdvertisingSystemInDb = async () => {
     try {
         const advertisingSystem = await AdvertisingSystem.findAll()
-        if(advertisingSystem) return advertisingSystem
+        if (advertisingSystem) return advertisingSystem
     } catch (error) {
         throw error.message;
     }
 }
 
-const getAdvertisingEventByDb = async()=>{
+const getAdvertisingEventByDb = async () => {
     try {
         const advertisingEvenAll = await AdvertisingEvent.findAll()
-        if(advertisingEvenAll) return advertisingEvenAll
+        if (advertisingEvenAll) return advertisingEvenAll
     } catch (error) {
         throw error.message;
     }
 }
-
 
 module.exports = {
     getAllProfInDb,
@@ -176,5 +181,9 @@ module.exports = {
     getOneReservationInDb,
     getAllScoreMatchesInDb,
     getAllTeamMatchesInDb,
-    getOneTeamMatchInDb
+    getOneTeamMatchInDb,
+    getPointEventInDb,
+    getPointSystemInDb,
+    getAdvertisingSystemInDb,
+    getAdvertisingEventByDb
 }

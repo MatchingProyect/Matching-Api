@@ -1,7 +1,5 @@
 const {  addPointEventInDb } = require("../../controllers/addInDB")
 
-
-
 const createPointEvent = async(req, res)=>{
     try {
         const {dateTime, qrCode} = req.body

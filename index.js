@@ -10,5 +10,5 @@ server.use(router);
 
 server.listen(3001, () => {
     dataBase.sync({force: true});
-    console.log('Listen on port 3000');
+    console.log('Listen on port 3001');
 });
