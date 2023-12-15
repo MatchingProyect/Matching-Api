@@ -29,7 +29,7 @@ const getAdvertisingEvent = require('../handlers/AdvertisingEvent/getAdvertising
 const createAdvertisingSystem = require('../handlers/AdvertisingSystem/createAdvertisingSystem');
 const getAdvertisingSystem = require('../handlers/AdvertisingSystem/getAdvetisingSystem');
 
-const { register, login } = require("../controllers/authController");
+const { register, login, loginGoogle, resetPassword } = require("../controllers/authController");
 const getAllPayments = require('../handlers/Payment/getAllPayments');
 const getPayment = require('../handlers/Payment/getPayment');
 const getAllPaymentsTypes = require('../handlers/PaymentType/getAllPaymentTypes');
@@ -81,6 +81,8 @@ router.post('/paymentsTypes', createPaymentType);
 router.post('/reservations', createReservation);
 router.post('/scoreMatches', createScoreMatch);
 router.post('/teamMatches', createTeamMatches);
+router.post("/resetPasword", resetPassword)//fireBase
+router.post("/loginGoogle", loginGoogle)//fireBase
 router.post('/login', login); //!FireBase
 router.post('/register', register); //!FireBase
 router.post('/locations', createLocation);

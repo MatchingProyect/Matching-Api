@@ -154,7 +154,6 @@ const addPointSystemInDb = async(name, description, pointsQuantityGain) => {
         throw error.message;
     }
 }
-
 module.exports= {
     addUserInDb,
     addProfileInDb,
