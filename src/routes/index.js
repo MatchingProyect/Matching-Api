@@ -50,6 +50,8 @@ router.get('/users/:id', getUser)
 router.get('/sports', getAllSport)
 router.get('/locations', getAllLocations)
 
+router.post('/login', loginValidators, login)
+router.post('/register', register) 
 router.post('/locations', createLocation)
 router.post('/sports', createSport)
 router.post('/profiles', createProfile)

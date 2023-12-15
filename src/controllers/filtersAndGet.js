@@ -38,7 +38,7 @@ const getSportsInDb = async () => {
         return match.name.match(regex);
       });
     } catch (error) {
-      
+      throw error.message;
     }
   }
 
