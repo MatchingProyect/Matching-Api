@@ -34,6 +34,10 @@ const deleteTeamMatch = require('../handlers/TeamMatch/deleteTeamMatch');
 const getReservation = require('../handlers/Reservation/getReservation');
 const getTeamMatch = require('../handlers/TeamMatch/getTeamMatch');
 
+const {register, login} = require("../controllers/authController")
+const loginValidators = require("../middlewares/validators")
+
+
 const router = require("express").Router();
 
 router.get('/profiles', getAllProfiles);
@@ -62,6 +66,19 @@ router.post('/paymentsTypes', createPaymentType);
 router.post('/reservations', createReservation);
 router.post('/scoreMatches', createScoreMatch);
 router.post('/teamMatches', createTeamMatches);
+router.post('/register', register) 
+router.post('/locations', createLocation)
+router.post('/sports', createSport)
+router.post('/profiles', createProfile)
+router.post('/users', createUser)
+router.post('/login', loginValidators, login)
+
+router.put('/profiles/:id', updateProfile);
+router.put('/users/:id', updateUser);
+router.put('/courts/:id', updateCourt);
+router.put('/payments/:id', updatePayment);
+router.put('/profiles/:id', updateProfile)
+router.put('/users/:id', updateUser)
 
 router.delete('/profiles/:id', deleteProfile);
 router.delete('/users/:id', deleteUser);
@@ -69,11 +86,7 @@ router.delete('/courts/:id', deleteCourt);
 router.delete('/payments/:id', deletePayment);
 router.delete('/reservation/:id', deleteReservation);
 router.delete('/teamMatches/:id', deleteTeamMatch);
-
-router.put('/profiles/:id', updateProfile);
-router.put('/users/:id', updateUser);
-router.put('/courts/:id', updateCourt);
-router.put('/payments/:id', updatePayment);
-
+router.delete('/profiles/:id', deleteProfile)
+router.delete('/users/:id', deleteUser)
 
 module.exports = router;
