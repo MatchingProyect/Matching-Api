@@ -1,5 +1,6 @@
 const dataBase = require('../dataBase/dataBase')
-const {User, Profile} = dataBase.models
+
+const {User, Profile, PointEvent, AdvertisingEvent} = dataBase.models
 
 const deleteProfileInDb = async(id) =>{
     try {
@@ -19,7 +20,27 @@ const deleteUserInDb = async(id) =>{
     }
 }
 
+const destroyPointEvent = async(id) =>{
+    try {
+        const deletePoint = await PointEvent.destroy({where: {id}})
+        if(deletePoint) return deletePoint
+    } catch (error) {
+        return error.message
+    }
+}
+
+const deleteAdvertisingEventInDb = async(id)=>{
+    try {
+        const deletedInDbAdvertising = await AdvertisingEvent.destroy({where: {id}})
+        if(deletedInDbAdvertising) return deletedInDbAdvertising
+    } catch (error) {
+        return error.message
+    }
+}
+
 module.exports = {
     deleteProfileInDb,
-     deleteUserInDb
+     deleteUserInDb,
+     destroyPointEvent,
+     deleteAdvertisingEventInDb
 }

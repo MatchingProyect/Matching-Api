@@ -1,5 +1,7 @@
 const dataBase = require('../dataBase/dataBase')
-const {User, Profile, Sport, Club} = dataBase.models
+
+
+const {User, Profile, PointSystem, PointEvent,AdvertisingEvent, AdvertisingSystem} = dataBase.models
 
 const getAllProfInDb = async()=>{
     try {
@@ -53,8 +55,41 @@ const searchByName = async(name) => {
     }
 }
 
-//FILTROS
+const getPointSystemInDb = async()=>{
+    try {
+        const pointSystemDb = await PointSystem.findAll()
+        if(pointSystemDb) return pointSystemDb
+    } catch (error) {
+        throw error.message;
+    }
+}
 
+const getPointEventInDb = async()=>{
+    try {
+        const pointsEvents = await PointEvent.findAll()
+        if(pointsEvents) return pointsEvents
+    } catch (error) {
+        throw error.message;
+    }
+}
+
+const getAdvertisingSystemInDb = async()=>{
+    try {
+        const advertisingSystem = await AdvertisingSystem.findAll()
+        if(advertisingSystem) return advertisingSystem
+    } catch (error) {
+        throw error.message;
+    }
+}
+
+const getAdvertisingEventByDb = async()=>{
+    try {
+        const advertisingEvenAll = await AdvertisingEvent.findAll()
+        if(advertisingEvenAll) return advertisingEvenAll
+    } catch (error) {
+        throw error.message;
+    }
+}
 
 
 module.exports = {
@@ -62,5 +97,9 @@ module.exports = {
     getAllUsersInDb,
     getUserInDb,
     getProfileInDb,
-    searchByName
+    searchByName,
+    getPointSystemInDb,
+    getPointEventInDb,
+    getAdvertisingSystemInDb,
+    getAdvertisingEventByDb
 }
