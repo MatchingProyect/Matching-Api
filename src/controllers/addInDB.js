@@ -119,12 +119,11 @@ module.exports= {
     addSportInDb,
     addClubInDb,
     addLocationInDb,
-<<<<<<< HEAD
+
     addPointSystemInDb,
     addPointEventInDb,
     addAdvertisingSystem,
     addAdvertisingEventInDb
-=======
     addCourtInDb,
     addPaymentInDb,
     addPaymentTypeInDb,

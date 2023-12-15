@@ -30,7 +30,7 @@ const createAdvertisingSystem = require('../handlers/AdvertisingSystem/createAdv
 const getAdvertisingSystem = require('../handlers/AdvertisingSystem/getAdvetisingSystem');
 
 const { register, login } = require("../controllers/authController");
-const loginValidators = require("../middlewares/validators");
+//const loginValidators = require("../middlewares/validators");
 const getAllPayments = require('../handlers/Payment/getAllPayments');
 const getPayment = require('../handlers/Payment/getPayment');
 const getAllPaymentsTypes = require('../handlers/PaymentType/getAllPaymentTypes');
