@@ -1,11 +1,5 @@
 const dataBase = require('../dataBase/dataBase')
-<<<<<<< HEAD
-
-
-const {User, Profile, PointSystem, PointEvent,AdvertisingEvent, AdvertisingSystem} = dataBase.models
-=======
 const {User, Profile, Sport, Club, Court, Payment, PaymentType, Reservation, ScoreMatch, TeamMatch} = dataBase.models
->>>>>>> 0adea7635286ed86d57a480c03866e06ebd994fe
 
 const getAllProfInDb = async()=>{
     try {
@@ -56,23 +50,14 @@ const searchByName = async(name) => {
     }
 }
 
-<<<<<<< HEAD
-const getPointSystemInDb = async()=>{
-    try {
-        const pointSystemDb = await PointSystem.findAll()
-        if(pointSystemDb) return pointSystemDb
-=======
 const getAllCourtsInDb = async() => {
     try {
         const courts = await Court.findAll();
         if(courts) return courts;
->>>>>>> 0adea7635286ed86d57a480c03866e06ebd994fe
     } catch (error) {
         throw error.message;
     }
 }
-<<<<<<< HEAD
-=======
 
 const getAllPaymentsInDb = async() => {
     try {
@@ -148,7 +133,6 @@ const getOneTeamMatchInDb = async(id) => {
 
 
 //FILTROS
->>>>>>> 0adea7635286ed86d57a480c03866e06ebd994fe
 
 const getPointEventInDb = async()=>{
     try {
@@ -184,12 +168,6 @@ module.exports = {
     getUserInDb,
     getProfileInDb,
     searchByName,
-<<<<<<< HEAD
-    getPointSystemInDb,
-    getPointEventInDb,
-    getAdvertisingSystemInDb,
-    getAdvertisingEventByDb
-=======
     getAllCourtsInDb,
     getAllPaymentsInDb,
     getOnePaymentInDb,
@@ -199,5 +177,4 @@ module.exports = {
     getAllScoreMatchesInDb,
     getAllTeamMatchesInDb,
     getOneTeamMatchInDb
->>>>>>> 0adea7635286ed86d57a480c03866e06ebd994fe
 }

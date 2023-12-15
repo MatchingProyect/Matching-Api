@@ -1,10 +1,5 @@
 const dataBase = require('../dataBase/dataBase')
-<<<<<<< HEAD
-
-const {User, Profile, PointEvent, AdvertisingEvent} = dataBase.models
-=======
 const {User, Profile, Court, Payment, Reservation, TeamMatch} = dataBase.models
->>>>>>> 0adea7635286ed86d57a480c03866e06ebd994fe
 
 const deleteProfileInDb = async(id) =>{
     try {
@@ -82,13 +77,8 @@ const deleteAdvertisingEventInDb = async(id)=>{
 module.exports = {
     deleteProfileInDb,
      deleteUserInDb,
-<<<<<<< HEAD
-     destroyPointEvent,
-     deleteAdvertisingEventInDb
-=======
      deleteCourtInDb,
      deletePaymentInDb,
      deleteReservationInDb,
      deleteTeamMatchInDb
->>>>>>> 0adea7635286ed86d57a480c03866e06ebd994fe
 }

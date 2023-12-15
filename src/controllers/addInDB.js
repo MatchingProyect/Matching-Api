@@ -154,6 +154,14 @@ const addPaymentTypeInDb = async(name) => {
         throw error.message;
     }
 }
+const addReservationInDb = async(dateTimeStart, dateTimeEnd, totalCost) => {
+    try {
+        const addReservation = await Reservation.create({dateTimeStart, dateTimeEnd, totalCost});
+        if(addReservation) return addReservation;
+    } catch (error) {
+        throw error.message;
+    }
+}
 module.exports= {
     createMatchResultInDb,
     addUserInDb,
