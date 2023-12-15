@@ -1,5 +1,5 @@
 const dataBase = require('../dataBase/dataBase')
-const {User, Profile, Sport, Club, Location, Court, Payment, PaymentType, Reservation, ScoreMatch, TeamMatch} = dataBase.models
+const {User, Profile, Sport, Club, Location, Court, Payment, PaymentType, Reservation, ScoreMatch, TeamMatch, AdvertisingEvent, AdvertisingSystem, MatchResult, PointEvent, PointSystem} = dataBase.models
 
 const addUserInDb = async(name, lastName, gender, dayBirth, email, phone, creditCardWarranty, avatarImg, password) =>{
     try {
@@ -110,6 +110,51 @@ const addTeamMatchesInDb = async(name) => {
     }
 }
 
+const addMatchResultInDb = async(name) => {
+    try {
+        const addMatchResult = await MatchResult.create({name});
+        if(addMatchResult) return addMatchResult;
+    } catch (error) {
+        throw error.message;
+    }
+}
+
+const addAdvertisingEventInDb = async(dateTime, qrCode) => {
+    try {
+        const addAdvertisingEvent = await AdvertisingEvent.create({dateTime, qrCode});
+        if(addAdvertisingEvent) return addAdvertisingEvent;
+    } catch (error) {
+        throw error.message;
+    }
+}
+
+const addAdvertisingSystemInDb = async(name, descriptionDiscount, pointsQuantityRedeem) => {
+    try {
+        const addAdvertisingSystem = await AdvertisingSystem.create({name, descriptionDiscount, pointsQuantityRedeem});
+        if(addAdvertisingSystem) return addAdvertisingSystem;
+    } catch (error) {
+        throw error.message;
+    }
+}
+
+const addPointEventInDb = async(dateTime, qrCode) => {
+    try {
+        const addPointEvent = await PointEvent.create({dateTime, qrCode});
+        if(addPointEvent) return addPointEvent;
+    } catch (error) {
+        throw error.message;
+    }
+}
+
+const addPointSystemInDb = async(name, description, pointsQuantityGain) => {
+    try {
+        const addPointSystem = await PointSystem.create({name, description, pointsQuantityGain});
+        if(addPointSystem) return addPointSystem;
+    } catch (error) {
+        throw error.message;
+    }
+}
+
 module.exports= {
     addUserInDb,
     addProfileInDb,
@@ -121,5 +166,10 @@ module.exports= {
     addPaymentTypeInDb,
     addReservationInDb,
     addScoreMatchInDb,
-    addTeamMatchesInDb
+    addTeamMatchesInDb,
+    addAdvertisingEventInDb,
+    addAdvertisingSystemInDb,
+    addMatchResultInDb,
+    addPointEventInDb,
+    addPointSystemInDb
 }

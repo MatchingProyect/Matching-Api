@@ -1,5 +1,5 @@
 const dataBase = require('../dataBase/dataBase')
-const { User, Profile, Sport, Club, Court, Payment, PaymentType, Reservation, ScoreMatch, TeamMatch } = dataBase.models
+const { User, Profile, Court, Payment, PaymentType, Reservation, ScoreMatch, TeamMatch, PointEvent, PointSystem, AdvertisingSystem, AdvertisingEvent } = dataBase.models
 
 const getAllProfInDb = async () => {
     try {
@@ -131,13 +131,19 @@ const getOneTeamMatchInDb = async (id) => {
     }
 }
 
-
-//FILTROS
-
 const getPointEventInDb = async () => {
     try {
         const pointsEvents = await PointEvent.findAll()
         if (pointsEvents) return pointsEvents
+    } catch (error) {
+        throw error.message;
+    }
+}
+
+const getPointSystemInDb = async () => {
+    try {
+        const pointSystem = await PointSystem.findAll();
+        if(pointSystem) return pointSystem;
     } catch (error) {
         throw error.message;
     }
@@ -161,7 +167,6 @@ const getAdvertisingEventByDb = async () => {
     }
 }
 
-
 module.exports = {
     getAllProfInDb,
     getAllUsersInDb,
@@ -178,6 +183,7 @@ module.exports = {
     getAllTeamMatchesInDb,
     getOneTeamMatchInDb,
     getPointEventInDb,
+    getPointSystemInDb,
     getAdvertisingSystemInDb,
     getAdvertisingEventByDb
 }

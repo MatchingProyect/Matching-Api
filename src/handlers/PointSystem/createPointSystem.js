@@ -1,7 +1,5 @@
 const { addPointSystemInDb } = require("../../controllers/addInDB")
 
-
-
 const createPointSystem = async(req, res)=>{
     try {
         const {name, description, pointsQuantityGain} = req.body

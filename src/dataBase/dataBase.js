@@ -5,8 +5,24 @@ const ProfileModel = require('../models/Profile');
 const SportModel = require('../models/Sport')
 const ClubModel = require('../models/Club')
 const LocationModel = require('../models/Location')
-const admin =require('../config/firebase');
+const PointSystemModel = require('../models/PointSystem')
+const PointEventModel = require('../models/PointEvent')
+const AdvertisingSystemModel = require('../models/AdvertisingSystem')
+const MatchResultModel = require('../models/MatchResult')
+const MatchTypeModel = require('../models/MatchType')
+const RatingUserModel = require('../models/RatingUser')
+const ReservationTypeModel = require('../models/ReservationType')
+const AdvertisingEventModel = require('../models/AdvertisingEvent')
+const ShiftScheduleModel = require('../models/ShiftSchedule')
+const PaymentStatusModel = require('../models/PaymentStatus')
+const ReservationModel = require('../models/Reservation')
+const TeamMatchModel = require('../models/TeamMatch')
+const ScoreMatchModel = require('../models/ScoreMatch')
+const CourtModel = require('../models/Court')
+const PaymentModel = require('../models/Payment')
+const PaymentTypeModel = require('../models/PaymentType')
 
+const admin =require('../config/firebase');
 
 // Importa la biblioteca de Firebase
 
@@ -36,26 +52,6 @@ const obtenerDatos = async () => {
 
 // Llama a la función después de inicializar Firebase
 obtenerDatos();
-
-
-
-const PointSystemModel = require('../models/PointSystem')
-const PointEventModel = require('../models/PointEvent')
-const AdvertisingSystemModel = require('../models/AdvertisingSystem')
-const MatchResultModel = require('../models/MatchResult')
-const MatchTypeModel = require('../models/MatchType')
-const RatingUserModel = require('../models/RatingUser')
-const ReservationTypeModel = require('../models/ReservationType')
-const AdvertisingEventModel = require('../models/AdvertisingEvent')
-
-const ShiftScheduleModel = require('../models/ShiftSchedule')
-const PaymentStatusModel = require('../models/PaymentStatus')
-const ReservationModel = require('../models/Reservation')
-const TeamMatchModel = require('../models/TeamMatch')
-const ScoreMatchModel = require('../models/ScoreMatch')
-const CourtModel = require('../models/Court')
-const PaymentModel = require('../models/Payment')
-const PaymentTypeModel = require('../models/PaymentType')
 
 const {DB_USERNAME, DB_PASSWORD, DB_PORT, DB_NAME} = process.env;
 

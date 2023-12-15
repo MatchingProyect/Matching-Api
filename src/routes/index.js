@@ -30,7 +30,6 @@ const createAdvertisingSystem = require('../handlers/AdvertisingSystem/createAdv
 const getAdvertisingSystem = require('../handlers/AdvertisingSystem/getAdvetisingSystem');
 
 const { register, login } = require("../controllers/authController");
-const loginValidators = require("../middlewares/validators");
 const getAllPayments = require('../handlers/Payment/getAllPayments');
 const getPayment = require('../handlers/Payment/getPayment');
 const getAllPaymentsTypes = require('../handlers/PaymentType/getAllPaymentTypes');
@@ -62,7 +61,7 @@ router.get('/payments', getAllPayments);
 router.get('/payment', getPayment);
 router.get('/paymentsTypes', getAllPaymentsTypes);
 router.get('/reservations', getAllReservations);
-router.get('/reservation', getReservation);
+router.get('/reservations/:id', getReservation);
 router.get('/scoreMatches', getAllScoreMatches);
 router.get('/teamMatches', getAllTeamMatches);
 router.get('/teamMatch', getTeamMatch);
@@ -76,14 +75,14 @@ router.post('/locations', createLocation);
 router.post('/sports', createSport);
 router.post('/profiles', createProfile);
 router.post('/users', createUser);
-router.post('courts', createCourt);
+router.post('/courts', createCourt);
 router.post('/payments', createPayment);
 router.post('/paymentsTypes', createPaymentType);
 router.post('/reservations', createReservation);
 router.post('/scoreMatches', createScoreMatch);
 router.post('/teamMatches', createTeamMatches);
-router.post('/login', login);
-router.post('/register', register);
+router.post('/login', login); //!FireBase
+router.post('/register', register); //!FireBase
 router.post('/locations', createLocation);
 router.post('/advertisingEvent', createAdvertisingEvent);
 router.post('/advertisingSystem', createAdvertisingSystem);
@@ -100,7 +99,7 @@ router.delete('/profiles/:id', deleteProfile);
 router.delete('/users/:id', deleteUser);
 router.delete('/courts/:id', deleteCourt);
 router.delete('/payments/:id', deletePayment);
-router.delete('/reservation/:id', deleteReservation);
+router.delete('/reservations/:id', deleteReservation);
 router.delete('/teamMatches/:id', deleteTeamMatch);
 router.delete('/advertisingEvent/:id', deleteAdvertisingEvent);
 router.delete('/pointEvent/:id', deletePointEvent);
