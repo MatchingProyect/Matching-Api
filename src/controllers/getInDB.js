@@ -7,7 +7,7 @@ const getAllProfInDb = async()=>{
         if(profiles){
             return profiles
         }
-    } catch (error) {
+    } catch (error) { 
         throw error.message
     }
 }
@@ -130,6 +130,7 @@ const getOneTeamMatchInDb = async(id) => {
         throw error.message;
     }
 }
+
 
 //FILTROS
 

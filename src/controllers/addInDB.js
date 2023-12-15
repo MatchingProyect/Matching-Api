@@ -109,7 +109,18 @@ const addTeamMatchesInDb = async(name) => {
         throw error.message;
     }
 }
+//samir
 
+const addMatchInDB = async (type) => {
+  try {
+    const matchType = new Match({
+      type
+    })
+    return await matchType.save();
+  } catch (error) {
+       throw error; 
+  }
+}
 module.exports= {
     addUserInDb,
     addProfileInDb,
@@ -121,5 +132,6 @@ module.exports= {
     addPaymentTypeInDb,
     addReservationInDb,
     addScoreMatchInDb,
-    addTeamMatchesInDb
+    addTeamMatchesInDb,
+    addMatchInDB
 }

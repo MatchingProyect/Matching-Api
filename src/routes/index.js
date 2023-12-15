@@ -33,6 +33,8 @@ const createTeamMatches = require('../handlers/TeamMatch/createTeamMatch');
 const deleteTeamMatch = require('../handlers/TeamMatch/deleteTeamMatch');
 const getReservation = require('../handlers/Reservation/getReservation');
 const getTeamMatch = require('../handlers/TeamMatch/getTeamMatch');
+const createMatchType = require('../handlers/MatchType/createMatchType');
+
 
 const {register, login} = require("../controllers/authController")
 const loginValidators = require("../middlewares/validators")
@@ -55,6 +57,8 @@ router.get('/scoreMatches', getAllScoreMatches);
 router.get('/teamMatches', getAllTeamMatches);
 router.get('/teamMatch', getTeamMatch);
 
+
+router.post("/matchType", createMatchType)
 router.post('/locations', createLocation);
 router.post('/sports', createSport);
 router.post('/profiles', createProfile);
