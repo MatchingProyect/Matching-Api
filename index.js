@@ -8,7 +8,7 @@ server.use(express.json());
 server.use(cors());
 server.use(router);
 
-server.listen(3000, () => {
+server.listen(3001, () => {
     dataBase.sync({force: true});
-    console.log('Listen on port 3000');
+    console.log('Listen on port 3001');
 });

@@ -1,9 +1,20 @@
-const { getAllUsersInDb } = require("../../controllers/getInDB")
-
-
+const { getAllUsersInDb, searchByName } = require("../../controllers/getInDB")
 
 const getAllUsers = async(req, res) =>{
     try {
+        const {name} = req.query;
+        if(name){
+            const search = await searchByName(name);
+            if(search) return res.status(200).json({
+                status: true,
+                search
+            })
+            return res.status(200).json({
+                status: false,
+                message: 'Name not found.'
+            })
+
+        }
         const allUsers = await getAllUsersInDb()
         if(allUsers){
             return res.status(200).json({status: true, allUsers})

@@ -6,7 +6,7 @@ const deleteUser = async(req, res)=>{
         const deletUs = await deleteUserInDb(id)
         if(deletUs) return res.status(200).json({status: true, deletUs})
     } catch (error) {
-        return res.status(500).json({status: false, deletProf})
+        return res.status(500).json({status: false, message: error.message})
     }
 }
 
