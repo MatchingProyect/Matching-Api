@@ -28,6 +28,15 @@ const deleteAdvertisingEvent = require('../handlers/AdvertisingEvent/deleteAdver
 const getAdvertisingEvent = require('../handlers/AdvertisingEvent/getAdvertisingEvent');
 const createAdvertisingSystem = require('../handlers/AdvertisingSystem/createAdvertisingSystem');
 const getAdvertisingSystem = require('../handlers/AdvertisingSystem/getAdvetisingSystem');
+const createMatchType = require("../handlers/MatchType/createMatchType") 
+const createShiftSheadule = require("../handlers/ShiftSchedule/createShiftSchedule")
+const createReservationType = require("../handlers/ReservationType/CreatereservationType")
+const createRatingUser = require("../handlers/RatingUser/createRatingUser")
+const createPaymentStatus = require("../handlers/PaymentStatus/createPaymentStatus")
+const getAllMatchTypes = require("../handlers/MatchType/getAllMatchType")
+const getAllReservation = require("../handlers/ReservationType/getAllReservation")
+const updatedReservationTypes = require("../handlers/ReservationType/updateReservationType")
+const grtRatingUser = require("../handlers/RatingUser/getRatingUser")
 
 const { register, login, loginGoogle, resetPassword } = require("../controllers/authController");
 const getAllPayments = require('../handlers/Payment/getAllPayments');
@@ -47,7 +56,9 @@ const updatePayment = require('../handlers/Payment/updatePayment');
 const deletePayment = require('../handlers/Payment/deletePayment');
 const deleteReservation = require('../handlers/Reservation/deleteReservation');
 const deleteTeamMatch = require('../handlers/TeamMatch/deleteTeamMatch');
-
+const updateReservationType = require('../handlers/ReservationType/updateReservationType');
+const getPaymentStatus = require("../handlers/PaymentStatus/getPaymentStatus");
+const getRatingUser = require('../handlers/RatingUser/getRatingUser');
 const router = require("express").Router();
 
 router.get('/profiles', getAllProfiles);
@@ -70,7 +81,16 @@ router.get('/advertisingSystem', getAdvertisingSystem);
 router.get('/matchResult', getMatchResult);
 router.get('/pointEvent', getPointEvent);
 router.get('/pointSystem', getPointSystem);
+router.get("/matchType", getAllMatchTypes)
+router.get("/reservationType", getAllReservation)
+router.get("/paymentStatus", getPaymentStatus)
+router.get("/ratingUser", getRatingUser)
 
+router.post("/paymentStatus", createPaymentStatus)
+router.post("/ShiftSheadule", createShiftSheadule)
+router.post("/reservationType", createReservationType)
+router.post("/ratingUser", createRatingUser)
+router.post("/matchType", createMatchType)
 router.post('/locations', createLocation);
 router.post('/sports', createSport);
 router.post('/profiles', createProfile);
@@ -92,6 +112,7 @@ router.post('/matchResult', createMatchResult);
 router.post('/pointEvent', createPointEvent);
 router.post('/pointSystem', createPointSystem);
 
+router.put("/reservation/:id", updatedReservationTypes)
 router.put('/profiles/:id', updateProfile);
 router.put('/users/:id', updateUser);
 router.put('/courts/:id', updateCourt);
