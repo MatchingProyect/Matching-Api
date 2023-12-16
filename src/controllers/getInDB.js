@@ -1,5 +1,5 @@
 const dataBase = require('../dataBase/dataBase')
-const { User, Profile, Court, Payment, PaymentType, Reservation, ScoreMatch, TeamMatch, PointEvent, PointSystem, AdvertisingSystem, AdvertisingEvent } = dataBase.models
+const { User, Profile, Court, Payment, PaymentType, Reservation, ScoreMatch, TeamMatch, PointEvent, PointSystem, AdvertisingSystem, AdvertisingEvent, PaymentStatus, RatingUser } = dataBase.models
 
 const getAllProfInDb = async () => {
     try {
@@ -167,6 +167,30 @@ const getAdvertisingEventByDb = async () => {
     }
 }
 
+const getRatingUserFromDb = async (req, res) => {
+
+  try {
+    const { userId } = req.params;
+    const ratingUser = await getRatingUserFromDb(userId);
+    if(!ratingUser) {
+      return res.status(404).json({ status: false, message: 'Rating user not found'});
+    }
+    return res.status(200).json({status: true, ratingUser});
+  } catch (error) {
+    return res.status(500).json({status: false, message: error.message});
+  }
+}
+
+const getAllPaymentStatusesFromDb = async () => {
+    try {
+        const allPaymentStatuses = await PaymentStatus.findAll();
+        return allPaymentStatuses;
+    } catch (error) {
+        throw new Error(error.message);
+    }
+};
+
+
 module.exports = {
     getAllProfInDb,
     getAllUsersInDb,
@@ -185,5 +209,7 @@ module.exports = {
     getPointEventInDb,
     getPointSystemInDb,
     getAdvertisingSystemInDb,
-    getAdvertisingEventByDb
+  getAdvertisingEventByDb,
+  getRatingUserFromDb,
+    getAllPaymentStatusesFromDb
 }

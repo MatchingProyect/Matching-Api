@@ -1,6 +1,6 @@
 const dataBase = require('../dataBase/dataBase');
 
-const { Sport,MatchResult, Club, Location} = dataBase.models
+const { Sport,MatchResult, Club, Location, MatchType, RatingUser, ReservationType} = dataBase.models
 
 const getSportsInDb = async () => {
   
@@ -101,6 +101,84 @@ const filterSportInDb = async(search) => {
     }
   }
 
+  const getAllMatchTypes = async () => {
+  try {
+    return await MatchType.findAll();
+  } catch (error) {
+    throw error;
+  }
+}
+
+const filterMatchTypes = async (id) => {
+  try {
+    return await MatchType.findByPk(id); 
+  } catch (error) {
+    throw error; 
+  }
+}
+
+const getAllRatings = async () => {
+  try {
+    return await RatingUser.findAll();
+  } catch (error) {
+    throw error;
+  }
+}
+
+const filterRatings = async (id) => {
+  try {
+    return await RatingUser.findByPk(id);
+  } catch (error) {
+    throw error;
+  }  
+}
+
+const getReservationTypeFromDb = async (reservationTypeId) => {
+    try {
+        const reservationType = await ReservationType.findByPk(reservationTypeId);
+
+        return reservationType;
+    } catch (error) {
+        throw error.message;
+    }
+};
+
+const filterReservationTypesFromDb = async (filterCriteria) => {
+    try {
+        const filteredReservationTypes = await ReservationType.findAll({
+            where: filterCriteria,
+        });
+
+        return filteredReservationTypes;
+    } catch (error) {
+        throw error.message;
+    }
+};
+
+const getShiftScheduleFromDb = async (shiftScheduleId) => {
+    try {
+   
+        const shiftSchedule = await ShiftSchedule.findByPk(shiftScheduleId);
+
+        return shiftSchedule;
+    } catch (error) {
+        throw new Error(error.message);
+    }
+};
+const filterShiftSchedulesFromDb = async (filterCriteria) => {
+    try {
+       
+        const filteredShiftSchedules = await ShiftSchedule.findAll({
+            where: filterCriteria
+       
+        });
+
+        return filteredShiftSchedules;
+    } catch (error) {
+        throw new Error(error.message);
+    }
+};
+
   module.exports = {
     getSportsInDb,
     getClubsInDb,
@@ -109,5 +187,13 @@ const filterSportInDb = async(search) => {
     getLocationsInDb,
     filterBylocations,
     getMatchResultInDb,
-    matchResultFilter
+    matchResultFilter,
+    filterMatchTypes,
+    getAllMatchTypes,
+    getAllRatings,
+    filterRatings,
+    getReservationTypeFromDb,
+    filterReservationTypesFromDb,
+    getShiftScheduleFromDb,
+    filterShiftSchedulesFromDb
   }

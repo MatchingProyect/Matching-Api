@@ -1,5 +1,5 @@
 const dataBase = require('../dataBase/dataBase')
-const {User, Profile, Court, Payment} = dataBase.models
+const {User, Profile, Court, Payment, ReservationType} = dataBase.models
 
 const putProfile = async(id, laterality, courtSide, matchType, dayPreference, timePreference, categoryLvl)=>{
     try {
@@ -36,10 +36,27 @@ const putPayment = async(id, name, amount, dateTimeUpdated) => {
         throw error.message;
     }
 }
+const putReservationType = async (reservationTypeId, updates) => {
+    try {
+        const [updatedRowsCount, updatedReservationTypes] = await ReservationType.update(updates, {
+            where: { id: reservationTypeId },
+            returning: true,
+        });
+
+        if (updatedRowsCount > 0) {
+            return updatedReservationTypes[0];
+        } else {
+            return null;
+        }
+    } catch (error) {
+        throw error.message;
+    }
+};
 
 module.exports = {
     putProfile,
     putUser,
     putCourt,
-    putPayment
+  putPayment,
+    putReservationType
 }
