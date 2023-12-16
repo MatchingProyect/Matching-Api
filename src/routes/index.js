@@ -101,8 +101,8 @@ router.post('/paymentsTypes', createPaymentType);
 router.post('/reservations', createReservation);
 router.post('/scoreMatches', createScoreMatch);
 router.post('/teamMatches', createTeamMatches);
-router.post("/resetPasword", resetPassword)//fireBase
-router.post("/loginGoogle", loginGoogle)//fireBase
+router.post("/resetPasword", resetPassword); //!FireBase
+router.post("/loginGoogle", loginGoogle); //!FireBase
 router.post('/login', login); //!FireBase
 router.post('/register', register); //!FireBase
 router.post('/locations', createLocation);

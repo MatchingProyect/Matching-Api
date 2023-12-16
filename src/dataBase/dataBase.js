@@ -2,6 +2,7 @@ const {Sequelize} = require('sequelize');
 require("dotenv").config();
 const UserModel = require('../models/User');
 const ProfileModel = require('../models/Profile');
+const GuestReservationModel = require('../models/GestReservation');
 const SportModel = require('../models/Sport')
 const ClubModel = require('../models/Club')
 const LocationModel = require('../models/Location')
@@ -59,6 +60,7 @@ const dataBase = new Sequelize(`postgres:${DB_USERNAME}:${DB_PASSWORD}@localhost
 
 UserModel(dataBase);
 ReservationModel(dataBase);
+GuestReservationModel(dataBase);
 LocationModel(dataBase);
 RatingUserModel(dataBase);
 ProfileModel(dataBase);
@@ -83,7 +85,7 @@ AdvertisingSystemModel(dataBase);
 
 const {User,
     Reservation,
-    // GuestReservation,
+    GuestReservation,
     Location,
     RatingUser,
     Profile,
@@ -108,8 +110,8 @@ const {User,
 User.hasMany(Reservation);
 Reservation.belongsTo(User);
 
-// User.hasMany(GuestReservation);
-// GuestReservation.belongsTo(User);
+User.hasMany(GuestReservation);
+GuestReservation.belongsTo(User);
 
 Location.hasMany(User)
 User.belongsTo(Location)
@@ -120,33 +122,33 @@ RatingUser.belongsTo(User);
 User.hasMany(Profile)
 Profile.belongsTo(User);
 
-User.belongsToMany(Sport, { through: 'UserSport' });
-Sport.belongsToMany(User, { through: 'UserSport' });
+User.belongsToMany(Sport, { through: 'SportUser' });
+Sport.belongsToMany(User, { through: 'SportUser' });
 
-User.belongsToMany(PointEvent, { through: 'UserPointEvent' });
-PointEvent.belongsToMany(User, { through: 'UserPointEvent' });
+PointEvent.hasMany(User); //?
+User.belongsTo(PointEvent); //?
 
-User.belongsToMany(AdvertisingEvent, { through: 'UserAdvertisingEvent' });
-AdvertisingEvent.belongsToMany(User, { through: 'UserAdvertisingEvent' });
+AdvertisingEvent.hasMany(User); //?
+User.belongsTo(AdvertisingEvent); //?
 
 // Reservation relationships
-Reservation.hasOne(Payment);
-Payment.belongsTo(Reservation);
+Payment.hasOne(Reservation);
+Reservation.belongsTo(Payment);
 
 Reservation.belongsTo(Court);
 Court.hasMany(Reservation);
 
-Reservation.hasOne(MatchType);
-MatchType.belongsTo(Reservation);
+MatchType.hasOne(Reservation);
+Reservation.belongsTo(MatchType);
 
-// GuestReservation.hasMany(Reservation);
-// Reservation.belongsTo(GuestReservation);
+Reservation.hasMany(GuestReservation);
+GuestReservation.belongsTo(Reservation);
 
-Reservation.hasMany(ReservationType)
-ReservationType.belongsTo(Reservation)
+ReservationType.hasMany(Reservation);
+Reservation.belongsTo(ReservationType);
 
-Reservation.hasMany(RatingUser)
-RatingUser.belongsTo(Reservation)
+Reservation.hasMany(RatingUser);
+RatingUser.belongsTo(Reservation);
 
 // Court relationships
 Court.belongsTo(Location);
@@ -155,40 +157,46 @@ Location.hasMany(Court);
 Club.hasMany(Court);
 Court.belongsTo(Club);
 
-Court.hasMany(ShiftSchedule)
-ShiftSchedule.belongsTo(Court);
+Court.hasMany(ShiftSchedule); //?
+ShiftSchedule.belongsTo(Court); //?
 
 // Profile relationships
 Club.belongsToMany(Profile, {through: 'ClubProfile'});
 Profile.belongsToMany(Club, {through: 'ClubProfile'});
 
-Profile.hasMany(RatingUser)
-RatingUser.belongsTo(Profile)
+Profile.hasMany(RatingUser);
+RatingUser.belongsTo(Profile);
 
-Profile.belongsToMany(Sport, { through: 'ProfileSport' });
-Sport.belongsToMany(Profile, { through: 'ProfileSport' });
+Sport.hasMany(Profile);  
+Profile.belongsTo(Sport);
 
 // Payment relationships
 
-Payment.hasMany(PaymentType)
-PaymentType.belongsTo(Payment)
+PaymentType.hasMany(Payment);
+Payment.belongsTo(PaymentType);
 
-Payment.hasMany(PaymentStatus)
-PaymentStatus.belongsTo(Payment)
+PaymentStatus.hasMany(Payment); //?
+Payment.belongsTo(PaymentStatus); //?
 
 // TeamMatch relationships
-TeamMatch.hasOne(MatchResult);
-MatchResult.belongsTo(TeamMatch);
+TeamMatch.hasOne(MatchResult); //?
+MatchResult.belongsTo(TeamMatch); //?
 
-TeamMatch.hasOne(ScoreMatch);
-ScoreMatch.belongsTo(TeamMatch);
+TeamMatch.hasOne(ScoreMatch); //?
+ScoreMatch.belongsTo(TeamMatch); //?
 
-// TeamMatch.belongsTo(GuestReservation);
-// GuestReservation.hasMany(TeamMatch);
+TeamMatch.hasMany(GuestReservation);
+GuestReservation.belongsTo(TeamMatch);
 
 // PointSystem relationships
 PointSystem.hasOne(PointEvent);
 PointEvent.belongsTo(PointSystem);
+
+User.hasOne(PointEvent);
+PointEvent.belongsTo(User);
+
+User.hasOne(AdvertisingEvent);
+AdvertisingEvent.belongsTo(User);
 
 // AdvertisingSystem relationships
 AdvertisingSystem.hasOne(AdvertisingEvent);

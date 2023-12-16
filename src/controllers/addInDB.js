@@ -154,6 +154,7 @@ const addPointSystemInDb = async(name, description, pointsQuantityGain) => {
         throw error.message;
     }
 }
+
 const addMatchTypeInDb = async(name, description)=>{
     try {
         const addMatchType = await MatchType.create({name, description});
