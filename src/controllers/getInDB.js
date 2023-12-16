@@ -21,9 +21,9 @@ const getProfileInDb = async (id) => {
     }
 }
 
-const getAllUsersInDb = async () => {
+const getAllUsersInDb = async (offset, limit) => {
     try {
-        const users = await User.findAll()
+        const users = await User.findAll({ offset: offset, limit: limit})
         if (users) return users
     } catch (error) {
         throw error.message

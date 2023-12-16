@@ -2,7 +2,11 @@ const { getAllUsersInDb, searchByName } = require("../../controllers/getInDB")
 
 const getAllUsers = async(req, res) =>{
     try {
-        const {name} = req.query;
+        const { name, page } = req.query;
+        const pageNumber = Number(page) || 1;
+        const limit = 2
+     const offset = (pageNumber - 1) * limit;
+
         if(name){
             const search = await searchByName(name);
             if(search) return res.status(200).json({
@@ -15,7 +19,7 @@ const getAllUsers = async(req, res) =>{
             })
 
         }
-        const allUsers = await getAllUsersInDb()
+        const allUsers = await getAllUsersInDb(offset, limit)
         if(allUsers){
             return res.status(200).json({status: true, allUsers})
         }else{
