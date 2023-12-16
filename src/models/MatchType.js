@@ -12,7 +12,7 @@ module.exports = (dataBase) => {
         type: DataTypes.STRING,
         allowNull: false
        },
-       desciption: {
+       description: {
         type: DataTypes.STRING,
             allowNull: false
        }
