@@ -2,11 +2,11 @@ const dataBase = require('../dataBase/dataBase');
 
 const { Sport,MatchResult, Club, Location, MatchType, RatingUser, ReservationType} = dataBase.models
 
-const getSportsInDb = async () => {
+const getSportsInDb = async (offset, limit) => {
   
     try {
     
-     const sports = await Sport.findAll();
+     const sports = await Sport.findAll({offset: offset, limit: limit});
       return sports;
     } catch (error) {
       throw error.message;

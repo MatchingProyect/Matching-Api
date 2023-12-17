@@ -178,17 +178,17 @@ const getAdvertisingEventByDb = async () => {
     }
 }
 
-const getRatingUserFromDb = async (req, res) => {
+const getRatingUserFromDb = async (userId) => {
 
   try {
-    const { userId } = req.params;
-    const ratingUser = await getRatingUserFromDb(userId);
-    if(!ratingUser) {
-      return res.status(404).json({ status: false, message: 'Rating user not found'});
+    
+    const ratingUser = await RatingUser.findOne({where: {userId}});
+    if(ratingUser) {
+        return ratingUser
+      
     }
-    return res.status(200).json({status: true, ratingUser});
   } catch (error) {
-    return res.status(500).json({status: false, message: error.message});
+    throw error.message;
   }
 }
 
