@@ -86,15 +86,6 @@ const getAllPaymentsTypesInDb = async () => {
     }
 }
 
-const getAllReservationsInDb = async () => {
-    try {
-        const reservations = await Reservation.findAll();
-        if (reservations) return reservations;
-    } catch (error) {
-        throw error.message;
-    }
-}
-
 const getOneReservationInDb = async (id) => {
     try {
         const oneReservation = await Reservation.findOne({ where: { id } });
@@ -179,7 +170,6 @@ module.exports = {
     getAllPaymentsInDb,
     getOnePaymentInDb,
     getAllPaymentsTypesInDb,
-    getAllReservationsInDb,
     getOneReservationInDb,
     getAllScoreMatchesInDb,
     getAllTeamMatchesInDb,

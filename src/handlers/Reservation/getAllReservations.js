@@ -1,7 +1,18 @@
-const { getAllReservationsInDb } = require("../../controllers/getInDB");
+const { getAllReservationsInDb, filterByReservations } = require("../../controllers/filtersAndGet");
+
 
 const getAllReservations = async(req, res) => {
 try {
+    const {reservations} = req.query;
+    if(reservations){
+        const reservationFilter = await filterByReservations(reservations);
+
+        if(reservationFilter) return res.status(200).json({
+            status: true,
+            reservationFilter
+        })
+    }
+
     const allReservations = await getAllReservationsInDb();
     if(allReservations) return res.status(200).json({
         status: true,
