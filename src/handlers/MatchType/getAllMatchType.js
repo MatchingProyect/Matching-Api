@@ -1,29 +1,25 @@
-const { response } = require("express");
-const { getAllMatchTypeInDb } = require("../../controllers/getInDB")
+const { filterMatchTypes, getAllMatchTypes } = require('../../controllers/filtersAndGet');
 
-const getAllMatchType = async (req, res) => {
+const getMatchTypesHandler = async (req, res) => {
   try {
-    const allMatch = await getAllMatchTypeInDb();
-    if (allMatch) {
-      return res.status(200).json({
-      status: true,
-      
-    })
-    } else {
-      return res.status(404).json({
-        status: false,
-        message: "match not found"
-      });
+    const { name } = req.query;
+    
+    if(name) {
+      const filtered = await filterMatchTypes(name);
+      if(filtered) {
+        return res.status(200).json({ status: true, filtered });  
+      }
     }
     
-    
-  } catch (error) {
-    res.status(500).json({
-      status: false,
-            message: error.message
-    })
-  }
+    const all = await getAllMatchTypes();
+    if(all) {
+     return res.status(200).json({ status: true, all }); 
+    }
 
+  } catch (error) {
+    return res.status(500).json({status: false, message: error.message});
+  }
 }
 
-module.exports = getAllMatchType
+module.exports = 
+  getMatchTypesHandler  

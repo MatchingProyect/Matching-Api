@@ -1,5 +1,5 @@
 const dataBase = require('../dataBase/dataBase')
-const {User, Profile, Sport, Club, Location, Court, Payment, PaymentType, Reservation, ScoreMatch, TeamMatch, AdvertisingEvent, AdvertisingSystem, MatchResult, PointEvent, PointSystem} = dataBase.models
+const {User, Profile, Sport, Club, Location, Court, Payment, PaymentType, Reservation, ScoreMatch, TeamMatch, AdvertisingEvent, AdvertisingSystem, MatchResult, PointEvent, PointSystem, PaymentStatus, ReservationType, MatchType, RatingUser,ShiftSchedule} = dataBase.models
 
 const addUserInDb = async(name, lastName, gender, dayBirth, email, phone, creditCardWarranty, avatarImg, password) =>{
     try {
@@ -155,6 +155,49 @@ const addPointSystemInDb = async(name, description, pointsQuantityGain) => {
     }
 }
 
+const addMatchTypeInDb = async(name, description)=>{
+    try {
+        const addMatchType = await MatchType.create({name, description});
+        if(addMatchType) return addMatchType;
+    } catch (error) {
+        throw error.message;
+    }
+}
+const addRatingUserInDb = async(categoryLvl, defense, attack, control)=>{
+    try {
+        const addRatingUser = await RatingUser.create({categoryLvl, defense, attack, control});
+        if(addRatingUser) return addRatingUser;
+    } catch (error) {
+        throw error.message;
+    }
+}
+const addReservationTypeInDb = async(permanent)=>{
+    try {
+        const addReservationType = await ReservationType.create({permanent});
+        if(addReservationType) return addReservationType;
+    } catch (error) {
+        throw error.message;
+    }
+}
+const addShiftScheduleInDb = async(name, weekDay, timeStart, timeEnd, partnerPriority)=>{
+    try {
+        const addShiftSchedule = await ShiftSchedule.create({name, weekDay, timeStart, timeEnd, partnerPriority});
+        if(addShiftSchedule) return addShiftSchedule;
+    } catch (error) {
+        throw error.message;
+    }
+}
+const addPaymentStatusInDb = async(name)=>{
+    try {
+        const addPaymentStatus = await PaymentStatus.create({name});
+        if(addPaymentStatus) return addPaymentStatus;
+    } catch (error) {
+        throw error.message;
+    }
+}
+
+
+
 module.exports= {
     addUserInDb,
     addProfileInDb,
@@ -171,5 +214,10 @@ module.exports= {
     addAdvertisingSystemInDb,
     addMatchResultInDb,
     addPointEventInDb,
-    addPointSystemInDb
+  addPointSystemInDb,
+  addMatchTypeInDb, 
+  addRatingUserInDb,
+  addReservationTypeInDb,
+  addShiftScheduleInDb,
+  addPaymentStatusInDb
 }

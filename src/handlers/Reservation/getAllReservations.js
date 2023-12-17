@@ -3,17 +3,20 @@ const { getAllReservationsInDb, filterByReservations } = require("../../controll
 
 const getAllReservations = async(req, res) => {
 try {
-    const {reservations} = req.query;
-    if(reservations){
-        const reservationFilter = await filterByReservations(reservations);
-
+    const { page, oneReservation } = req.query;
+    const pageNumber = Number(page) || 1;
+    const limit = 2
+    const offset = (pageNumber - 1) * limit;
+    
+    if(oneReservation){
+        const reservationFilter = await filterByReservations(oneReservation);
         if(reservationFilter) return res.status(200).json({
             status: true,
             reservationFilter
         })
     }
 
-    const allReservations = await getAllReservationsInDb();
+    const allReservations = await getAllReservationsInDb(offset, limit);
     if(allReservations) return res.status(200).json({
         status: true,
         allReservations

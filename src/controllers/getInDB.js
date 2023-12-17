@@ -1,5 +1,5 @@
 const dataBase = require('../dataBase/dataBase')
-const { User, Profile, Court, Payment, PaymentType, Reservation, ScoreMatch, TeamMatch, PointEvent, PointSystem, AdvertisingSystem, AdvertisingEvent } = dataBase.models
+const { User, Profile, Court, Payment, PaymentType, Reservation, ScoreMatch, TeamMatch, PointEvent, PointSystem, AdvertisingSystem, AdvertisingEvent, PaymentStatus, RatingUser } = dataBase.models
 
 const getAllProfInDb = async () => {
     try {
@@ -23,7 +23,7 @@ const getProfileInDb = async (id) => {
 
 const getAllUsersInDb = async (offset, limit) => {
     try {
-        const users = await User.findAll({ offset: offset, limit: limit})
+        const users = await User.findAll({ offset: offset, limit: limit })
         if (users) return users
     } catch (error) {
         throw error.message
@@ -50,9 +50,9 @@ const searchByName = async (name) => {
     }
 }
 
-const getAllCourtsInDb = async () => {
+const getAllCourtsInDb = async (offset, limit) => {
     try {
-        const courts = await Court.findAll();
+        const courts = await Court.findAll({ offset: offset, limit: limit });
         if (courts) return courts;
     } catch (error) {
         throw error.message;
@@ -86,6 +86,15 @@ const getAllPaymentsTypesInDb = async () => {
     }
 }
 
+const getAllReservationsInDb = async (offset, limit) => {
+    try {
+        const reservations = await Reservation.findAll({ offset: offset, limit: limit });
+        if (reservations) return reservations;
+    } catch (error) {
+        throw error.message;
+    }
+}
+
 const getOneReservationInDb = async (id) => {
     try {
         const oneReservation = await Reservation.findOne({ where: { id } });
@@ -99,6 +108,15 @@ const getAllScoreMatchesInDb = async () => {
     try {
         const scoreMatches = await ScoreMatch.findAll();
         if (scoreMatches) return scoreMatches;
+    } catch (error) {
+        throw error.message;
+    }
+}
+
+const scoreMatchInDb = async (id) => {
+    try {
+        const getScore = await ScoreMatch.findOne({ where: { id } })
+        if (getScore) return getScore
     } catch (error) {
         throw error.message;
     }
@@ -124,7 +142,7 @@ const getOneTeamMatchInDb = async (id) => {
 
 
 
-const getPointEventInDb = async()=>{
+const getPointEventInDb = async () => {
     try {
         const pointsEvents = await PointEvent.findAll()
         if (pointsEvents) return pointsEvents
@@ -136,7 +154,7 @@ const getPointEventInDb = async()=>{
 const getPointSystemInDb = async () => {
     try {
         const pointSystem = await PointSystem.findAll();
-        if(pointSystem) return pointSystem;
+        if (pointSystem) return pointSystem;
     } catch (error) {
         throw error.message;
     }
@@ -160,6 +178,30 @@ const getAdvertisingEventByDb = async () => {
     }
 }
 
+const getRatingUserFromDb = async (req, res) => {
+
+    try {
+        const { userId } = req.params;
+        const ratingUser = await getRatingUserFromDb(userId);
+        if (!ratingUser) {
+            return res.status(404).json({ status: false, message: 'Rating user not found' });
+        }
+        return res.status(200).json({ status: true, ratingUser });
+    } catch (error) {
+        return res.status(500).json({ status: false, message: error.message });
+    }
+}
+
+const getAllPaymentStatusesFromDb = async () => {
+    try {
+        const allPaymentStatuses = await PaymentStatus.findAll();
+        return allPaymentStatuses;
+    } catch (error) {
+        throw new Error(error.message);
+    }
+};
+
+
 module.exports = {
     getAllProfInDb,
     getAllUsersInDb,
@@ -177,5 +219,9 @@ module.exports = {
     getPointEventInDb,
     getPointSystemInDb,
     getAdvertisingSystemInDb,
-    getAdvertisingEventByDb
+    getAdvertisingEventByDb,
+    getRatingUserFromDb,
+    getAllPaymentStatusesFromDb,
+    scoreMatchInDb,
+    getAllReservationsInDb
 }
