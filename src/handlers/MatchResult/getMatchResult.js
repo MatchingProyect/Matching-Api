@@ -4,7 +4,10 @@ const { getMatchResultInDb, matchResultFilter } = require("../../controllers/fil
 
 const getMatchResult = async(req, res) =>{
     try {
-        const {name} = req.query;
+        const {name, page} = req.query;
+        const pageNumber = Number(page) || 1;
+        const limit = 2
+        const offset = (pageNumber - 1) * limit;
         if(name){
             const search = await matchResultFilter(name);
             if(search) return res.status(200).json({
@@ -17,7 +20,7 @@ const getMatchResult = async(req, res) =>{
             })
 
         }
-        const matchResult = await getMatchResultInDb()
+        const matchResult = await getMatchResultInDb(offset, limit)
         if(matchResult){
             return res.status(200).json({status: true, matchResult})
         }else{

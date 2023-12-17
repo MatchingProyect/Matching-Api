@@ -2,7 +2,11 @@ const { getAllReservationsInDb } = require("../../controllers/getInDB");
 
 const getAllReservations = async(req, res) => {
 try {
-    const allReservations = await getAllReservationsInDb();
+    const { page } = req.query;
+    const pageNumber = Number(page) || 1;
+    const limit = 2
+    const offset = (pageNumber - 1) * limit;
+    const allReservations = await getAllReservationsInDb(offset, limit);
     if(allReservations) return res.status(200).json({
         status: true,
         allReservations

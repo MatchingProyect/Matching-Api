@@ -50,9 +50,9 @@ const searchByName = async (name) => {
     }
 }
 
-const getAllCourtsInDb = async () => {
+const getAllCourtsInDb = async (offset, limit) => {
     try {
-        const courts = await Court.findAll();
+        const courts = await Court.findAll({ offset: offset, limit: limit});
         if (courts) return courts;
     } catch (error) {
         throw error.message;
@@ -86,9 +86,9 @@ const getAllPaymentsTypesInDb = async () => {
     }
 }
 
-const getAllReservationsInDb = async () => {
+const getAllReservationsInDb = async (offset, limit) => {
     try {
-        const reservations = await Reservation.findAll();
+        const reservations = await Reservation.findAll({offset: offset, limit: limit});
         if (reservations) return reservations;
     } catch (error) {
         throw error.message;
@@ -108,6 +108,15 @@ const getAllScoreMatchesInDb = async () => {
     try {
         const scoreMatches = await ScoreMatch.findAll();
         if (scoreMatches) return scoreMatches;
+    } catch (error) {
+        throw error.message;
+    }
+}
+
+const scoreMatchInDb = async(id)=>{
+    try {
+        const getScore = await ScoreMatch.findOne({where: {id}})
+        if(getScore) return getScore
     } catch (error) {
         throw error.message;
     }
@@ -213,5 +222,6 @@ module.exports = {
     getAdvertisingSystemInDb,
   getAdvertisingEventByDb,
   getRatingUserFromDb,
-    getAllPaymentStatusesFromDb
+    getAllPaymentStatusesFromDb,
+    scoreMatchInDb
 }

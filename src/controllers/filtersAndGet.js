@@ -15,11 +15,11 @@ const getSportsInDb = async () => {
   
   }
 
-  const getMatchResultInDb = async () => {
+  const getMatchResultInDb = async (offset, limit) => {
   
     try {
     
-     const matchResults = await MatchResult.findAll();
+     const matchResults = await MatchResult.findAll({offset: offset, limit: limit});
       return matchResults;
     } catch (error) {
       throw error.message;
@@ -43,9 +43,9 @@ const getSportsInDb = async () => {
   }
 
 
-const getClubsInDb = async()=>{
+const getClubsInDb = async(offset, limit)=>{
     try {
-        const clubs = await Club.findAll()
+        const clubs = await Club.findAll({offset: offset, limit: limit})
         if(clubs) return clubs
     } catch (error) {
         throw error.message
