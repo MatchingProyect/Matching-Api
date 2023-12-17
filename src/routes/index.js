@@ -59,6 +59,9 @@ const deleteTeamMatch = require('../handlers/TeamMatch/deleteTeamMatch');
 const updateReservationType = require('../handlers/ReservationType/updateReservationType');
 const getPaymentStatus = require("../handlers/PaymentStatus/getPaymentStatus");
 const getRatingUser = require('../handlers/RatingUser/getRatingUser');
+const getScoreMatch = require('../handlers/ScoreMatch/getScoreMatch');
+
+
 const router = require("express").Router();
 
 router.get('/profiles', getAllProfiles);
@@ -74,6 +77,7 @@ router.get('/paymentsTypes', getAllPaymentsTypes);
 router.get('/reservations', getAllReservations);
 router.get('/reservations/:id', getReservation);
 router.get('/scoreMatches', getAllScoreMatches);
+router.get('/scoreMatches/:id', getScoreMatch)
 router.get('/teamMatches', getAllTeamMatches);
 router.get('/teamMatch', getTeamMatch);
 router.get('/advertisingEvent', getAdvertisingEvent);
