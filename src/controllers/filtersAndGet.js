@@ -2,11 +2,11 @@ const dataBase = require('../dataBase/dataBase');
 
 const { Sport, MatchResult, Club, Location, MatchType, RatingUser, ReservationType, Reservation, ShiftSchedule } = dataBase.models
 
-const getSportsInDb = async () => {
+const getSportsInDb = async (offset, limit) => {
 
   try {
 
-    const sports = await Sport.findAll();
+    const sports = await Sport.findAll({ offset: offset, limit: limit });
     return sports;
   } catch (error) {
     throw error.message;
@@ -179,9 +179,10 @@ const filterShiftSchedulesFromDb = async (filterCriteria) => {
   }
 };
 
-const getAllReservationsInDb = async () => {
+const getAllReservationsInDb = async (offset, limit) => {
   try {
-    return await Reservation.findAll();
+    const reservations = await Reservation.findAll({ offset: offset, limit: limit });
+    return reservations;
   } catch (error) {
     throw error.message;
   }

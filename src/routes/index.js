@@ -36,7 +36,7 @@ const createPaymentStatus = require("../handlers/PaymentStatus/createPaymentStat
 const getAllMatchTypes = require("../handlers/MatchType/getAllMatchType")
 const getAllReservation = require("../handlers/ReservationType/getAllReservation")
 const updatedReservationTypes = require("../handlers/ReservationType/updateReservationType")
-const grtRatingUser = require("../handlers/RatingUser/getRatingUser")
+const getRatingUser = require("../handlers/RatingUser/getRatingUser")
 
 const { register, login, loginGoogle, resetPassword } = require("../controllers/authController");
 const getAllPayments = require('../handlers/Payment/getAllPayments');
@@ -56,10 +56,10 @@ const updatePayment = require('../handlers/Payment/updatePayment');
 const deletePayment = require('../handlers/Payment/deletePayment');
 const deleteReservation = require('../handlers/Reservation/deleteReservation');
 const deleteTeamMatch = require('../handlers/TeamMatch/deleteTeamMatch');
-const updateReservationType = require('../handlers/ReservationType/updateReservationType');
 const getPaymentStatus = require("../handlers/PaymentStatus/getPaymentStatus");
-const getRatingUser = require('../handlers/RatingUser/getRatingUser');
+
 const getScoreMatch = require('../handlers/ScoreMatch/getScoreMatch');
+const createOrder = require('../controllers/pasarelaController');
 
 
 const router = require("express").Router();
@@ -89,6 +89,8 @@ router.get("/matchType", getAllMatchTypes)
 router.get("/reservationType", getAllReservation)
 router.get("/paymentStatus", getPaymentStatus)
 router.get("/ratingUser", getRatingUser)
+router.get('/pago', createOrder)
+router.get('/success', createOrder)
 
 router.post("/paymentStatus", createPaymentStatus)
 router.post("/ShiftSheadule", createShiftSheadule)

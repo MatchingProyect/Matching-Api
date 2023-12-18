@@ -1,5 +1,4 @@
-const { getAllReservationsInDb, filterByReservations } = require("../../controllers/filtersAndGet");
-
+const { filterByReservations, getAllReservationsInDb } = require('../../controllers/filtersAndGet');
 
 const getAllReservations = async(req, res) => {
 try {
@@ -17,6 +16,7 @@ try {
     }
 
     const allReservations = await getAllReservationsInDb(offset, limit);
+
     if(allReservations) return res.status(200).json({
         status: true,
         allReservations
