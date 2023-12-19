@@ -33,8 +33,7 @@ module.exports = (dataBase) => {
             allowNull: false
         },
         creditCardWarranty:{
-            type: DataTypes.INTEGER,
-            allowNull: false
+            type: DataTypes.INTEGER
         },
         avatarImg:{
             type: DataTypes.STRING,
