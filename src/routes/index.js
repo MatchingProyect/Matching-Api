@@ -59,8 +59,7 @@ const deleteTeamMatch = require('../handlers/TeamMatch/deleteTeamMatch');
 const getPaymentStatus = require("../handlers/PaymentStatus/getPaymentStatus");
 
 const getScoreMatch = require('../handlers/ScoreMatch/getScoreMatch');
-const createOrder = require('../controllers/pasarelaController');
-
+const {createOrder, success, notificacion} = require('../controllers/pasarelaController');
 
 const router = require("express").Router();
 
@@ -90,7 +89,8 @@ router.get("/reservationType", getAllReservation)
 router.get("/paymentStatus", getPaymentStatus)
 router.get("/ratingUser", getRatingUser)
 router.get('/pago', createOrder)
-router.get('/success', createOrder)
+router.get('/success', success)
+router.get('/notificacion', notificacion)
 
 router.post("/paymentStatus", createPaymentStatus)
 router.post("/ShiftSheadule", createShiftSheadule)
