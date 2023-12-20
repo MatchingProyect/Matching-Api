@@ -17,7 +17,7 @@ module.exports = (dataBase) => {
             allowNull: false
         },
         dateTimeUpdated: {
-            type: DataTypes.STRING,
+            type: DataTypes.DATE,
             allowNull: false
         }
     }, {timestamps: false})

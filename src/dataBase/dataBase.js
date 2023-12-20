@@ -25,9 +25,6 @@ const PaymentTypeModel = require('../models/PaymentType')
 
 const admin =require('../config/firebase');
 
-// Importa la biblioteca de Firebase
-
-
 // Ruta al archivo JSON que contiene las credenciales de servicio de Firebase
 const serviceAccount = require('../../firebase.json');
 
@@ -56,9 +53,8 @@ obtenerDatos();
 
 const {DB_USERNAME, DB_PASSWORD, DB_PORT, DB_NAME, DB_CONNECTION} = process.env;
 
-const dataBase = new Sequelize(`${DB_CONNECTION}`);
-
-//postgres:${DB_USERNAME}:${DB_PASSWORD}@localhost:${DB_PORT}/${DB_NAME}
+// const dataBase = new Sequelize(`${DB_CONNECTION}`);
+const dataBase = new Sequelize(`postgres:${DB_USERNAME}:${DB_PASSWORD}@localhost:${DB_PORT}/${DB_NAME}`);
 
 UserModel(dataBase);
 ReservationModel(dataBase);

@@ -41,6 +41,10 @@ module.exports = (dataBase) => {
         },
         password:{
             type: DataTypes.STRING,
+            allowNull: false,
+        },
+        description:{
+            type: DataTypes.STRING,
             allowNull: false
         }
     }, {timestamps: false})
