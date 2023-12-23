@@ -60,10 +60,17 @@ const getPaymentStatus = require("../handlers/PaymentStatus/getPaymentStatus");
 
 const getScoreMatch = require('../handlers/ScoreMatch/getScoreMatch');
 const createOrder = require('../controllers/pasarelaController');
-
+const getAllClubs = require('../handlers/Club/getAllClubs');
+const createClub = require('../handlers/Club/createClub');
+const getClubById = require('../handlers/Club/getClubById');
 
 const router = require("express").Router();
 
+
+
+router.get('/clubs', 
+getAllClubs)
+router.get('/clubs/:id', getClubById)
 router.get('/profiles', getAllProfiles);
 router.get('/profiles/:id', getProfile);
 router.get('/users', getAllUsers);
@@ -92,6 +99,8 @@ router.get("/ratingUser", getRatingUser)
 router.get('/pago', createOrder)
 router.get('/success', createOrder)
 
+
+router.post('/clubs', createClub)
 router.post("/paymentStatus", createPaymentStatus)
 router.post("/ShiftSheadule", createShiftSheadule)
 router.post("/reservationType", createReservationType)
