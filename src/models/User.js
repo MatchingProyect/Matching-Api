@@ -8,6 +8,10 @@ module.exports = (dataBase) => {
             allowNull: false,
             defaultValue: DataTypes.UUIDV4
         },
+        admin: {
+            type: DataTypes.BOOLEAN,
+            defaultValue: true
+        },
         name:{
             type: DataTypes.STRING,
             allowNull: false

@@ -25,8 +25,8 @@ const createOrder = async (req, res) => {
         })
         
         //*Visualizar la info
-        const {body, query} = req;
-        console.log({body, query});
+        // const {body, query} = req;
+        // console.log({body, query});
 
         return res.status(200).json(response);
 
