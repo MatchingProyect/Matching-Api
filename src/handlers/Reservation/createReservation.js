@@ -1,5 +1,4 @@
 const mercadopago = require('mercadopago');
-const mercadopago = require('mercadopago');
 const { addReservationInDb } = require("../../controllers/addInDB");
 
 const createReservation = async (req, res) => {
