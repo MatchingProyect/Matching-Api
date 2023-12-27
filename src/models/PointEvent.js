@@ -9,7 +9,7 @@ module.exports = (dataBase) => {
             defaultValue: DataTypes.UUIDV4
         },
        dateTime: {
-        type: DataTypes.DATE,
+        type: DataTypes.STRING,
         allowNull: false
        },
        qrCode: {

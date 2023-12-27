@@ -17,7 +17,7 @@ module.exports = (dataBase) => {
             allowNull: false
        },
        pointsQuantityRedeem: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.STRING,
             allowNull: false
        }
        

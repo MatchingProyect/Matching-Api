@@ -68,8 +68,7 @@ const router = require("express").Router();
 
 
 
-router.get('/clubs', 
-getAllClubs)
+router.get('/clubs', getAllClubs)
 router.get('/clubs/:id', getClubById)
 router.get('/profiles', getAllProfiles);
 router.get('/profiles/:id', getProfile);
@@ -96,9 +95,7 @@ router.get("/matchType", getAllMatchTypes)
 router.get("/reservationType", getAllReservation)
 router.get("/paymentStatus", getPaymentStatus)
 router.get("/ratingUser", getRatingUser)
-router.get('/pago', createOrder)
-router.get('/success', success)
-router.get('/notificacion', notificacion)
+// router.get('/pago', createOrder)
 
 
 router.post('/clubs', createClub)

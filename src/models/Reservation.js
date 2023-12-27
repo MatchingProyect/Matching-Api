@@ -9,11 +9,11 @@ module.exports = (dataBase) => {
             defaultValue: DataTypes.UUIDV4
         },
         dateTimeStart: {
-            type: DataTypes.DATE,
+            type: DataTypes.STRING,
             allowNull: false
         },
         dateTimeEnd: {
-            type: DataTypes.DATE,
+            type: DataTypes.STRING,
             allowNull: false
         },
         totalCost: {
