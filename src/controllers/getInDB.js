@@ -178,6 +178,8 @@ const getAdvertisingEventByDb = async () => {
     }
 }
 
+
+
 const getRatingUserFromDb = async (userId) => {
 
   try {

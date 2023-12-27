@@ -1,73 +1,154 @@
-const admin = require('firebase-admin'); 
+const { addUserInDb } = require("./addInDB");
+const bcrypt = require('bcrypt');
+const {auth} = require('../config/firebase');
+const {admin} = require('firebase-admin');
+const jwt = require('jsonwebtoken');
+const { OAuth2Client } = require('google-auth-library');
 
-const auth = admin.auth();
+const nodemailer = require('nodemailer');
 
 
-const register = async (req, res, next) => {
+const transporter = nodemailer.createTransport({
+  service: 'gmail',
+  auth: {
+    user: 'proyectmatching@gmail.com', 
+    pass: '11122023developer', 
+  },
+});
+
+const sendPasswordResetEmail = async (email, resetLink) => {
+  const mailOptions = {
+    from: 'proyectmatching@gmail.com', 
+    to: email,
+    subject: 'Restablecer contraseña',
+    text: `Haga clic en el siguiente enlace para restablecer su contraseña: ${resetLink}`,
+  };
+
+  return transporter.sendMail(mailOptions);
+};
+
+const googleClientId = "1061662234396-o558vqrpml1bpo2rut38qufj859kgtpg.apps.googleusercontent.com"
+const initializeFirebase = async () => {
   try {
-    const user = await auth.createUser({
+    admin.initializeApp(); 
+    console.log('Firebase initialized successfully');
+  } catch (error) {
+    console.error('Error initializing Firebase:', error);
+    process.exit(1); 
+  }
+};
+
+const generateAuthToken = (userId) => {
+  const token = jwt.sign({ userId }, 'secreto_del_token', { expiresIn: '5h' });
+  return token;
+};
+
+const register = async (req, res) => {
+  try {
+    const userCred = await auth.createUser({
       email: req.body.email,
-      password: req.body.password
-    })
-    return res.json({uid: user.uid})
+      password: req.body.password,
+    });
+
+    const user = await addUserInDb(
+      req.body.name,
+      req.body.lastName,
+      req.body.gender,
+      req.body.dayBirth,
+      req.body.email,
+      req.body.phone,
+      req.body.creditCardWarranty,
+      req.body.avatarImg,
+      req.body.password
+    );
+
+    return res.json({
+      firebaseUid: userCred.uid,
+      postgresId: user.id,
+    });
 
   } catch (error) {
-    console.error(error);
+    console.log(error);
+    let message = 'Error registering user';
 
-    let errorMessage = 'Error al registrar usuario';
     if (error.code === 'auth/email-already-in-use') {
-      errorMessage = 'El correo electrónico ya está en uso';
+      message = 'Email already in use';
     }
 
-    return res.status(500).json({ mensaje: errorMessage });
+    res.status(500).json({ message });
   }
 };
 
-const login = async (req, res, next) => {
+const login = async (req, res) => {
   try {
-    const user = await auth.getUserByEmail(req.body.email);
-    await auth.signInWhithPassword(user, req.body.password);
+    const { email, password } = req.body;
 
-    return res.json({uid: user.uid})
+    const user = await auth.getUserByEmail(email);
+    const isPasswordValid = bcrypt.compare(password, user.passwordHash);
+    if (!isPasswordValid) {
+      throw new Error('Invalid password');
+    }
+    const token = generateAuthToken(user.uid);
+
+    return res.json({ token, message: 'Login successful' });
 
   } catch (error) {
     console.error(error);
+    let message = 'Invalid credentials';
 
-    let errorMessage = 'Credenciales inválidas';
-    if (error.code === 'auth/user-not-found' || error.code === 'auth/wrong-password') {
-      errorMessage = 'Correo electrónico o contraseña incorrectos';
+    if (error.message === 'auth/user-not-found') {
+      message = 'User not found';
+    } else if (error.message === 'Invalid password') {
+      message = 'Invalid email or password';
     }
 
-    return res.status(401).json({ mensaje: errorMessage });
+    return res.status(400).json({ message });
   }
 };
-
 
 
 const loginGoogle = async (req, res) => {
-
   try {
-    const user = await auth.signInWithPopup(auth.GoogleAuthProvider());
+    const { idToken } = req.body;
+
+    const client = new OAuth2Client(googleClientId);
+    const ticket = await client.verifyIdToken({
+      idToken,
+      audience: googleClientId,
+    });
     
-    const uid = user.uid;
-    return res.json({uid});
+    const payload = ticket.getPayload();
+    const uid = payload['sub'];
 
+
+    return res.json({ uid, message: 'Google login successful' });
   } catch (error) {
-    return handleError(res, error);
+    console.error(error);
+    return res.status(500).json({ message: 'Error en el inicio de sesión con Google' });
   }
+};
 
-} 
+
+
+
 
 const resetPassword = async (req, res) => {
-  
   try {
-    await auth.sendPasswordResetEmail(req.body.email);
-    return res.json({mensaje: 'Email reset enviado'});
+    const email = req.body.email;
 
+    const user = await auth.getUserByEmail(email);
+
+    const resetLink = await auth.generatePasswordResetLink(email);
+
+    await sendPasswordResetEmail(email, resetLink);
+
+    return res.json({ mensaje: 'Enlace para restablecer la contraseña enviado por correo electrónico' });
   } catch (error) {
     return handleError(res, error);
   }  
-}
+};
+
+
 
 module.exports = {
   register,

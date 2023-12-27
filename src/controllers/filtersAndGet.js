@@ -201,6 +201,15 @@ const filterByReservations = async (search) => {
   }
 }
 
+const getClubByIdInDb = async(id)=>{
+  try {
+    const clubFound = await Club.findOne({where: {id}})
+    if(clubFound) return clubFound
+  } catch (error) {
+    throw error.message;
+  }
+}
+
 module.exports = {
   getSportsInDb,
   getClubsInDb,
@@ -212,6 +221,7 @@ module.exports = {
   matchResultFilter,
   filterMatchTypes,
   getAllMatchTypes,
+  getClubByIdInDb,
   getAllRatings,
   filterRatings,
   getReservationTypeFromDb,
