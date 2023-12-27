@@ -17,18 +17,20 @@ const createReservation = async (req, res) => {
                 },
                 items: [
                     {
-                        dateTimeStart: `${dateTimeStart}`,
-                        dateTimeEnd: `${dateTimeEnd}`,
-                        totalCost: `${totalCost}`
+                        title: 'Reserva_Cancha',
+                        unit_price: totalCost,
+                        quantity: 1
                     }
                 ]
             }
         })
 
+        const urlPago = response.init_point;
+
         if (reservationCreated && response) return res.status(200).json({
             status: true,
             reservationCreated,
-            response
+            urlPago
         })
     } catch (error) {
         res.status(500).json({
