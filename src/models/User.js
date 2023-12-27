@@ -49,7 +49,7 @@ module.exports = (dataBase) => {
         },
         description:{
             type: DataTypes.STRING,
-            allowNull: true
+            allowNull: false
         }
     }, {timestamps: false})
 }
