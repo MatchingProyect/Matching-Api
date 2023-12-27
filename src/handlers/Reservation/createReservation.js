@@ -23,7 +23,7 @@ const createReservation = async (req, res) => {
                     }
                 ]
             }
-        })
+        });
 
         const urlPago = response.init_point;
 
@@ -31,7 +31,7 @@ const createReservation = async (req, res) => {
             status: true,
             reservationCreated,
             urlPago
-        })
+        });
     } catch (error) {
         res.status(500).json({
             status: false,
