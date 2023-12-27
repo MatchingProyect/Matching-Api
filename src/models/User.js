@@ -10,7 +10,7 @@ module.exports = (dataBase) => {
         },
         admin: {
             type: DataTypes.BOOLEAN,
-            defaultValue: true
+            defaultValue: false
         },
         name:{
             type: DataTypes.STRING,
