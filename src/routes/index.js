@@ -68,6 +68,7 @@ const router = require("express").Router();
 
 
 router.get('/clubs', getAllClubs)
+router.get('/clubs', getAllClubs)
 router.get('/clubs/:id', getClubById)
 router.get('/profiles', getAllProfiles);
 router.get('/profiles/:id', getProfile);

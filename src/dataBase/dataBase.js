@@ -68,7 +68,6 @@ const PaymentTypeModel = require('../models/PaymentType')
 const {DB_USERNAME, DB_PASSWORD, DB_PORT, DB_NAME, DB_CONNECTION} = process.env;
 
 const dataBase = new Sequelize(`${DB_CONNECTION}`);
-
 // const dataBase = new Sequelize(`postgres:${DB_USERNAME}:${DB_PASSWORD}@localhost:${DB_PORT}/${DB_NAME}`);
 
 UserModel(dataBase);

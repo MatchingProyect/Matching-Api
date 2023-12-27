@@ -10,7 +10,7 @@ module.exports = (dataBase) => {
         },
         admin: {
             type: DataTypes.BOOLEAN,
-            defaultValue: true
+            defaultValue: false
         },
         name:{
             type: DataTypes.STRING,
@@ -41,14 +41,15 @@ module.exports = (dataBase) => {
         },
         avatarImg:{
             type: DataTypes.STRING,
-            allowNull: false
+            defaultValue: 'https://thinksport.com.au/wp-content/uploads/2020/01/avatar-.jpg'
         },
         password:{
             type: DataTypes.STRING,
-            allowNull: false
+            allowNull: false,
         },
         description:{
-            type: DataTypes.STRING
+            type: DataTypes.STRING,
+            allowNull: true
         }
     }, {timestamps: false})
 }
