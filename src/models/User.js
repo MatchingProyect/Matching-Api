@@ -41,7 +41,7 @@ module.exports = (dataBase) => {
         },
         avatarImg:{
             type: DataTypes.STRING,
-            allowNull: false
+            defaultValue: 'https://thinksport.com.au/wp-content/uploads/2020/01/avatar-.jpg'
         },
         password:{
             type: DataTypes.STRING,
