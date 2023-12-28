@@ -1,11 +1,11 @@
 const dataBase = require('../dataBase/dataBase')
 const {User, Profile, Sport, Club, Location, Court, Payment, PaymentType, Reservation, ScoreMatch, TeamMatch, AdvertisingEvent, AdvertisingSystem, MatchResult, PointEvent, PointSystem, PaymentStatus, ReservationType, MatchType, RatingUser,ShiftSchedule} = dataBase.models
 
-const addUserInDb = async(name, lastName, gender, dayBirth, email, phone, creditCardWarranty, avatarImg, password) =>{
+const addUserInDb = async(admin, name, lastName, gender, dayBirth, email, phone, creditCardWarranty, avatarImg, password, description) =>{
     try {
         if(!name || !lastName || !dayBirth || !email || !phone || !password) return "faltan datos"
         const [newUser, create] = await User.findOrCreate({where: {name}, 
-            defaults: {name, lastName, gender, dayBirth, email, phone, creditCardWarranty, avatarImg, password}
+            defaults: {admin, name, lastName, gender, dayBirth, email, phone, creditCardWarranty, avatarImg, password, description}
         })
 
         if(!create)return "este usuario ya existe"
