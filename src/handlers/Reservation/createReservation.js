@@ -3,8 +3,9 @@ const { addReservationInDb } = require("../../controllers/addInDB");
 
 const createReservation = async (req, res) => {
     try {
+        const {id} = req.params
         const { dateTimeStart, dateTimeEnd, totalCost } = req.body;
-        const reservationCreated = await addReservationInDb(dateTimeStart, dateTimeEnd, totalCost);
+        const reservationCreated = await addReservationInDb(id, dateTimeStart, dateTimeEnd, totalCost);
 
         const client = new mercadopago.MercadoPagoConfig({ accessToken: 'TEST-3024201806170040-121720-bb9f491cb8ac28cb6deeed0f84e480df-1596808595' });
 
