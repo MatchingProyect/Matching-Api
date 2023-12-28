@@ -34,6 +34,18 @@ const getAllUsersInDb = async (offset, limit) => {
     }
 }
 
+const getAllUsersInDbTotalInfo = async (offset, limit) => {
+    try {
+        const users = await User.findAll({ 
+            offset: offset, 
+            limit: limit,
+        })
+        if (users) return users
+    } catch (error) {
+        throw error.message
+    }
+}
+
 const getUserInDb = async (id) => {
     try {
         const user = await User.findOne({ where: { id } })
@@ -211,6 +223,7 @@ const getAllPaymentStatusesFromDb = async () => {
 module.exports = {
     getAllProfInDb,
     getAllUsersInDb,
+    getAllUsersInDbTotalInfo,
     getUserInDb,
     getProfileInDb,
     searchByName,
