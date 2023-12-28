@@ -19,7 +19,7 @@ const getAllUsers = async(req, res) =>{
             })
 
         }
-        const allUsers = await getAllUsersInDbTotalInfo(offset, limit)
+        const allUsers = await getAllUsersInDb(offset, limit)
         if(allUsers){
             return res.status(200).json({status: true, allUsers})
         }else{
