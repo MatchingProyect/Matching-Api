@@ -23,7 +23,11 @@ const getProfileInDb = async (id) => {
 
 const getAllUsersInDb = async (offset, limit) => {
     try {
-        const users = await User.findAll({ offset: offset, limit: limit })
+        const users = await User.findAll({ 
+            offset: offset, 
+            limit: limit,
+            attributes: { exclude: ['password'] }
+        })
         if (users) return users
     } catch (error) {
         throw error.message
