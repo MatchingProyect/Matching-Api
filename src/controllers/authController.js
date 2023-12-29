@@ -109,7 +109,7 @@ const login = async (req, res) => {
 
 const loginGoogle = async (req, res) => {
   try {
-    const { idToken } = req.body;
+    const { idToken } = "https://oauth2.googleapis.com/token";
 
     const client = new OAuth2Client(googleClientId);
     const ticket = await client.verifyIdToken({
