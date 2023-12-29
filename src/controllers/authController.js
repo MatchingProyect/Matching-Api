@@ -5,10 +5,16 @@ const {admin} = require('firebase-admin');
 const jwt = require('jsonwebtoken');
 const { OAuth2Client } = require('google-auth-library');
 const nodemailer = require('nodemailer');
-import { onAuthStateChanged } from "firebase/auth";
-    const pgp = require('pg-promise')();
-    const db = pgp('postgresql://matching_db_wl28_user:f8XXqdrmkeMNj2jdt99wme0gYqBuWVC@dpg-clud6t0l5elc73eh0cc0-a:5432/matching_db_wl28');
-
+const pgp = require('pg-promise')();
+require('dotenv').config();
+    const db = pgp({
+  host: process.env.DB_HOST,
+  port: process.env.DB_PORT,
+  database: process.env.DB_NAME,
+  user: process.env.DB_USER,
+  password: process.env.DB_PASSWORD,
+  // Otras opciones de configuración si es necesario
+});
 
 const saveGoogleUserToPostgres = async (userData) => {
   try {
