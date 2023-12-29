@@ -84,9 +84,10 @@ const addPaymentTypeInDb = async(name) => {
     }
 }
 
-const addReservationInDb = async(dateTimeStart, dateTimeEnd, totalCost) => {
+const addReservationInDb = async(dateTimeStart, dateTimeEnd, totalCost, UserId, CourtId, MatchTypeId, ReservationTypeId) => {
     try {
-        const addReservation = await Reservation.create({dateTimeStart, dateTimeEnd, totalCost});
+        const addReservation = await Reservation.create({dateTimeStart, dateTimeEnd, totalCost, UserId, CourtId, MatchTypeId, ReservationTypeId});
+        console.log(UserId, CourtId)
         if(addReservation) return addReservation;
     } catch (error) {
         throw error.message;
