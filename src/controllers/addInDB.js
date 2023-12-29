@@ -3,8 +3,7 @@ const {User, Profile, Sport, Club, Location, Court, Payment, PaymentType, Reserv
 
 const addUserInDb = async(admin, name, lastName, gender, dayBirth, email, phone, creditCardWarranty, avatarImg, password, description) =>{
     try {
-        console.log( name,lastName,dayBirth,email,phone,password );
-        if(!name || !lastName || !dayBirth || !email || !phone || !password ) return `faltan datos`
+        if(!name || !lastName || !email || !password ) return `faltan datos`
         const [newUser, create] = await User.findOrCreate({where: {name}, 
             defaults: {admin, name, lastName, gender, dayBirth, email, phone, creditCardWarranty, avatarImg, password, description}
         })
