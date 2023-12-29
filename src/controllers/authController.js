@@ -4,9 +4,22 @@ const {auth} = require('../config/firebase');
 const {admin} = require('firebase-admin');
 const jwt = require('jsonwebtoken');
 const { OAuth2Client } = require('google-auth-library');
-
 const nodemailer = require('nodemailer');
+import { onAuthStateChanged } from "firebase/auth";
+    const pgp = require('pg-promise')();
+    const db = pgp('postgresql://matching_db_wl28_user:f8XXqdrmkeMNj2jdt99wme0gYqBuWVC@dpg-clud6t0l5elc73eh0cc0-a:5432/matching_db_wl28');
 
+
+const saveGoogleUserToPostgres = async (userData) => {
+  try {
+    const query = 'INSERT INTO usuarios (google_id, display_name, email) VALUES ($1, $2, $3)';
+    await db.none(query, [userData.uid, userData.displayName, userData.email]);
+    return { success: true, message: 'Usuario insertado en PostgreSQL' };
+  } catch (error) {
+    console.error('Error al insertar en PostgreSQL:', error);
+    return { success: false, message: 'Error al insertar en PostgreSQL' };
+  }
+};
 
 const transporter = nodemailer.createTransport({
   service: 'gmail',
@@ -51,8 +64,7 @@ const register = async (req, res) => {
     });
 
     const user = await addUserInDb(
-      req.body.name,
-      req.body.lastName,
+      req.body.displayName,
       req.body.gender,
       req.body.dayBirth,
       req.body.email,
@@ -116,19 +128,51 @@ const loginGoogle = async (req, res) => {
       idToken,
       audience: googleClientId,
     });
-    
+
     const payload = ticket.getPayload();
     const uid = payload['sub'];
 
+    if (uid) {
+      const result = await saveGoogleUserToPostgres({
+        uid,
+        displayName: payload.displayName,
+        email: payload.email,
+      });
 
-    return res.json({ uid, message: 'Google login successful' });
+      if (result.success) {
+        return res.json({ success: true, message: 'Usuario creado exitosamente' });
+      } else {
+        return res.status(500).json({ success: false, message: 'Error al crear el usuario' });
+      }
+    } else {
+      return res.status(400).json({ success: false, message: 'ID de usuario no válido' });
+    }
   } catch (error) {
     console.error(error);
-    return res.status(500).json({ message: 'Error en el inicio de sesión con Google' });
+    return res.status(500).json({ success: false, message: 'Error en el inicio de sesión con Google' });
   }
 };
 
+// onAuthStateChanged(async (user) => {
+//   if (user) {
+//     // El usuario se ha autenticado con Google
+//     try {
+//       // Extraer información relevante del usuario de Firebase
+//       const { uid, displayName, email } = user;
 
+//       // Crear un usuario en la base de datos PostgreSQL
+//       await addUserInDb({
+//         firebase_id: uid,
+//         displayName: displayName,
+//         email: email
+//       });
+
+//       console.log('Usuario creado en PostgreSQL');
+//     } catch (error) {
+//       console.error('Error al crear el usuario en PostgreSQL:', error);
+//     }
+//   }
+// });
 
 
 

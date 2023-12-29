@@ -12,14 +12,11 @@ module.exports = (dataBase) => {
             type: DataTypes.BOOLEAN,
             defaultValue: false
         },
-        name:{
+        displayName:{
             type: DataTypes.STRING,
             allowNull: false
         },
-        lastName:{
-            type: DataTypes.STRING,
-            allowNull: false
-        },
+      
         gender:{
             type: DataTypes.STRING,
             allowNull: false

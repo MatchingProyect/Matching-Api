@@ -44,9 +44,9 @@ const getUserInDb = async (id) => {
 }
 
 
-const searchByName = async (name) => {
+const searchByName = async (displayName) => {
     try {
-        const searchName = await User.findOne({ where: { name } });
+        const searchName = await User.findOne({ where: { displayName } });
         if (searchName) return searchName;
 
     } catch (error) {

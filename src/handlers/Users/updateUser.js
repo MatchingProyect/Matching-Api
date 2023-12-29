@@ -3,8 +3,8 @@ const { putUser } = require("../../controllers/putInDB")
 const updateUser = async(req, res)=>{
     try {
         const {id} = req.params
-        const {name, lastName, gender, dayBirth, email, phone, creditCardWarranty, avatarImg, password} = req.body
-        const userUpdated = await putUser(id, name, lastName, gender, dayBirth, email, phone, creditCardWarranty, avatarImg, password)
+        const {displayName, gender, dayBirth, email, phone, creditCardWarranty, avatarImg, password} = req.body
+        const userUpdated = await putUser(id, displayName, gender, dayBirth, email, phone, creditCardWarranty, avatarImg, password)
 
         if(userUpdated) return res.status(200).json({status: true, userUpdated})
 
