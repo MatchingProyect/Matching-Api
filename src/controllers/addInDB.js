@@ -83,16 +83,11 @@ const addPaymentTypeInDb = async(name) => {
     }
 }
 
-const addReservationInDb = async(id,dateTimeStart, dateTimeEnd, totalCost) => {
+const addReservationInDb = async(dateTimeStart, dateTimeEnd, totalCost, UserId, CourtId, MatchTypeId, ReservationTypeId) => {
     try {
-        const addReservation = await Reservation.create({dateTimeStart, dateTimeEnd, totalCost});
-        if(addReservation){
-            const addCourt = await Court.findOne({
-                where: {id}
-            })
-
-            return await addReservation.addType(addCourt);
-        }
+        const addReservation = await Reservation.create({dateTimeStart, dateTimeEnd, totalCost, UserId, CourtId, MatchTypeId, ReservationTypeId});
+        console.log(UserId, CourtId)
+        if(addReservation) return addReservation;
     } catch (error) {
         throw error.message;
     }
