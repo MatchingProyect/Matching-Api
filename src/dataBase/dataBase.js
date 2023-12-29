@@ -23,46 +23,7 @@ const CourtModel = require('../models/Court')
 const PaymentModel = require('../models/Payment')
 const PaymentTypeModel = require('../models/PaymentType')
 
-// const admin = require('../config/firebase');
-// const serviceAccount = require('../../firebase.json');
 
-// const appName = 'matching';
-
-// const initializeFirebase = async () => {
-//   try {
-//     await admin.initializeApp({
-//       credential: admin.credential.cert(serviceAccount),
-//     }, appName);
-//     console.log('Firebase initialized successfully');
-//   } catch (error) {
-//     console.error('Error initializing Firebase:', error);
-//     process.exit(1); // Termina la aplicación en caso de error
-//   }
-// };
-
-// const startApp = async () => {
-//   await initializeFirebase();
-//   const firestore = admin.firestore();
-//   const auth = admin.auth();
-
-//   // Firestore para obtener datos
-//   const obtenerDatos = async () => {
-//     try {
-//       const snapshot = await firestore.collection('matching').get();
-//       snapshot.forEach(doc => {
-//         console.log(doc.id, '=>', doc.data());
-//       });
-//     } catch (error) {
-//       console.error('Error al obtener datos:', error);
-//     }
-//   };
-
-//   // Llama a la función después de inicializar Firebase
-//   obtenerDatos();
-// };
-
-// // Inicia la aplicación
-// startApp();
 
 
 const {DB_USERNAME, DB_PASSWORD, DB_PORT, DB_NAME, DB_CONNECTION} = process.env;

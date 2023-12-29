@@ -110,7 +110,7 @@ router.post('/users', createUser);
 router.post('/courts', createCourt);
 router.post('/payments', createPayment);
 router.post('/paymentsTypes', createPaymentType);
-router.post('/reservations', createReservation);
+router.post('/reservations/:id', createReservation);
 router.post('/scoreMatches', createScoreMatch);
 router.post('/teamMatches', createTeamMatches);
 router.post("/resetPasword", resetPassword); //!FireBase

@@ -7,7 +7,7 @@ admin.initializeApp({
   credential: admin.credential.cert(serviceAccount),
 });
 
-const auth = admin.auth(); // Obtén la instancia de auth
+const auth = admin.auth(); 
 
 module.exports = {
   admin,

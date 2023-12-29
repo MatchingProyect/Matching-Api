@@ -3,7 +3,7 @@ const {User, Profile, Sport, Club, Location, Court, Payment, PaymentType, Reserv
 
 const addUserInDb = async(admin, name, lastName, gender, dayBirth, email, phone, creditCardWarranty, avatarImg, password, description) =>{
     try {
-        if(!name || !lastName || !dayBirth || !email || !phone || !password ) return `faltan datos`
+        if(!name || !lastName || !email || !password ) return `faltan datos`
         const [newUser, create] = await User.findOrCreate({where: {name}, 
             defaults: {admin, name, lastName, gender, dayBirth, email, phone, creditCardWarranty, avatarImg, password, description}
         })
@@ -83,10 +83,16 @@ const addPaymentTypeInDb = async(name) => {
     }
 }
 
-const addReservationInDb = async(dateTimeStart, dateTimeEnd, totalCost) => {
+const addReservationInDb = async(id,dateTimeStart, dateTimeEnd, totalCost) => {
     try {
         const addReservation = await Reservation.create({dateTimeStart, dateTimeEnd, totalCost});
-        if(addReservation) return addReservation;
+        if(addReservation){
+            const addCourt = await Court.findOne({
+                where: {id}
+            })
+
+            return await addReservation.addType(addCourt);
+        }
     } catch (error) {
         throw error.message;
     }
