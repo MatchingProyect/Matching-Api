@@ -13,7 +13,6 @@ require('dotenv').config();
   database: process.env.DB_NAME,
   user: process.env.DB_USER,
   password: process.env.DB_PASSWORD,
-  // Otras opciones de configuración si es necesario
 });
 
 const saveGoogleUserToPostgres = async (userData) => {
@@ -107,9 +106,7 @@ const login = async (req, res) => {
       throw new Error('Invalid password');
     }
     const token = generateAuthToken(user.uid);
-
-    return res.json({ token, message: 'Login successful' });
-
+    return res.json({ token });
   } catch (error) {
     console.error(error);
     let message = 'Invalid credentials';
@@ -158,28 +155,6 @@ const loginGoogle = async (req, res) => {
     return res.status(500).json({ success: false, message: 'Error en el inicio de sesión con Google' });
   }
 };
-
-// onAuthStateChanged(async (user) => {
-//   if (user) {
-//     // El usuario se ha autenticado con Google
-//     try {
-//       // Extraer información relevante del usuario de Firebase
-//       const { uid, displayName, email } = user;
-
-//       // Crear un usuario en la base de datos PostgreSQL
-//       await addUserInDb({
-//         firebase_id: uid,
-//         displayName: displayName,
-//         email: email
-//       });
-
-//       console.log('Usuario creado en PostgreSQL');
-//     } catch (error) {
-//       console.error('Error al crear el usuario en PostgreSQL:', error);
-//     }
-//   }
-// });
-
 
 
 const resetPassword = async (req, res) => {
