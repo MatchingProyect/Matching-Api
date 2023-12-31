@@ -46,15 +46,6 @@ const sendPasswordResetEmail = async (email, resetLink) => {
 };
 
 const googleClientId = "1061662234396-o558vqrpml1bpo2rut38qufj859kgtpg.apps.googleusercontent.com"
-const initializeFirebase = async () => {
-  try {
-    admin.initializeApp(); 
-    console.log('Firebase initialized successfully');
-  } catch (error) {
-    console.error('Error initializing Firebase:', error);
-    process.exit(1); 
-  }
-};
 
 const generateAuthToken = (userId) => {
   const token = jwt.sign({ userId }, 'secreto_del_token', { expiresIn: '5h' });
@@ -125,7 +116,9 @@ const login = async (req, res) => {
 const loginGoogle = async (req, res) => {
   try {
     const { idToken } = req.body;
+    const googleClientId = "tu_client_id_de_google";
 
+    // Verificar el token de Google
     const client = new OAuth2Client(googleClientId);
     const ticket = await client.verifyIdToken({
       idToken,
@@ -136,6 +129,7 @@ const loginGoogle = async (req, res) => {
     const uid = payload['sub'];
 
     if (uid) {
+      // Guardar la información del usuario en la base de datos PostgreSQL
       const result = await saveGoogleUserToPostgres({
         uid,
         displayName: payload.displayName,
@@ -143,7 +137,12 @@ const loginGoogle = async (req, res) => {
       });
 
       if (result.success) {
-        return res.json({ success: true, message: 'Usuario creado exitosamente' });
+        const user = await addUserInDb(
+          result.displayName,
+          result.email
+        );
+    
+        return res.json({ success: true, message: 'Usuario creado exitosamente', user});
       } else {
         return res.status(500).json({ success: false, message: 'Error al crear el usuario' });
       }
@@ -155,7 +154,6 @@ const loginGoogle = async (req, res) => {
     return res.status(500).json({ success: false, message: 'Error en el inicio de sesión con Google' });
   }
 };
-
 
 const resetPassword = async (req, res) => {
   try {
