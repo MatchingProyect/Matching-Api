@@ -116,9 +116,8 @@ const login = async (req, res) => {
 const loginGoogle = async (req, res) => {
   try {
     const { idToken } = req.body;
-    const googleClientId = "tu_client_id_de_google";
 
-    // Verificar el token de Google
+    // Verificar el token de Google usando googleClientId
     const client = new OAuth2Client(googleClientId);
     const ticket = await client.verifyIdToken({
       idToken,
@@ -127,21 +126,15 @@ const loginGoogle = async (req, res) => {
 
     const payload = ticket.getPayload();
     const uid = payload['sub'];
+    const displayName = payload['name'];
+    const email = payload['email'];
 
-    if (uid) {
+    if (uid && displayName && email) {
       // Guardar la información del usuario en la base de datos PostgreSQL
-      const result = await saveGoogleUserToPostgres({
-        uid,
-        displayName: payload.displayName,
-        email: payload.email,
-      });
+      const result = await saveGoogleUserToPostgres({ uid, displayName, email });
 
       if (result.success) {
-        const user = await addUserInDb(
-          result.displayName,
-          result.email
-        );
-    
+        const user = await addUserInDb(displayName, email);
         return res.json({ success: true, message: 'Usuario creado exitosamente', user});
       } else {
         return res.status(500).json({ success: false, message: 'Error al crear el usuario' });
