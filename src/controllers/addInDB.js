@@ -17,10 +17,10 @@ const addUserInDb = async(admin, displayName, gender, dayBirth, email, phone, cr
     }
 }
 
-const addProfileInDb = async(laterality, courtSide, matchType, dayPreference, timePreference, categoryLvl)=>{
+const addProfileInDb = async(laterality, courtSide, matchType, dayPreference, timePreference, categoryLvl, SportId, UserId)=>{
     try {
 
-        const newProfile = await Profile.create({laterality, courtSide, matchType, dayPreference, timePreference, categoryLvl})
+        const newProfile = await Profile.create({laterality, courtSide, matchType, dayPreference, timePreference, categoryLvl, SportId, UserId})
 
         if(newProfile) return newProfile
     } catch (error) {
@@ -65,9 +65,9 @@ const addCourtInDb = async(name, description, priceFee, warrantyReservation, gra
     }
 }
 
-const addPaymentInDb = async(name, amount, dateTimeUpdated) => {
+const addPaymentInDb = async(name, amount, dateTimeUpdated, PaymentTypeId, PaymentStatusId) => {
     try {
-        const addPayment = await Payment.create({name, amount, dateTimeUpdated});
+        const addPayment = await Payment.create({name, amount, dateTimeUpdated, PaymentTypeId, PaymentStatusId});
         if(addPayment) return addPayment;
     } catch (error) {
         throw error.message;

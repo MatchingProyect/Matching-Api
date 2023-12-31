@@ -16,7 +16,6 @@ module.exports = (dataBase) => {
             type: DataTypes.STRING,
             allowNull: false
         },
-      
         gender:{
             type: DataTypes.STRING,
             allowNull: false

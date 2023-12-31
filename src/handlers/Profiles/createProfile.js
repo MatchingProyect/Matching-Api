@@ -3,9 +3,9 @@ const {addProfileInDb} = require("../../controllers/addInDB")
 
 const createProfile= async(req, res)=>{
     try {
-        const {laterality, courtSide, matchType, dayPreference, timePreference, categoryLvl}= req.body
+        const {laterality, courtSide, matchType, dayPreference, timePreference, categoryLvl, SportId, UserId}= req.body
 
-        const profileCreated = await addProfileInDb(laterality, courtSide, matchType, dayPreference, timePreference, categoryLvl)
+        const profileCreated = await addProfileInDb(laterality, courtSide, matchType, dayPreference, timePreference, categoryLvl, SportId, UserId)
         
         if(profileCreated) return res.status(200).json({status: true, profileCreated})
     } catch (error) {

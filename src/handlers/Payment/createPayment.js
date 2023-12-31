@@ -2,8 +2,8 @@ const { addPaymentInDb } = require("../../controllers/addInDB");
 
 const createPayment = async (req, res) => {
     try {
-        const { name, amount, dateTimeUpdated } = req.body;
-        const paymentCreated = await addPaymentInDb(name, amount, dateTimeUpdated);
+        const { name, amount, dateTimeUpdated, PaymentTypeId, PaymentStatusId } = req.body;
+        const paymentCreated = await addPaymentInDb(name, amount, dateTimeUpdated, PaymentTypeId, PaymentStatusId);
 
         if (paymentCreated) return res.status(200).json({
             status: true,

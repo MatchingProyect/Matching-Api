@@ -1,9 +1,9 @@
 const dataBase = require('../dataBase/dataBase')
 const {User, Profile, Court, Payment, ReservationType} = dataBase.models
 
-const putProfile = async(id, laterality, courtSide, matchType, dayPreference, timePreference, categoryLvl)=>{
+const putProfile = async(id, laterality, courtSide, matchType, dayPreference, timePreference, categoryLvl, SportId, UserId)=>{
     try {
-        const updatedProfile = await Profile.update({laterality, courtSide, matchType, dayPreference, timePreference, categoryLvl}, {where: {id}})
+        const updatedProfile = await Profile.update({laterality, courtSide, matchType, dayPreference, timePreference, categoryLvl, SportId, UserId}, {where: {id}})
         if(updatedProfile) return updatedProfile
     } catch (error) {
         throw error.message
@@ -28,9 +28,9 @@ const putCourt = async(id, name, description, priceFee, warrantyReservation, gra
     }
 }
 
-const putPayment = async(id, name, amount, dateTimeUpdated) => {
+const putPayment = async(id, name, amount, dateTimeUpdated, PaymentTypeId, PaymentStatusId, PagoId) => {
     try {
-        const paymentUpdated = await Payment.update({name, amount, dateTimeUpdated}, {where: {id}});
+        const paymentUpdated = await Payment.update({name, amount, dateTimeUpdated, PaymentTypeId, PaymentStatusId, PagoId}, {where: {id}});
         if(paymentUpdated) return paymentUpdated;
     } catch (error) {
         throw error.message;
