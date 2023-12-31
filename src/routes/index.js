@@ -62,6 +62,7 @@ const getScoreMatch = require('../handlers/ScoreMatch/getScoreMatch');
 const getAllClubs = require('../handlers/Club/getAllClubs');
 const createClub = require('../handlers/Club/createClub');
 const getClubById = require('../handlers/Club/getClubById');
+const {relationUser, addFriend, friendRequest} = require('../handlers/Users/relationUser');
 
 const router = require("express").Router();
 
@@ -95,6 +96,7 @@ router.get("/matchType", getAllMatchTypes)
 router.get("/reservationType", getAllReservation)
 router.get("/paymentStatus", getPaymentStatus)
 router.get("/ratingUser", getRatingUser)
+router.get('/friendRequest/:id', friendRequest);
 
 
 router.post('/clubs', createClub)
@@ -123,8 +125,10 @@ router.post('/advertisingSystem', createAdvertisingSystem);
 router.post('/matchResult', createMatchResult);
 router.post('/pointEvent', createPointEvent);
 router.post('/pointSystem', createPointSystem);
+router.post('/friendRequest', relationUser);
+router.post('/addFriend', addFriend);
 
-router.put("/reservation/:id", updatedReservationTypes)
+router.put("/reservation/:id", updatedReservationTypes);
 router.put('/profiles/:id', updateProfile);
 router.put('/users/:id', updateUser);
 router.put('/courts/:id', updateCourt);

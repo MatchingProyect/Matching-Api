@@ -1,5 +1,5 @@
 const dataBase = require('../dataBase/dataBase')
-const { User, Profile, Court, Payment, PaymentType, Reservation, ScoreMatch, TeamMatch, PointEvent, PointSystem, AdvertisingSystem, AdvertisingEvent, PaymentStatus, RatingUser } = dataBase.models
+const { User, Profile, Court, Payment, PaymentType, Reservation, ScoreMatch, TeamMatch, PointEvent, PointSystem, AdvertisingSystem, AdvertisingEvent, PaymentStatus, RatingUser, FriendRequest, UserFriends } = dataBase.models
 
 const getAllProfInDb = async () => {
     try {
@@ -36,10 +36,29 @@ const getAllUsersInDb = async (offset, limit) => {
 
 const getUserInDb = async (id) => {
     try {
-        const user = await User.findOne({ where: { id } })
-        if (user) return user
+        let friends = await UserFriends.findAll({where: {UserId: id}});
+        if(!friends.length) friends = await UserFriends.findAll({where: {FriendId: id}});
+        const user = await User.findOne({ where: { id }, 
+            include: FriendRequest })
+            if (user && friends){
+            const info = {friends, user}
+            console.log(friends)
+            return info;
+        } 
+
     } catch (error) {
         throw error.message
+    }
+}
+
+const getFriendRequestInDb = async (id) => {
+    try {
+        const user = await FriendRequest.findOne({ 
+            where: { FriendRId: id }
+        });
+        return user;
+    } catch (error) {
+        throw error.message;
     }
 }
 
@@ -229,5 +248,6 @@ module.exports = {
     getRatingUserFromDb,
     getAllPaymentStatusesFromDb,
     scoreMatchInDb,
-    getAllReservationsInDb
+    getAllReservationsInDb,
+    getFriendRequestInDb
 }
