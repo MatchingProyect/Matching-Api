@@ -1,10 +1,12 @@
 const { addUserInDb } = require("./addInDB");
+const dataBase = require('../dataBase/dataBase')
 const bcrypt = require('bcrypt');
 const {auth} = require('../config/firebase');
 const {admin} = require('firebase-admin');
 const jwt = require('jsonwebtoken');
 const { OAuth2Client } = require('google-auth-library');
 const nodemailer = require('nodemailer');
+const {User,  FriendRequest, UserFriends} = dataBase.models
 const pgp = require('pg-promise')();
 require('dotenv').config();
     const db = pgp({
@@ -97,7 +99,13 @@ const login = async (req, res) => {
       throw new Error('Invalid password');
     }
     const token = generateAuthToken(user.uid);
-    return res.json({ token });
+    if(token){
+      const userLogeado = await User.findOne({
+        where: { email },
+        include: UserFriends
+      });
+      if(userLogeado) return res.json({ token, userLogeado });
+    }
   } catch (error) {
     console.error(error);
     let message = 'Invalid credentials';
