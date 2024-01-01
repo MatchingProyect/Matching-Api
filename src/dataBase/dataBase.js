@@ -24,8 +24,7 @@ const PaymentModel = require('../models/Payment')
 const PaymentTypeModel = require('../models/PaymentType')
 const FriendRequestModel = require('../models/FriendRequest');
 
-const {admin, auth} = require('../config/firebase');
-const serviceAccount = require('../../firebase.json');
+// const {admin, auth} = require('../config/firebase');
 
 const appName = 'matching';
 
@@ -56,7 +55,7 @@ const dataBase = new Sequelize( DB_CONNECTION, {
       ssl: true, // Desactiva SSL
     },
   });
-//const dataBase = new Sequelize(`postgres:${DB_USERNAME}:${DB_PASSWORD}@localhost:${DB_PORT}/${DB_NAME}`, {logging: false});
+// const dataBase = new Sequelize(`postgres:${DB_USERNAME}:${DB_PASSWORD}@localhost:${DB_PORT}/${DB_NAME}`, {logging: false});
 
 UserModel(dataBase);
 ReservationModel(dataBase);
