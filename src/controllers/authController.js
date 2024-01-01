@@ -70,7 +70,7 @@ const register = async (req, res) => {
       req.body.creditCardWarranty,
       req.body.avatarImg,
       req.body.password,
-      req.body.admin
+      // req.body.admin
     );
 
     return res.json({
