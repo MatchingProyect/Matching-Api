@@ -20,7 +20,7 @@ const firebaseConfig = {
 
 
 const initializeFirebase = () => {
-
+  console.log("firebaseConfig", firebaseConfig)
   const appName = 'matching';
   try {
     const app = admin.initializeApp({
