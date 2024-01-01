@@ -4,7 +4,7 @@ const getAllUsers = async(req, res) =>{
     try {
         const { displayName, page } = req.query;
         const pageNumber = Number(page) || 1;
-        const limit = 55
+        const limit = 2
      const offset = (pageNumber - 1) * limit;
 
         if(displayName){
