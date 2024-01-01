@@ -24,8 +24,7 @@ const PaymentModel = require('../models/Payment')
 const PaymentTypeModel = require('../models/PaymentType')
 const FriendRequestModel = require('../models/FriendRequest');
 
-const {admin, auth} = require('../config/firebase');
-const serviceAccount = require('../../firebase.json');
+// const {admin, auth} = require('../config/firebase');
 
 const appName = 'matching';
 
