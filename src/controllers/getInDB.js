@@ -56,7 +56,12 @@ const getFriendRequestInDb = async (id) => {
         const user = await FriendRequest.findOne({ 
             where: { FriendRId: id }
         });
-        return user;
+        if(user){
+            const userQueMando = await User.findOne({
+                where: {id: user.userId}
+            })
+            return {user, userQueMando}
+        }
     } catch (error) {
         throw error.message;
     }

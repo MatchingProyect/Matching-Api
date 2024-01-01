@@ -55,6 +55,7 @@ const putReservationType = async (reservationTypeId, updates) => {
 
 const putStatusRequest = async (status, UserId, FriendId) => {
     try {
+        if(status === "false") await FriendRequest.destroy()
         const statusUpdated = await FriendRequest.update(
             { status },
             {
