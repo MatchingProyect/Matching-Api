@@ -69,7 +69,8 @@ const register = async (req, res) => {
       req.body.phone,
       req.body.creditCardWarranty,
       req.body.avatarImg,
-      req.body.password
+      req.body.password,
+      req.body.admin
     );
 
     return res.json({
@@ -104,6 +105,8 @@ const login = async (req, res) => {
         where: { email },
         include: UserFriends
       });
+
+      console.log(userLogeado)
       if(userLogeado) return res.json({ token, userLogeado });
     }
   } catch (error) {
