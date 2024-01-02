@@ -10,9 +10,9 @@ const putProfile = async (id, laterality, courtSide, matchType, dayPreference, t
     }
 }
 
-const putUser = async (id, displayName, gender, dayBirth, email, phone, creditCardWarranty, avatarImg, password) => {
+const putUser = async (id, admin, displayName, gender, dayBirth, email, phone, creditCardWarranty, avatarImg, password) => {
     try {
-        const updatedUser = await User.update({ displayName, gender, dayBirth, email, phone, creditCardWarranty, avatarImg, password }, { where: { id } })
+        const updatedUser = await User.update({ admin, displayName, gender, dayBirth, email, phone, creditCardWarranty, avatarImg, password }, { where: { id } })
         if (updatedUser) return updatedUser
     } catch (error) {
         throw error.message
