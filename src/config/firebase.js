@@ -20,7 +20,7 @@ const firebaseConfig = {
 
 
 const initializeFirebase = () => {
-  console.log("firebaseConfig", firebaseConfig)
+  // console.log("firebaseConfig", firebaseConfig)
   const appName = 'matching';
   try {
     const app = admin.initializeApp({
@@ -33,6 +33,8 @@ const initializeFirebase = () => {
     process.exit(1); // Termina la aplicación en caso de error
   }
 };
+
+
 
 const appInstance = initializeFirebase();
 const firestore = appInstance.firestore();

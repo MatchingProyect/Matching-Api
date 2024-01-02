@@ -1,13 +1,15 @@
 const { addUserInDb } = require("./addInDB");
 const dataBase = require('../dataBase/dataBase')
 const bcrypt = require('bcrypt');
-const {auth} = require('../config/firebase');
-const {admin} = require('firebase-admin');
+const {  appInstance, auth} = require('../config/firebase');
+const admin = require('firebase-admin');
 const jwt = require('jsonwebtoken');
 const { OAuth2Client } = require('google-auth-library');
 const nodemailer = require('nodemailer');
 const {User,  FriendRequest, UserFriends} = dataBase.models
 const pgp = require('pg-promise')();
+const { getAuth, signInWithEmailAndPassword } = require("firebase/auth");
+
 require('dotenv').config();
     const db = pgp({
   host: process.env.DB_HOST,
@@ -17,6 +19,8 @@ require('dotenv').config();
   password: process.env.DB_PASSWORD,
   
 });
+
+
 
 const saveGoogleUserToPostgres = async (userData) => {
   try {
@@ -88,25 +92,20 @@ const register = async (req, res) => {
   }
 };
 
+
 const login = async (req, res) => {
   try {
-    const { email, password } = req.body;
+    const { emailValue, password } = req.body;
+    console.log(emailValue, password);
 
-    const user = await auth.getUserByEmail(email);
-    const isPasswordValid = bcrypt.compare(password, user.passwordHash);
-    if (!isPasswordValid) {
-      throw new Error('Invalid password');
-    }
-    const token = generateAuthToken(user.uid);
-    if(token){
-      const userLogeado = await User.findOne({
-        where: { email },
-        include: UserFriends
-      });
+    // Obtener el registro del usuario
+    const userRecord = await auth.getUserByEmail(emailValue);
+    console.log('Successfully fetched user data:', userRecord.toJSON());
 
-      console.log(userLogeado)
-      if(userLogeado) return res.json({ token, userLogeado });
-    }
+    // Comparar la contraseña ingresada con la almacenada
+    const isPasswordValid = await bcrypt.compare(password, userRecord.passwordHash);
+
+
   } catch (error) {
     console.error(error);
     let message = 'Invalid credentials';
