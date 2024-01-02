@@ -4,6 +4,7 @@ const {addUserInDb} = require("../../controllers/addInDB")
 const createUser = async(req, res)=>{
     try {
         const {admin, displayName, gender, dayBirth, email, phone, creditCardWarranty, avatarImg, password, description}= req.body
+        
 
         const userCreated = await addUserInDb(admin, displayName,  gender, dayBirth, email, phone, creditCardWarranty, avatarImg, password, description)
         
