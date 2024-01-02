@@ -77,7 +77,7 @@ const register = async (req, res) => {
     const user = {
       email: req.body.email,
       password: req.body.password,
-      displayName: "usuario"
+      displayName: req.body.nombreApellido,
     }
     console.log("user", user)
 
