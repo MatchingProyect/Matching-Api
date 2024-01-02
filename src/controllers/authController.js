@@ -1,7 +1,7 @@
 const { addUserInDb } = require("./addInDB");
 const dataBase = require('../dataBase/dataBase')
 const bcrypt = require('bcrypt');
-const {  appInstance, auth} = require('../config/firebase');
+const {  appInstance, auth, firebaseApp} = require('../config/firebase');
 const admin = require('firebase-admin');
 const jwt = require('jsonwebtoken');
 const { OAuth2Client } = require('google-auth-library');
@@ -96,16 +96,29 @@ const register = async (req, res) => {
 const login = async (req, res) => {
   try {
     const { emailValue, password } = req.body;
-    console.log(emailValue, password);
 
-    // Obtener el registro del usuario
-    const userRecord = await auth.getUserByEmail(emailValue);
-    console.log('Successfully fetched user data:', userRecord.toJSON());
-
-    // Comparar la contraseña ingresada con la almacenada
-    const isPasswordValid = await bcrypt.compare(password, userRecord.passwordHash);
+    const auth = getAuth(firebaseApp);
 
 
+    signInWithEmailAndPassword(auth, emailValue, password)
+      .then((userCredential) => {
+        // Signed in
+        console.log(userCredential.user);
+        // ...
+      })
+      .catch((err) => {
+        if (
+        err.code === AuthErrorCodes.INVALID_PASSWORD ||
+        err.code === AuthErrorCodes.USER_DELETED
+      ) {
+        setError("The email address or password is incorrect");
+      } else {
+        console.log(err.code);
+        alert(err.code);
+      }
+      });
+    
+    
   } catch (error) {
     console.error(error);
     let message = 'Invalid credentials';

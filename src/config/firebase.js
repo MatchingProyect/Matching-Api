@@ -1,5 +1,6 @@
 const admin = require('firebase-admin');
 // const serviceAccount = require('../../firebase.json');
+const { initializeApp } = require('firebase/app');
 
 
 const {FIREBASE_TYPE,FIREBASE_PROJECT_ID,FIREBASE_PRIVATE_KEY_ID, FIREBASE_PRIVATE_KEY, FIREBASE_CLIENT_EMAIL, FIREBASE_CLIENT_ID, FIREBASE_AUTH_URI, FIREBASE_TOKEN_URI, FIREBASE_AUTH_PROVIDER_X509_CERT_URL, FIREBASE_CLIENT_X509_CERT_URL, FIREBASE_UNIVERSE_DOMAIN} = process.env;
@@ -35,7 +36,7 @@ const initializeFirebase = () => {
 };
 
 
-
+const firebaseApp = initializeApp(firebaseConfig,'matching');
 const appInstance = initializeFirebase();
 const firestore = appInstance.firestore();
 const auth = appInstance.auth();
@@ -44,4 +45,5 @@ module.exports = {
   appInstance,
   firestore,
   auth,
+  firebaseApp,
 };
