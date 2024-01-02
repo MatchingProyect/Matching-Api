@@ -1,7 +1,7 @@
 const dataBase = require('../dataBase/dataBase')
 const { User, Profile, Sport, Club, Location, Court, Payment, PaymentType, Reservation, ScoreMatch, TeamMatch, AdvertisingEvent, AdvertisingSystem, MatchResult, PointEvent, PointSystem, PaymentStatus, ReservationType, MatchType, RatingUser, ShiftSchedule, FriendRequest, UserFriends } = dataBase.models
 
-const addUserInDb = async (admin, displayName, gender, dayBirth, email, phone, creditCardWarranty, avatarImg, password, description) => {
+const addUserInDb = async ({admin, displayName, gender, dayBirth, email, phone, creditCardWarranty, avatarImg, password, description}) => {
     try {
         if(!displayName || !email ) return `faltan datos`
         const [newUser, create] = await User.findOrCreate({where: {displayName}, 
