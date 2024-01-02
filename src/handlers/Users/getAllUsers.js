@@ -4,11 +4,12 @@ const getAllUsers = async(req, res) =>{
     try {
         const { displayName, page } = req.query;
         const pageNumber = Number(page) || 1;
-        const limit = 10
+        const limit = 2
         const offset = (pageNumber - 1) * limit;
+        const allName = displayName.trim();
 
-        if(displayName){
-            const search = await searchByName(displayName);
+        if(allName){
+            const search = await searchByName(allName);
             if(search) return res.status(200).json({
                 status: true,
                 search
@@ -19,7 +20,7 @@ const getAllUsers = async(req, res) =>{
             })
 
         }
-        const allUsers = await getAllUsersInDb(offset, limit)
+        const allUsers = await getAllUsersInDb(offset, limit, allName)
         if(allUsers){
             return res.status(200).json({status: true, allUsers})
         }else{
