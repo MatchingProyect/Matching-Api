@@ -6,7 +6,7 @@ const createReservation = async (req, res) => {
         const { dateTimeStart, dateTimeEnd, totalCost, UserId, CourtId, MatchTypeId, ReservationTypeId } = req.body;
         const reservationCreated = await addReservationInDb(dateTimeStart, dateTimeEnd, totalCost, UserId, CourtId, MatchTypeId, ReservationTypeId);
 
-        const client = new mercadopago.MercadoPagoConfig({ accessToken: 'TEST-3024201806170040-121720-bb9f491cb8ac28cb6deeed0f84e480df-1596808595' });
+        const client = new mercadopago.MercadoPagoConfig({ accessToken: 'TEST-4709112992835701-123015-5120ca87916dd20b33ad177adf129588-1615194691' });
 
         const preference = new mercadopago.Preference(client);
 
@@ -14,7 +14,7 @@ const createReservation = async (req, res) => {
         const response = await preference.create({
             body: {
                 back_urls: {
-                    success: 'https://a54b-2800-300-6a12-30d0-38a8-195d-fac6-57d9.ngrok-free.app/success',
+                    success: '',
                     pending: '',
                     failure: ''
                 },
@@ -22,22 +22,14 @@ const createReservation = async (req, res) => {
                     {
                         title: 'Reserva_Cancha',
                         unit_price: totalCost,
-                        currency_id: 'ARS',
                         quantity: 1
                     }
                 ]
             }
         });
         
-        // console.log(response)
+        console.log(response)
         const urlPago = response.init_point;
-
-        const paymentStatus = () => {
-            if(response.back_urls.success) return 'success';
-            else if(response.back_urls.pending) return 'pending';
-            else return 'failure';
-        } 
-        console.log(paymentStatus())
         
         if (reservationCreated && response) return res.status(200).json({
             status: true,

@@ -22,8 +22,27 @@ const ScoreMatchModel = require('../models/ScoreMatch')
 const CourtModel = require('../models/Court')
 const PaymentModel = require('../models/Payment')
 const PaymentTypeModel = require('../models/PaymentType')
+const FriendRequestModel = require('../models/FriendRequest');
 
+// const {admin, auth} = require('../config/firebase');
 
+const appName = 'matching';
+
+const { firestore } = require('../config/firebase');
+
+const obtenerDatos = async () => {
+  try {
+    const snapshot = await firestore.collection('matching').get();
+    snapshot.forEach(doc => {
+      console.log(doc.id, '=>', doc.data());
+    });
+  } catch (error) {
+    console.error('Error al obtener datos:', error);
+  }
+};
+
+// Llama a la función después de inicializar Firebase
+obtenerDatos();
 
 
 const {DB_USERNAME, DB_PASSWORD, DB_PORT, DB_NAME, DB_CONNECTION} = process.env;
@@ -60,7 +79,7 @@ ReservationTypeModel(dataBase);
 MatchTypeModel(dataBase);
 PointSystemModel(dataBase);
 AdvertisingSystemModel(dataBase);
-
+FriendRequestModel(dataBase);
 
 
 const {User,
@@ -84,11 +103,19 @@ const {User,
     ReservationType,
     MatchType,
     PointSystem,
-    AdvertisingSystem} = dataBase.models;
+    AdvertisingSystem,
+    FriendRequest} = dataBase.models;
 
 // User relationships
 User.hasMany(Reservation);
 Reservation.belongsTo(User);
+
+User.belongsToMany(User, {through: 'UserFriends', as: 'Friends'});
+
+User.belongsToMany(User, {through: 'FriendRequest', as: 'FriendR'});
+
+User.hasMany(FriendRequest);
+FriendRequest.belongsTo(User);
 
 User.hasMany(GuestReservation);
 GuestReservation.belongsTo(User);

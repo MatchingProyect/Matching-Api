@@ -1,12 +1,33 @@
 const { addUserInDb } = require("./addInDB");
+const dataBase = require('../dataBase/dataBase')
 const bcrypt = require('bcrypt');
 const {auth} = require('../config/firebase');
 const {admin} = require('firebase-admin');
 const jwt = require('jsonwebtoken');
 const { OAuth2Client } = require('google-auth-library');
-
 const nodemailer = require('nodemailer');
+const {User,  FriendRequest, UserFriends} = dataBase.models
+const pgp = require('pg-promise')();
+require('dotenv').config();
+    const db = pgp({
+  host: process.env.DB_HOST,
+  port: process.env.DB_PORT,
+  database: process.env.DB_NAME,
+  user: process.env.DB_USERNAME,
+  password: process.env.DB_PASSWORD,
+  
+});
 
+const saveGoogleUserToPostgres = async (userData) => {
+  try {
+    const query = 'INSERT INTO usuarios (google_id, display_name, email) VALUES ($1, $2, $3)';
+    await db.none(query, [userData.uid, userData.displayName, userData.email]);
+    return { success: true, message: 'Usuario insertado en PostgreSQL' };
+  } catch (error) {
+    console.error('Error al insertar en PostgreSQL:', error);
+    return { success: false, message: 'Error al insertar en PostgreSQL' };
+  }
+};
 
 const transporter = nodemailer.createTransport({
   service: 'gmail',
@@ -50,15 +71,15 @@ const register = async (req, res) => {
     });
 
     const user = await addUserInDb(
-      req.body.name,
-      req.body.lastName,
+      req.body.displayName,
       req.body.gender,
       req.body.dayBirth,
       req.body.email,
       req.body.phone,
       req.body.creditCardWarranty,
       req.body.avatarImg,
-      req.body.password
+      req.body.password,
+      // req.body.admin
     );
 
     return res.json({
@@ -88,9 +109,15 @@ const login = async (req, res) => {
       throw new Error('Invalid password');
     }
     const token = generateAuthToken(user.uid);
+    if(token){
+      const userLogeado = await User.findOne({
+        where: { email },
+        include: UserFriends
+      });
 
-    return res.json({ token, message: 'Login successful' });
-
+      console.log(userLogeado)
+      if(userLogeado) return res.json({ token, userLogeado });
+    }
   } catch (error) {
     console.error(error);
     let message = 'Invalid credentials';
@@ -110,26 +137,36 @@ const loginGoogle = async (req, res) => {
   try {
     const { idToken } = req.body;
 
+    // Verificar el token de Google usando googleClientId
     const client = new OAuth2Client(googleClientId);
     const ticket = await client.verifyIdToken({
       idToken,
       audience: googleClientId,
     });
-    
+
     const payload = ticket.getPayload();
     const uid = payload['sub'];
+    const displayName = payload['name'];
+    const email = payload['email'];
 
+    if (uid && displayName && email) {
+      // Guardar la información del usuario en la base de datos PostgreSQL
+      const result = await saveGoogleUserToPostgres({ uid, displayName, email });
 
-    return res.json({ uid, message: 'Google login successful' });
+      if (result.success) {
+        const user = await addUserInDb(displayName, email);
+        return res.json({ success: true, message: 'Usuario creado exitosamente', user});
+      } else {
+        return res.status(500).json({ success: false, message: 'Error al crear el usuario' });
+      }
+    } else {
+      return res.status(400).json({ success: false, message: 'ID de usuario no válido' });
+    }
   } catch (error) {
     console.error(error);
-    return res.status(500).json({ message: 'Error en el inicio de sesión con Google' });
+    return res.status(500).json({ success: false, message: 'Error en el inicio de sesión con Google' });
   }
 };
-
-
-
-
 
 const resetPassword = async (req, res) => {
   try {

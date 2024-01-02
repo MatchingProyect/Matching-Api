@@ -1,5 +1,5 @@
 const dataBase = require('../dataBase/dataBase')
-const { User, Profile, Court, Payment, PaymentType, Reservation, ScoreMatch, TeamMatch, PointEvent, PointSystem, AdvertisingSystem, AdvertisingEvent, PaymentStatus, RatingUser } = dataBase.models
+const { User, Profile, Court, Payment, PaymentType, Reservation, ScoreMatch, TeamMatch, PointEvent, PointSystem, AdvertisingSystem, AdvertisingEvent, PaymentStatus, RatingUser, FriendRequest, UserFriends } = dataBase.models
 
 const getAllProfInDb = async () => {
     try {
@@ -22,6 +22,7 @@ const getProfileInDb = async (id) => {
 }
 
 const getAllUsersInDb = async (offset, limit) => {
+    console.log(limit)
     try {
         const users = await User.findAll({ 
             offset: offset, 
@@ -36,17 +37,41 @@ const getAllUsersInDb = async (offset, limit) => {
 
 const getUserInDb = async (id) => {
     try {
-        const user = await User.findOne({ where: { id } })
-        if (user) return user
+        let friends = await UserFriends.findAll({where: {UserId: id}});
+        if(!friends.length) friends = await UserFriends.findAll({where: {FriendId: id}});
+        const user = await User.findOne({ where: { id }, 
+            include: FriendRequest })
+            if (user && friends){
+            const info = {friends, user}
+            console.log(friends)
+            return info;
+        } 
+
     } catch (error) {
         throw error.message
     }
 }
 
-
-const searchByName = async (name) => {
+const getFriendRequestInDb = async (id) => {
     try {
-        const searchName = await User.findOne({ where: { name } });
+        const user = await FriendRequest.findOne({ 
+            where: { FriendRId: id }
+        });
+        if(user){
+            const userQueMando = await User.findOne({
+                where: {id: user.userId}
+            })
+            return {user, userQueMando}
+        }
+    } catch (error) {
+        throw error.message;
+    }
+}
+
+
+const searchByName = async (displayName) => {
+    try {
+        const searchName = await User.findOne({ where: { displayName } });
         if (searchName) return searchName;
 
     } catch (error) {
@@ -229,5 +254,6 @@ module.exports = {
     getRatingUserFromDb,
     getAllPaymentStatusesFromDb,
     scoreMatchInDb,
-    getAllReservationsInDb
+    getAllReservationsInDb,
+    getFriendRequestInDb
 }
