@@ -47,7 +47,7 @@ obtenerDatos();
 
 const {DB_USERNAME, DB_PASSWORD, DB_PORT, DB_NAME, DB_CONNECTION} = process.env;
 
-// const dataBase = new Sequelize(`${DB_CONNECTION}`);
+//const dataBase = new Sequelize(`${DB_CONNECTION}`);
 const dataBase = new Sequelize( DB_CONNECTION, {
     logging: false, // set to console.log to see the raw SQL queries
     native: false, // lets Sequelize know we can use pg-native for ~30% more speed
@@ -55,7 +55,7 @@ const dataBase = new Sequelize( DB_CONNECTION, {
       ssl: true, // Desactiva SSL
     },
   });
-// const dataBase = new Sequelize(`postgres:${DB_USERNAME}:${DB_PASSWORD}@localhost:${DB_PORT}/${DB_NAME}`, {logging: false});
+//const dataBase = new Sequelize(`postgres:${DB_USERNAME}:${DB_PASSWORD}@localhost:${DB_PORT}/${DB_NAME}`, {logging: false});
 
 UserModel(dataBase);
 ReservationModel(dataBase);
