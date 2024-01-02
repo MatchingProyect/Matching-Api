@@ -82,7 +82,7 @@ const register = async (req, res) => {
     console.log("user", user)
 
     const response = await addUserInDb(user);
-    
+    console.log("response", response)
     return res.json({
       firebaseUid: userCred.uid,
       postgresId: response.id,
