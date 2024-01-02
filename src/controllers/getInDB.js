@@ -22,6 +22,7 @@ const getProfileInDb = async (id) => {
 }
 
 const getAllUsersInDb = async (offset, limit) => {
+    console.log(limit)
     try {
         const users = await User.findAll({ 
             offset: offset, 
