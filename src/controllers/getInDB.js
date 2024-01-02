@@ -1,3 +1,4 @@
+const { Op } = require('sequelize')
 const dataBase = require('../dataBase/dataBase')
 const { User, Profile, Court, Payment, PaymentType, Reservation, ScoreMatch, TeamMatch, PointEvent, PointSystem, AdvertisingSystem, AdvertisingEvent, PaymentStatus, RatingUser, FriendRequest, UserFriends } = dataBase.models
 
@@ -22,7 +23,6 @@ const getProfileInDb = async (id) => {
 }
 
 const getAllUsersInDb = async (offset, limit) => {
-    console.log(limit)
     try {
         const users = await User.findAll({ 
             offset: offset, 
@@ -71,7 +71,13 @@ const getFriendRequestInDb = async (id) => {
 
 const searchByName = async (displayName) => {
     try {
-        const searchName = await User.findOne({ where: { displayName } });
+        const searchName = await User.findOne({
+            where: {
+                displayName: {
+                    [Op.iLike]: `${displayName}`
+                } 
+            } 
+        });
         if (searchName) return searchName;
 
     } catch (error) {

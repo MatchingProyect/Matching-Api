@@ -3,10 +3,12 @@ const { User, Profile, Sport, Club, Location, Court, Payment, PaymentType, Reser
 
 const addUserInDb = async (admin, displayName, gender, dayBirth, email, phone, creditCardWarranty, avatarImg, password, description) => {
     try {
+        // console.log("holi", displayName, email)
         if(!displayName || !email ) return `faltan datos`
         const [newUser, create] = await User.findOrCreate({where: {displayName}, 
             defaults: {admin, displayName, gender, dayBirth, email, phone, creditCardWarranty, avatarImg, password, description}
         })
+        
 
         if (!create) return "este usuario ya existe"
 

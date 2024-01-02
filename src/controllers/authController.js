@@ -1,13 +1,15 @@
 const { addUserInDb } = require("./addInDB");
 const dataBase = require('../dataBase/dataBase')
 const bcrypt = require('bcrypt');
-const {auth} = require('../config/firebase');
-const {admin} = require('firebase-admin');
+const {  appInstance, auth, firebaseApp} = require('../config/firebase');
+const admin = require('firebase-admin');
 const jwt = require('jsonwebtoken');
 const { OAuth2Client } = require('google-auth-library');
 const nodemailer = require('nodemailer');
 const {User,  FriendRequest, UserFriends} = dataBase.models
 const pgp = require('pg-promise')();
+const { getAuth, signInWithEmailAndPassword } = require("firebase/auth");
+
 require('dotenv').config();
     const db = pgp({
   host: process.env.DB_HOST,
@@ -17,6 +19,8 @@ require('dotenv').config();
   password: process.env.DB_PASSWORD,
   
 });
+
+
 
 const saveGoogleUserToPostgres = async (userData) => {
   try {
@@ -49,6 +53,14 @@ const sendPasswordResetEmail = async (email, resetLink) => {
 };
 
 const googleClientId = "1061662234396-o558vqrpml1bpo2rut38qufj859kgtpg.apps.googleusercontent.com"
+const initializeFirebase = async () => {
+  try {
+    admin.initializeApp(); 
+    console.log('Firebase initialized successfully');
+  } catch (error) {
+    console.error('Error initializing Firebase:', error);
+  }
+};
 
 const generateAuthToken = (userId) => {
   const token = jwt.sign({ userId }, 'secreto_del_token', { expiresIn: '5h' });
@@ -62,21 +74,18 @@ const register = async (req, res) => {
       password: req.body.password,
     });
 
-    const user = await addUserInDb(
-      req.body.displayName,
-      req.body.gender,
-      req.body.dayBirth,
-      req.body.email,
-      req.body.phone,
-      req.body.creditCardWarranty,
-      req.body.avatarImg,
-      req.body.password,
-      // req.body.admin
-    );
+    const user = {
+      email: req.body.email,
+      password: req.body.password,
+      displayName: "usuario"
+    }
+    console.log("user", user)
 
+    const response = await addUserInDb(user);
+    
     return res.json({
       firebaseUid: userCred.uid,
-      postgresId: user.id,
+      postgresId: response.id,
     });
 
   } catch (error) {
@@ -91,25 +100,33 @@ const register = async (req, res) => {
   }
 };
 
+
 const login = async (req, res) => {
   try {
-    const { email, password } = req.body;
+    const { emailValue, password } = req.body;
 
-    const user = await auth.getUserByEmail(email);
-    const isPasswordValid = bcrypt.compare(password, user.passwordHash);
-    if (!isPasswordValid) {
-      throw new Error('Invalid password');
-    }
-    const token = generateAuthToken(user.uid);
-    if(token){
-      const userLogeado = await User.findOne({
-        where: { email },
-        include: UserFriends
+    const auth = getAuth(firebaseApp);
+
+
+    signInWithEmailAndPassword(auth, emailValue, password)
+      .then((userCredential) => {
+        // Signed in
+        console.log(userCredential.user);
+        // ...
+      })
+      .catch((err) => {
+        if (
+        err.code === AuthErrorCodes.INVALID_PASSWORD ||
+        err.code === AuthErrorCodes.USER_DELETED
+      ) {
+        setError("The email address or password is incorrect");
+      } else {
+        console.log(err.code);
+        alert(err.code);
+      }
       });
-
-      console.log(userLogeado)
-      if(userLogeado) return res.json({ token, userLogeado });
-    }
+    
+    
   } catch (error) {
     console.error(error);
     let message = 'Invalid credentials';
