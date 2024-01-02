@@ -53,11 +53,13 @@ const dataBase = new Sequelize( DB_CONNECTION, {
     native: false, // lets Sequelize know we can use pg-native for ~30% more speed
     dialectOptions: {
       ssl: true, // Desactiva SSL
-      rejectUnauthorized: false
-
+      ssl: {
+        require: true,
+        rejectUnauthorized: false
+      }    
     },
-  });
-// const dataBase = new Sequelize(`postgres:${DB_USERNAME}:${DB_PASSWORD}@localhost:${DB_PORT}/${DB_NAME}`);
+  })
+// const dataBase = new Sequelize(`postgres:${DB_USERNAME}:${DB_PASSWORD}@localhost:${DB_PORT}/${DB_NAME}`, {logging: false});
 
 UserModel(dataBase);
 ReservationModel(dataBase);
