@@ -9,6 +9,7 @@ const nodemailer = require('nodemailer');
 const {User,  FriendRequest, UserFriends} = dataBase.models
 const pgp = require('pg-promise')();
 const { getAuth, signInWithEmailAndPassword } = require("firebase/auth");
+const { Users } = dataBase.models
 
 require('dotenv').config();
     const db = pgp({
@@ -101,46 +102,69 @@ const register = async (req, res) => {
 };
 
 
+// const login = async (req, res) => {
+//   try {
+//     const { emailValue, password } = req.body;
+
+//     const auth = getAuth(firebaseApp);
+
+
+//     signInWithEmailAndPassword(auth, emailValue, password)
+//       .then((userCredential) => {
+//         // Signed in
+//         console.log(userCredential.user);
+//         // ...
+//       })
+//       .catch((err) => {
+//         if (
+//         err.code === AuthErrorCodes.INVALID_PASSWORD ||
+//         err.code === AuthErrorCodes.USER_DELETED
+//       ) {
+//         setError("The email address or password is incorrect");
+//       } else {
+//         console.log(err.code);
+//         alert(err.code);
+//       }
+//       });
+    
+    
+//   } catch (error) {
+//     console.error(error);
+//     let message = 'Invalid credentials';
+
+//     if (error.message === 'auth/user-not-found') {
+//       message = 'User not found';
+//     } else if (error.message === 'Invalid password') {
+//       message = 'Invalid email or password';
+//     }
+
+//     return res.status(400).json({ message });
+//   }
+// };
+
+
+
 const login = async (req, res) => {
   try {
     const { emailValue, password } = req.body;
 
-    const auth = getAuth(firebaseApp);
+    // Buscar al usuario por correo electrónico
+    const userFound = await User.findOne({ where: { email: emailValue } });
 
+    const userObject = userFound.dataValues
+    console.log(userObject.email == emailValue && userObject.password == password)
 
-    signInWithEmailAndPassword(auth, emailValue, password)
-      .then((userCredential) => {
-        // Signed in
-        console.log(userCredential.user);
-        // ...
-      })
-      .catch((err) => {
-        if (
-        err.code === AuthErrorCodes.INVALID_PASSWORD ||
-        err.code === AuthErrorCodes.USER_DELETED
-      ) {
-        setError("The email address or password is incorrect");
-      } else {
-        console.log(err.code);
-        alert(err.code);
-      }
-      });
-    
-    
-  } catch (error) {
-    console.error(error);
-    let message = 'Invalid credentials';
-
-    if (error.message === 'auth/user-not-found') {
-      message = 'User not found';
-    } else if (error.message === 'Invalid password') {
-      message = 'Invalid email or password';
+    if(userObject.email == emailValue && userObject.password == password ) {
+      console.log("true user")
+      return res.status(200).json(userObject);
     }
 
-    return res.status(400).json({ message });
+  } catch (error) {
+    // Manejar cualquier error y devolver una respuesta de error al cliente
+    console.error(error);
+    return res.status(500).json({ error: 'Error en el servidor' });
   }
 };
-
 
 const loginGoogle = async (req, res) => {
   try {
