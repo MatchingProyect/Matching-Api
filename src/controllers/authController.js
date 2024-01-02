@@ -62,21 +62,18 @@ const register = async (req, res) => {
       password: req.body.password,
     });
 
-    const user = await addUserInDb(
-      req.body.displayName,
-      req.body.gender,
-      req.body.dayBirth,
-      req.body.email,
-      req.body.phone,
-      req.body.creditCardWarranty,
-      req.body.avatarImg,
-      req.body.password,
-      // req.body.admin
-    );
+    const user = {
+      email: req.body.email,
+      password: req.body.password,
+      displayName: "usuario"
+    }
+    console.log("user", user)
 
+    const response = await addUserInDb(user);
+    
     return res.json({
       firebaseUid: userCred.uid,
-      postgresId: user.id,
+      postgresId: response.id,
     });
 
   } catch (error) {
