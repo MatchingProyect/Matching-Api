@@ -15,15 +15,15 @@ server.use(bodyParser.urlencoded({extended: true}));;
 server.use(bodyParser.json());
 server.use(router);
 
-// server.listen(3000, () => {
-//     dataBase.sync({force: false});
-//     console.log('Listen on port 3000');
-// });
-const sslServer = https.createServer({
-    key: fs.readFileSync(path.join(__dirname, 'cert','key.pem')),
-    cert: fs.readFileSync(path.join(__dirname, 'cert','cert.pem'))
-},server)
-sslServer.listen(3000, () => {
-        dataBase.sync({force: false});
-        console.log('Listen on port 3000');
-    })
+server.listen(3000, () => {
+    dataBase.sync({force: false});
+    console.log('Listen on port 3000');
+});
+// const sslServer = https.createServer({
+//     key: fs.readFileSync(path.join(__dirname, 'cert','key.pem')),
+//     cert: fs.readFileSync(path.join(__dirname, 'cert','cert.pem'))
+// },server)
+// sslServer.listen(3000, () => {
+//         dataBase.sync({force: false});
+//         console.log('Listen on port 3000');
+//     })
