@@ -34,7 +34,6 @@ const initializeFirebase = async () => {
     console.log('Firebase initialized successfully');
   } catch (error) {
     console.error('Error initializing Firebase:', error);
-    process.exit(1); 
   }
 };
 
