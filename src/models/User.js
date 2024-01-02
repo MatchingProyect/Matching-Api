@@ -18,11 +18,11 @@ module.exports = (dataBase) => {
         },
         gender:{
             type: DataTypes.STRING,
-            allowNull: false
+        
         },
         dayBirth:{
             type: DataTypes.STRING,
-            allowNull: false
+        
         },
         email:{
             type: DataTypes.STRING,
@@ -30,7 +30,7 @@ module.exports = (dataBase) => {
         },
         phone:{
             type: DataTypes.STRING,
-            allowNull: false
+        
         },
         creditCardWarranty:{
             type: DataTypes.INTEGER
@@ -41,7 +41,7 @@ module.exports = (dataBase) => {
         },
         password:{
             type: DataTypes.STRING,
-            allowNull: false,
+            
         },
         description:{
             type: DataTypes.STRING,
