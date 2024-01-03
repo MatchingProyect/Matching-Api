@@ -52,16 +52,29 @@ const getUserInDb = async (id) => {
     }
 }
 
-const getFriendRequestInDb = async (id) => {
+const getFriendRequestInDb = async (id, userType) => {
     try {
-        const user = await FriendRequest.findOne({ 
-            where: { FriendRId: id }
-        });
-        if(user){
-            const userQueMando = await User.findOne({
-                where: {id: user.userId}
-            })
-            return {user, userQueMando}
+        if(userType === 'friend'){
+            const user = await FriendRequest.findOne({ 
+                where: { FriendRId: id }
+            });
+            if(user){
+                const userQueMando = await User.findOne({
+                    where: {id: user.userId}
+                })
+                return {user, userQueMando}
+            }
+        }else{
+            const user = await FriendRequest.findOne({ 
+                where: { UserId: id }
+            });
+            if(user){
+                const userQueRecibe = await User.findOne({
+                    where: {id: user.FriendRId}
+                })
+                return {user, userQueRecibe}
+            }
+
         }
     } catch (error) {
         throw error.message;

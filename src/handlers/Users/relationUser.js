@@ -25,8 +25,9 @@ const relationUser = async (req, res) => {
 
 const friendRequest = async (req, res) => {
     try {
+        const {userType} = req.query
         const { id } = req.params;
-        const getFriendRequest = await getFriendRequestInDb(id);
+        const getFriendRequest = await getFriendRequestInDb(id, userType);
         if (getFriendRequest) return res.status(200).json({
             status: true,
             getFriendRequest
@@ -44,10 +45,10 @@ const friendRequest = async (req, res) => {
     }
 }
 
+
 const addFriend = async (req, res) => {
     try {
         const { status, UserId, FriendId } = req.body;
-        console.log(status, UserId, FriendId )
         if (status) {
             const statusUpdated = await putStatusRequest(status, UserId, FriendId);
             const relationship = await createRelationshipInDb(UserId, FriendId);
@@ -77,6 +78,8 @@ const addFriend = async (req, res) => {
         })
     }
 }
+
+
 
 module.exports = {
     relationUser,
