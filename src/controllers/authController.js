@@ -101,6 +101,18 @@ const register = async (req, res) => {
   }
 };
 
+const logout = async (req, res) => {
+  try {
+    
+    await auth.signOut();
+
+    
+    res.status(200).json({ message: 'Logout successful' });
+  } catch (error) {
+    console.error('Error during logout:', error);
+    res.status(500).json({ error: 'Error during logout' });
+  }
+};
 
 // const login = async (req, res) => {
 //   try {
@@ -223,5 +235,6 @@ module.exports = {
   register,
   login,
   loginGoogle,
-  resetPassword
+  resetPassword,
+  logout
 };
