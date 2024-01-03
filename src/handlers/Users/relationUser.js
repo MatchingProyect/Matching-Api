@@ -26,6 +26,7 @@ const relationUser = async (req, res) => {
 const friendRequest = async (req, res) => {
     try {
         const {userType} = req.query
+        
         const { id } = req.params;
         const getFriendRequest = await getFriendRequestInDb(id, userType);
         if (getFriendRequest) return res.status(200).json({

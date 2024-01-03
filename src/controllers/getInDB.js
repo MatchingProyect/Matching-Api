@@ -54,6 +54,7 @@ const getUserInDb = async (id) => {
 
 const getFriendRequestInDb = async (id, userType) => {
     try {
+       
         if(userType === 'friend'){
             const user = await FriendRequest.findOne({ 
                 where: { FriendRId: id }
@@ -65,10 +66,13 @@ const getFriendRequestInDb = async (id, userType) => {
                 return {user, userQueMando}
             }
         }else{
+            
             const user = await FriendRequest.findOne({ 
                 where: { UserId: id }
             });
+            
             if(user){
+                console.log('entro a este')
                 const userQueRecibe = await User.findOne({
                     where: {id: user.FriendRId}
                 })
