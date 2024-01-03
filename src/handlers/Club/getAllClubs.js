@@ -4,7 +4,7 @@ const getAllClubs = async(req, res) =>{
     try {
         const {clubs, page} = req.query;
         const pageNumber = Number(page) || 1;
-        const limit = 2
+        const limit = 20
         const offset = (pageNumber - 1) * limit;
         if(clubs){
             const clubsFiltrades = await filterByClubs(clubs)
