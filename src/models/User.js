@@ -47,8 +47,10 @@ module.exports = (dataBase) => {
             type: DataTypes.STRING,
             allowNull: true
         },
-        active: DataTypes.BOOLEAN,
-        defaultValue: true,
+        active: {
+           type: DataTypes.BOOLEAN,
+        defaultValue: true
+        },
         inLine: {
            type: DataTypes.BOOLEAN,
             defaultValue: false
