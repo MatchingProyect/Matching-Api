@@ -1,5 +1,5 @@
 const { addFriendRequestInDb, createRelationshipInDb } = require("../../controllers/addInDB");
-const { getFriendRequestInDb } = require("../../controllers/getInDB");
+const { getFriendRequestInDb, getAllFriendsReqInDb } = require("../../controllers/getInDB");
 const { putStatusRequest } = require("../../controllers/putInDB");
 
 const relationUser = async (req, res) => {
@@ -20,6 +20,15 @@ const relationUser = async (req, res) => {
             status: false,
             message: error.message
         })
+    }
+}
+
+const getAllFriendsReq = async(req, res) =>{
+    try {
+        const allFriendsRequest = await getAllFriendsReqInDb()
+        if(allFriendsRequest) return res.status(200).json({status: true, allFriendsRequest})
+    } catch (error) {
+        return res.status(404).json({status: false, message: error.message})
     }
 }
 
@@ -86,5 +95,6 @@ const addFriend = async (req, res) => {
 module.exports = {
     relationUser,
     addFriend,
-    friendRequest
+    friendRequest,
+    getAllFriendsReq
 };
