@@ -2,9 +2,9 @@ const { addCourtInDb } = require("../../controllers/addInDB");
 
 const createCourt = async(req, res) => {
     try {
-        const {name, description, priceFee, warrantyReservation, grassType, lighting, doorsType, wallsType, reputation} = req.body;
+        const {name, description, priceFee, warrantyReservation, grassType, lighting, doorsType, wallsType, reputation, SportId} = req.body;
         
-        const courtCreated = await addCourtInDb(name, description, priceFee, warrantyReservation, grassType, lighting, doorsType, wallsType, reputation);
+        const courtCreated = await addCourtInDb(name, description, priceFee, warrantyReservation, grassType, lighting, doorsType, wallsType, reputation, SportId);
 
         if(courtCreated) return res.status(200).json({
             status: true,
