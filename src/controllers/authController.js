@@ -63,31 +63,35 @@ const initializeFirebase = async () => {
   }
 };
 
-const generateAuthToken = (userId) => {
-  const token = jwt.sign({ userId }, 'secreto_del_token', { expiresIn: '5h' });
-  return token;
-};
 
 const register = async (req, res) => {
   try {
-    const userCred = await auth.createUser({
-      email: req.body.email,
-      password: req.body.password,
-    });
 
     const user = {
       email: req.body.email,
       password: req.body.password,
-      displayName: req.body.nombreApellido,
+      displayName: req.body.displayName,
     }
     console.log("user", user)
 
     const response = await addUserInDb(user);
     console.log("response", response)
-    return res.json({
-      firebaseUid: userCred.uid,
-      postgresId: response.id,
-    });
+
+    if(req.body.password){
+      const userCred = await auth.createUser({
+        email: req.body.email,
+        password: req.body.password,
+      });
+      return res.json({
+        firebaseUid: userCred.uid,
+        postgresId: response.id,
+      });
+    }
+    else {
+      console.log("registrado con exito")
+      res.status(200).json({ user });
+    }
+
 
   } catch (error) {
     console.log(error);
