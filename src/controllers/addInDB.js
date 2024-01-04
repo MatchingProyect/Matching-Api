@@ -1,12 +1,12 @@
 const dataBase = require('../dataBase/dataBase')
 const { User, Profile, Sport, Club, Location, Court, Payment, PaymentType, Reservation, ScoreMatch, TeamMatch, AdvertisingEvent, AdvertisingSystem, MatchResult, PointEvent, PointSystem, PaymentStatus, ReservationType, MatchType, RatingUser, ShiftSchedule, FriendRequest, UserFriends } = dataBase.models
 
-const addUserInDb = async ({admin, displayName, gender, dayBirth, email, phone, creditCardWarranty, avatarImg, password, description}) => {
+const addUserInDb = async ({admin, active,inLine, displayName, gender, dayBirth, email, phone, creditCardWarranty, avatarImg, password, description}) => {
     try {
         // console.log("holi", displayName, email)
         if(!displayName || !email ) return `faltan datos`
         const [newUser, create] = await User.findOrCreate({where: {displayName}, 
-            defaults: {admin, displayName, gender, dayBirth, email, phone, creditCardWarranty, avatarImg, password, description}
+            defaults: {admin, active,inLine, displayName, gender, dayBirth, email, phone, creditCardWarranty, avatarImg, password, description}
         })
         
 
@@ -40,9 +40,9 @@ const addSportInDb = async (name) => {
     }
 }
 
-const addClubInDb = async (name, showers, grills, parking, security) => {
+const addClubInDb = async (name, showers, grills, parking, security, SportId) => {
     try {
-        const addClub = await Club.create({ name, showers, grills, parking, security })
+        const addClub = await Club.create({ name, showers, grills, parking, security, SportId })
         if (addClub) return addClub
     } catch (error) {
         throw error.message
@@ -58,9 +58,9 @@ const addLocationInDb = async (name, adress, city, state, postalCode, country) =
     }
 }
 
-const addCourtInDb = async (name, description, priceFee, warrantyReservation, grassType, lighting, doorsType, wallsType, reputation) => {
+const addCourtInDb = async (name, description, priceFee, warrantyReservation, grassType, lighting, doorsType, wallsType, reputation, SportId , LocationId, ClubId) => {
     try {
-        const addCourt = await Court.create({ name, description, priceFee, warrantyReservation, grassType, lighting, doorsType, wallsType, reputation })
+        const addCourt = await Court.create({ name, description, priceFee, warrantyReservation, grassType, lighting, doorsType, wallsType, reputation, SportId , LocationId, ClubId })
         if (addCourt) return addCourt;
     } catch (error) {
         throw error.message;

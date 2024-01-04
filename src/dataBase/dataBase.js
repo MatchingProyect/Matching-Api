@@ -59,7 +59,7 @@ const dataBase = new Sequelize( DB_CONNECTION, {
       }    
     },
   })
-// const dataBase = new Sequelize(`postgres:${DB_USERNAME}:${DB_PASSWORD}@localhost:${DB_PORT}/${DB_NAME}`, {logging: false});
+//const dataBase = new Sequelize(`postgres:${DB_USERNAME}:${DB_PASSWORD}@localhost:${DB_PORT}/${DB_NAME}`, {logging: false});
 
 UserModel(dataBase);
 ReservationModel(dataBase);
@@ -111,6 +111,17 @@ const {User,
     FriendRequest} = dataBase.models;
 
 // User relationships
+
+Club.hasMany(Court); // Un Club tiene muchas Court
+Club.belongsToMany(Sport, { through: 'ClubSport' });
+
+Sport.belongsToMany(Club, { through: 'ClubSport' }); // Un Sport pertenece a muchos Club
+Sport.hasMany(Court);
+
+Court.belongsTo(Club); 
+Court.belongsTo(Sport);
+
+
 User.hasMany(Reservation);
 Reservation.belongsTo(User);
 

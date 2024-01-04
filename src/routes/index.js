@@ -38,7 +38,7 @@ const getAllReservation = require("../handlers/ReservationType/getAllReservation
 const updatedReservationTypes = require("../handlers/ReservationType/updateReservationType")
 const getRatingUser = require("../handlers/RatingUser/getRatingUser")
 
-const { register, login, loginGoogle, resetPassword } = require("../controllers/authController");
+const { register, login, loginGoogle, resetPassword, logout } = require("../controllers/authController");
 const getAllPayments = require('../handlers/Payment/getAllPayments');
 const getPayment = require('../handlers/Payment/getPayment');
 const getAllPaymentsTypes = require('../handlers/PaymentType/getAllPaymentTypes');
@@ -98,7 +98,7 @@ router.get("/paymentStatus", getPaymentStatus)
 router.get("/ratingUser", getRatingUser)
 router.get('/friendRequest/:id', friendRequest);
 
-
+router.post('/logout', logout)
 router.post('/clubs', createClub)
 router.post("/paymentStatus", createPaymentStatus)
 router.post("/ShiftSheadule", createShiftSheadule)
