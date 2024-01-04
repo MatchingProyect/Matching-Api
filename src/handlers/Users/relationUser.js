@@ -28,6 +28,7 @@ const friendRequest = async (req, res) => {
         const {userType} = req.query
         
         const { id } = req.params;
+        console.log('Received ID:', id); 
         const getFriendRequest = await getFriendRequestInDb(id, userType);
         if (getFriendRequest) return res.status(200).json({
             status: true,

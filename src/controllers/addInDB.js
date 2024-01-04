@@ -40,9 +40,9 @@ const addSportInDb = async (name) => {
     }
 }
 
-const addClubInDb = async (name, showers, grills, parking, security, SportId, CourtId) => {
+const addClubInDb = async (name, showers, grills, parking, security, SportId) => {
     try {
-        const addClub = await Club.create({ name, showers, grills, parking, security, SportId, CourtId })
+        const addClub = await Club.create({ name, showers, grills, parking, security, SportId })
         if (addClub) return addClub
     } catch (error) {
         throw error.message
@@ -58,9 +58,9 @@ const addLocationInDb = async (name, adress, city, state, postalCode, country) =
     }
 }
 
-const addCourtInDb = async (name, description, priceFee, warrantyReservation, grassType, lighting, doorsType, wallsType, reputation, SportId) => {
+const addCourtInDb = async (name, description, priceFee, warrantyReservation, grassType, lighting, doorsType, wallsType, reputation, SportId , LocationId, ClubId) => {
     try {
-        const addCourt = await Court.create({ name, description, priceFee, warrantyReservation, grassType, lighting, doorsType, wallsType, reputation, SportId })
+        const addCourt = await Court.create({ name, description, priceFee, warrantyReservation, grassType, lighting, doorsType, wallsType, reputation, SportId , LocationId, ClubId })
         if (addCourt) return addCourt;
     } catch (error) {
         throw error.message;
