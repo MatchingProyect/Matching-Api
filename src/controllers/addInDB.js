@@ -201,7 +201,7 @@ const addPaymentStatusInDb = async (name) => {
 
 const addFriendRequestInDb = async (status, UserId, FriendRId) => {
     try {
-        if(status === "false") await FriendRequest.destroy()
+        if(status === "rechazado") await FriendRequest.destroy()
         const addFriendRequest = await FriendRequest.create({ status, UserId, FriendRId });
         if (addFriendRequest) return addFriendRequest;
     } catch (error) {
