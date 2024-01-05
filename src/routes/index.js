@@ -38,7 +38,7 @@ const getAllReservation = require("../handlers/ReservationType/getAllReservation
 const updatedReservationTypes = require("../handlers/ReservationType/updateReservationType")
 const getRatingUser = require("../handlers/RatingUser/getRatingUser")
 
-const { register, login, loginGoogle, resetPassword } = require("../controllers/authController");
+const { register, login, loginGoogle, resetPassword, logout } = require("../controllers/authController");
 const getAllPayments = require('../handlers/Payment/getAllPayments');
 const getPayment = require('../handlers/Payment/getPayment');
 const getAllPaymentsTypes = require('../handlers/PaymentType/getAllPaymentTypes');
@@ -62,7 +62,7 @@ const getScoreMatch = require('../handlers/ScoreMatch/getScoreMatch');
 const getAllClubs = require('../handlers/Club/getAllClubs');
 const createClub = require('../handlers/Club/createClub');
 const getClubById = require('../handlers/Club/getClubById');
-const {relationUser, addFriend, friendRequest} = require('../handlers/Users/relationUser');
+const {relationUser, addFriend, friendRequest, getAllFriendsReq} = require('../handlers/Users/relationUser');
 const {createOrder, notify} = require('../handlers/MercadoPago/createOrder');
 const updatePaymentStatus = require('../handlers/PaymentStatus/updatePaymentStatus');
 const updatePaymentType = require('../handlers/PaymentType/updatePaymentType');
@@ -98,8 +98,9 @@ router.get("/reservationType", getAllReservation)
 router.get("/paymentStatus", getPaymentStatus)
 router.get("/ratingUser", getRatingUser)
 router.get('/friendRequest/:id', friendRequest);
+router.get('/friendRequest', getAllFriendsReq)
 
-
+router.post('/logout', logout)
 router.post('/clubs', createClub)
 router.post("/paymentStatus", createPaymentStatus)
 router.post("/ShiftSheadule", createShiftSheadule)

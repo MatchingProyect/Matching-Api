@@ -23,6 +23,18 @@ require('dotenv').config();
 
 
 
+const useAuthentication = () => {
+  // Lógica de autenticación
+  const isAuthenticated = !!auth.currentUser; 
+  const user = isAuthenticated ? auth.currentUser : null; 
+
+  return isAuthenticated ? user : null;
+};
+
+
+
+
+
 const saveGoogleUserToPostgres = async (userData) => {
   try {
     const query = 'INSERT INTO usuarios (google_id, display_name, email) VALUES ($1, $2, $3)';
@@ -63,31 +75,35 @@ const initializeFirebase = async () => {
   }
 };
 
-const generateAuthToken = (userId) => {
-  const token = jwt.sign({ userId }, 'secreto_del_token', { expiresIn: '5h' });
-  return token;
-};
 
 const register = async (req, res) => {
   try {
-    const userCred = await auth.createUser({
-      email: req.body.email,
-      password: req.body.password,
-    });
-
+    console.log(req.body)
     const user = {
       email: req.body.email,
       password: req.body.password,
-      displayName: req.body.nombreApellido,
+      displayName: req.body.displayName || req.body.nombreApellido,
     }
     console.log("user", user)
 
     const response = await addUserInDb(user);
     console.log("response", response)
-    return res.json({
-      firebaseUid: userCred.uid,
-      postgresId: response.id,
-    });
+
+    if(req.body.password){
+      const userCred = await auth.createUser({
+        email: req.body.email,
+        password: req.body.password,
+      });
+      return res.json({
+        firebaseUid: userCred.uid,
+        postgresId: response.id,
+      });
+    }
+    else {
+      console.log("registrado con exito")
+      res.status(200).json({ user });
+    }
+
 
   } catch (error) {
     console.log(error);
@@ -101,6 +117,21 @@ const register = async (req, res) => {
   }
 };
 
+const logout = async (req, res) => {
+  try {
+    // Realizar el signOut
+    await auth.signOut();
+
+    // Limpiar el localStorage
+    localStorage.removeItem('userData');
+
+    // Enviar la respuesta al cliente
+    res.status(200).json({ message: 'Logout successful' });
+  } catch (error) {
+    console.error('Error during logout:', error);
+    res.status(500).json({ error: 'Error during logout' });
+  }
+};
 
 // const login = async (req, res) => {
 //   try {
@@ -140,7 +171,8 @@ const register = async (req, res) => {
 
 //     return res.status(400).json({ message });
 //   }
-// };
+// };\
+
 
 
 
@@ -223,5 +255,6 @@ module.exports = {
   register,
   login,
   loginGoogle,
-  resetPassword
+  resetPassword,
+  logout
 };

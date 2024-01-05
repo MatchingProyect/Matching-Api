@@ -2,6 +2,7 @@ const { deleteCourtInDb } = require("../../controllers/deleteInDB");
 
 const deleteCourt = async(req, res) => {
     try {
+        console.log(req.params)
         const {id} = req.params;
         const courtDeleted = await deleteCourtInDb(id);
         if(courtDeleted) return res.status(200).json({
