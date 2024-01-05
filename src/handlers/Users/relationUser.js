@@ -1,5 +1,5 @@
 const { addFriendRequestInDb, createRelationshipInDb } = require("../../controllers/addInDB");
-const { getFriendRequestInDb } = require("../../controllers/getInDB");
+const { getFriendRequestInDb, getAllFriendsReqInDb } = require("../../controllers/getInDB");
 const { putStatusRequest } = require("../../controllers/putInDB");
 
 const relationUser = async (req, res) => {
@@ -23,12 +23,21 @@ const relationUser = async (req, res) => {
     }
 }
 
+const getAllFriendsReq = async(req, res) =>{
+    try {
+        const allFriendsRequest = await getAllFriendsReqInDb()
+        if(allFriendsRequest) return res.status(200).json({status: true, allFriendsRequest})
+    } catch (error) {
+        return res.status(404).json({status: false, message: error.message})
+    }
+}
+
 const friendRequest = async (req, res) => {
     try {
         const {userType} = req.query
         
         const { id } = req.params;
-        console.log('Received ID:', id); 
+        
         const getFriendRequest = await getFriendRequestInDb(id, userType);
         if (getFriendRequest) return res.status(200).json({
             status: true,
@@ -51,40 +60,56 @@ const friendRequest = async (req, res) => {
 const addFriend = async (req, res) => {
     try {
         const { status, UserId, FriendId } = req.body;
-        if (status) {
+        if (status === "true") {
+            
             const statusUpdated = await putStatusRequest(status, UserId, FriendId);
             const relationship = await createRelationshipInDb(UserId, FriendId);
-            if (relationship) return res.status(200).json({
-                status: true,
-                relationship,
-                statusUpdated
-            })
-            else {
-                const statusUpdated = await putStatusRequest(status, UserId, FriendId);
+            
+            if (relationship) {
+                return res.status(200).json({
+                    status: true,
+                    relationship,
+                    statusUpdated
+                });
+            } else {
                 return res.status(404).json({
                     status: false,
                     message: 'Relationship not created',
                     statusUpdated
-                })
+                });
             }
-        }
-        else return res.status(200).json({
-            status: false,
-            message: 'User rejected relationship'
-        })
-
+        } else  {
+            
+            const deletedRequest = await putStatusRequest(status, UserId, FriendId);
+            
+            if (deletedRequest) {
+                return res.status(200).json({
+                    status: true,
+                    message: 'Friend request deleted',
+                    deletedRequest
+                });
+            } else {
+                return res.status(404).json({
+                    status: false,
+                    message: 'Friend request not deleted',
+                    deletedRequest
+                });
+            }
+        } 
     } catch (error) {
         res.status(500).json({
             status: false,
             message: error.message
-        })
+        });
     }
-}
+};
+
 
 
 
 module.exports = {
     relationUser,
     addFriend,
-    friendRequest
+    friendRequest,
+    getAllFriendsReq
 };

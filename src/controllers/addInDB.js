@@ -40,9 +40,9 @@ const addSportInDb = async (name) => {
     }
 }
 
-const addClubInDb = async (name, showers, grills, parking, security, SportId) => {
+const addClubInDb = async (name, showers, grills, parking, security, SportId, LocationId) => {
     try {
-        const addClub = await Club.create({ name, showers, grills, parking, security, SportId })
+        const addClub = await Club.create({ name, showers, grills, parking, security, SportId, LocationId })
         if (addClub) return addClub
     } catch (error) {
         throw error.message
@@ -201,7 +201,7 @@ const addPaymentStatusInDb = async (name) => {
 
 const addFriendRequestInDb = async (status, UserId, FriendRId) => {
     try {
-        if(status === "false") await FriendRequest.destroy()
+        if(status === "rechazado") await FriendRequest.destroy()
         const addFriendRequest = await FriendRequest.create({ status, UserId, FriendRId });
         if (addFriendRequest) return addFriendRequest;
     } catch (error) {

@@ -129,6 +129,9 @@ User.belongsToMany(User, {through: 'UserFriends', as: 'Friends'});
 
 User.belongsToMany(User, {through: 'FriendRequest', as: 'FriendR'});
 
+Club.belongsTo(Location);
+Location.hasMany(Club);
+
 User.hasMany(FriendRequest);
 FriendRequest.belongsTo(User);
 

@@ -56,14 +56,13 @@ const getFriendRequestInDb = async (id, userType) => {
     try {
        
         if(userType === 'friend'){
-            const user = await FriendRequest.findOne({ 
+            const user = await FriendRequest.findAll({ 
                 where: { FriendRId: id }
             });
+            console.log(user)
             if(user){
-                const userQueMando = await User.findOne({
-                    where: {id: user.userId}
-                })
-                return {user, userQueMando}
+                return user
+
             }
         }else{
             
@@ -80,6 +79,15 @@ const getFriendRequestInDb = async (id, userType) => {
             }
 
         }
+    } catch (error) {
+        throw error.message;
+    }
+}
+
+const getAllFriendsReqInDb = async()=>{
+    try {
+        const allFriendsReque = await FriendRequest.findAll()
+        if(allFriendsReque) return allFriendsReque
     } catch (error) {
         throw error.message;
     }
@@ -278,5 +286,6 @@ module.exports = {
     getAllPaymentStatusesFromDb,
     scoreMatchInDb,
     getAllReservationsInDb,
-    getFriendRequestInDb
+    getFriendRequestInDb,
+    getAllFriendsReqInDb
 }

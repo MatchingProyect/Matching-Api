@@ -78,11 +78,11 @@ const initializeFirebase = async () => {
 
 const register = async (req, res) => {
   try {
-
+    console.log(req.body)
     const user = {
       email: req.body.email,
       password: req.body.password,
-      displayName: req.body.displayName,
+      displayName: req.body.displayName || req.body.nombreApellido,
     }
     console.log("user", user)
 
