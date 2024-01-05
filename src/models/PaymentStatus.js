@@ -10,7 +10,8 @@ module.exports = (dataBase) => {
         },
         name: {
             type: DataTypes.STRING,
-            allowNull: false
+            allowNull: false,
+            defaultValue: 'pending'
         },
     }, {timestamps: false})
 }

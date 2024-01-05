@@ -145,7 +145,16 @@ const getAllReservationsInDb = async (offset, limit) => {
 
 const getOneReservationInDb = async (id) => {
     try {
-        const oneReservation = await Reservation.findOne({ where: { id } });
+        const oneReservation = await Reservation.findOne({where: {id},
+            include:[
+                {model: Payment,
+                    include:[
+                        {model: PaymentType},
+                        {model: PaymentStatus}
+                    ]
+                }
+            ]
+        })
         if (oneReservation) return oneReservation;
     } catch (error) {
         throw error.message

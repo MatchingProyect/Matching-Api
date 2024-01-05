@@ -1,6 +1,6 @@
 const dataBase = require('../dataBase/dataBase');
 
-const { Sport, MatchResult, Club, Location, MatchType, RatingUser, ReservationType, Reservation, ShiftSchedule } = dataBase.models
+const { Sport, MatchResult, Club, Location, MatchType, RatingUser, ReservationType, Reservation, ShiftSchedule, Payment } = dataBase.models
 
 const getSportsInDb = async (offset, limit) => {
 
@@ -181,7 +181,15 @@ const filterShiftSchedulesFromDb = async (filterCriteria) => {
 
 const getAllReservationsInDb = async (offset, limit) => {
   try {
-    const reservations = await Reservation.findAll({ offset: offset, limit: limit });
+    const reservations = await Reservation.findAll({
+      offset: offset,
+      limit: limit,
+      include:{
+        model: Payment,
+        attributes:['name', 'amount', 'createdAt']
+      }
+    });
+
     return reservations;
   } catch (error) {
     throw error.message;

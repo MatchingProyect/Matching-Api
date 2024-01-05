@@ -10,15 +10,12 @@ module.exports = (dataBase) => {
         },
         name: {
             type: DataTypes.STRING,
-            allowNull: false
+            allowNull: false,
+            defaultValue: 'Reserva_Cancha'
         },
         amount: {
             type: DataTypes.INTEGER,
             allowNull: false
-        },
-        dateTimeUpdated: {
-            type: DataTypes.STRING,
-            allowNull: false
         }
-    }, {timestamps: false})
+    })
 }

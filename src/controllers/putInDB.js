@@ -1,5 +1,6 @@
+const { where } = require('sequelize')
 const dataBase = require('../dataBase/dataBase')
-const { User, Profile, Court, Payment, ReservationType, FriendRequest } = dataBase.models
+const { User, Profile, Court, Payment, PaymentStatus, PaymentType, ReservationType, FriendRequest } = dataBase.models
 
 const putProfile = async (id, laterality, courtSide, matchType, dayPreference, timePreference, categoryLvl, SportId, UserId) => {
     try {
@@ -28,14 +29,33 @@ const putCourt = async (id, name, description, priceFee, warrantyReservation, gr
     }
 }
 
-const putPayment = async (id, name, amount, dateTimeUpdated, PaymentTypeId, PaymentStatusId, PagoId) => {
+const putPayment = async (id, name, amount) => {
     try {
-        const paymentUpdated = await Payment.update({ name, amount, dateTimeUpdated, PaymentTypeId, PaymentStatusId, PagoId }, { where: { id } });
+        const paymentUpdated = await Payment.update({ name, amount }, { where: { id } });
         if (paymentUpdated) return paymentUpdated;
     } catch (error) {
         throw error.message;
     }
 }
+
+const putPaymentStatusInDb = async(id, name) => {
+    try {
+        const paymentStatusUpdated = await PaymentStatus.update({name}, {where:{id}});
+        if(paymentStatusUpdated) return paymentStatusUpdated;
+    } catch (error) {
+        throw error.message;
+    }
+}
+
+const putPaymentTypeInDb = async(id, name) => {
+    try {
+        const paymentTypeUpdated = await PaymentType.update({name}, {where: {id}});
+        if(paymentTypeUpdated) return paymentTypeUpdated;
+    } catch (error) {
+        throw error.message;
+    }
+}
+
 const putReservationType = async (reservationTypeId, updates) => {
     try {
         const [updatedRowsCount, updatedReservationTypes] = await ReservationType.update(updates, {
@@ -77,5 +97,7 @@ module.exports = {
     putCourt,
     putPayment,
     putReservationType,
-    putStatusRequest
+    putStatusRequest,
+    putPaymentStatusInDb,
+    putPaymentTypeInDb
 }

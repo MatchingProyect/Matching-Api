@@ -67,29 +67,21 @@ const addCourtInDb = async (name, description, priceFee, warrantyReservation, gr
     }
 }
 
-const addPaymentInDb = async (name, amount, dateTimeUpdated, PaymentTypeId, PaymentStatusId) => {
-    try {
-        const addPayment = await Payment.create({ name, amount, dateTimeUpdated, PaymentTypeId, PaymentStatusId });
-        if (addPayment) return addPayment;
-    } catch (error) {
-        throw error.message;
-    }
-}
-
-const addPaymentTypeInDb = async (name) => {
-    try {
-        const addPaymentType = await PaymentType.create({ name });
-        if (addPaymentType) return addPaymentType;
-    } catch (error) {
-        throw error.message;
-    }
-}
-
 const addReservationInDb = async (dateTimeStart, dateTimeEnd, totalCost, UserId, CourtId, MatchTypeId, ReservationTypeId) => {
     try {
-        const addReservation = await Reservation.create({ dateTimeStart, dateTimeEnd, totalCost, UserId, CourtId, MatchTypeId, ReservationTypeId });
-        console.log(UserId, CourtId)
-        if (addReservation) return addReservation;
+        const addReservation = await Reservation.create({ dateTimeStart, dateTimeEnd, totalCost, UserId, CourtId, MatchTypeId, ReservationTypeId,
+         PaymentId: null
+        });
+        const user = await User.findByPk(UserId);
+        if (addReservation) {
+            const addPaymentStatus = await PaymentStatus.create({name: 'pending'});
+            const addPaymentType = await PaymentType.create({name: 'default'});
+
+            const addPayment = await Payment.create({name: user.name, amount: totalCost, createdAt: addReservation.createdAt, updatedAt: null, PaymentStatusId: addPaymentStatus.id, PaymentTypeId: addPaymentType.id});
+
+            await addReservation.update({PaymentId: addPayment.id});
+            return {addReservation, addPayment, addPaymentStatus, addPaymentType}
+        }
     } catch (error) {
         throw error.message;
     }
@@ -190,14 +182,6 @@ const addShiftScheduleInDb = async (name, weekDay, timeStart, timeEnd, partnerPr
         throw error.message;
     }
 }
-const addPaymentStatusInDb = async (name) => {
-    try {
-        const addPaymentStatus = await PaymentStatus.create({ name });
-        if (addPaymentStatus) return addPaymentStatus;
-    } catch (error) {
-        throw error.message;
-    }
-}
 
 const addFriendRequestInDb = async (status, UserId, FriendRId) => {
     try {
@@ -226,8 +210,6 @@ module.exports = {
     addClubInDb,
     addLocationInDb,
     addCourtInDb,
-    addPaymentInDb,
-    addPaymentTypeInDb,
     addReservationInDb,
     addScoreMatchInDb,
     addTeamMatchesInDb,
@@ -240,7 +222,6 @@ module.exports = {
     addRatingUserInDb,
     addReservationTypeInDb,
     addShiftScheduleInDb,
-    addPaymentStatusInDb,
     addFriendRequestInDb,
     createRelationshipInDb
 }

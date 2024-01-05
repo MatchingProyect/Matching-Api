@@ -63,10 +63,11 @@ const getAllClubs = require('../handlers/Club/getAllClubs');
 const createClub = require('../handlers/Club/createClub');
 const getClubById = require('../handlers/Club/getClubById');
 const {relationUser, addFriend, friendRequest} = require('../handlers/Users/relationUser');
+const {createOrder, notify} = require('../handlers/MercadoPago/createOrder');
+const updatePaymentStatus = require('../handlers/PaymentStatus/updatePaymentStatus');
+const updatePaymentType = require('../handlers/PaymentType/updatePaymentType');
 
 const router = require("express").Router();
-
-
 
 router.get('/clubs', getAllClubs)
 router.get('/clubs', getAllClubs)
@@ -127,12 +128,16 @@ router.post('/pointEvent', createPointEvent);
 router.post('/pointSystem', createPointSystem);
 router.post('/friendRequest', relationUser);
 router.post('/addFriend', addFriend);
+router.post('/createOrder', createOrder);
+router.post('/notify', notify);
 
 router.put("/reservation/:id", updatedReservationTypes);
 router.put('/profiles/:id', updateProfile);
 router.put('/users/:id', updateUser);
 router.put('/courts/:id', updateCourt);
 router.put('/payments/:id', updatePayment);
+router.put('/paymentStatus/:id', updatePaymentStatus);
+router.put('/paymentType/:id', updatePaymentType);
 
 router.delete('/profiles/:id', deleteProfile);
 router.delete('/users/:id', deleteUser);

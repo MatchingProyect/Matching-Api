@@ -47,19 +47,19 @@ obtenerDatos();
 
 const {DB_USERNAME, DB_PASSWORD, DB_PORT, DB_NAME, DB_CONNECTION} = process.env;
 
-//const dataBase = new Sequelize(`${DB_CONNECTION}`);
-const dataBase = new Sequelize( DB_CONNECTION, {
-    logging: false, // set to console.log to see the raw SQL queries
-    native: false, // lets Sequelize know we can use pg-native for ~30% more speed
-    dialectOptions: {
-      ssl: true, // Desactiva SSL
-      ssl: {
-        require: true,
-        rejectUnauthorized: false
-      }    
-    },
-  })
-// const dataBase = new Sequelize(`postgres:${DB_USERNAME}:${DB_PASSWORD}@localhost:${DB_PORT}/${DB_NAME}`, {logging: false});
+
+// const dataBase = new Sequelize( DB_CONNECTION, {
+//     logging: false, // set to console.log to see the raw SQL queries
+//     native: false, // lets Sequelize know we can use pg-native for ~30% more speed
+//     dialectOptions: {
+//       ssl: true, // Desactiva SSL
+//       ssl: {
+//         require: true,
+//         rejectUnauthorized: false
+//       }    
+//     },
+//   })
+const dataBase = new Sequelize(`postgres:${DB_USERNAME}:${DB_PASSWORD}@localhost:${DB_PORT}/${DB_NAME}`, {logging: false});
 
 UserModel(dataBase);
 ReservationModel(dataBase);
@@ -143,8 +143,8 @@ AdvertisingEvent.hasMany(User); //?
 User.belongsTo(AdvertisingEvent); //?
 
 // Reservation relationships
-Payment.hasOne(Reservation);
-Reservation.belongsTo(Payment);
+Payment.hasOne(Reservation, {foreignKey: 'PaymentId'});
+Reservation.belongsTo(Payment, {foreignKey: 'PaymentId'});
 
 Reservation.belongsTo(Court);
 Court.hasMany(Reservation);
@@ -183,11 +183,11 @@ Profile.belongsTo(Sport);
 
 // Payment relationships
 
-PaymentType.hasMany(Payment);
-Payment.belongsTo(PaymentType);
+PaymentType.hasMany(Payment, {foreignKey: 'PaymentTypeId'});
+Payment.belongsTo(PaymentType, {foreignKey: 'PaymentTypeId'});
 
-PaymentStatus.hasMany(Payment); //?
-Payment.belongsTo(PaymentStatus); //?
+PaymentStatus.hasMany(Payment, {foreignKey: 'PaymentStatusId'}); //?
+Payment.belongsTo(PaymentStatus, {foreignKey: 'PaymentStatusId'}); //?
 
 // TeamMatch relationships
 TeamMatch.hasOne(MatchResult); //?
