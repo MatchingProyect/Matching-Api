@@ -54,16 +54,19 @@ const getUserInDb = async (id) => {
 
 const getFriendRequestInDb = async (id, userType) => {
     try {
-       console.log(id, userType)
+       
         if(userType === 'friend'){
             const user = await FriendRequest.findAll({ 
                 where: { FriendRId: id }
             });
+            console.log(user)
             if(user){
                 const userQueMando = await User.findOne({
                     where: {id: user.userId}
                 })
+                console.log(user, userQueMando)
                 return {user, userQueMando}
+
             }
         }else{
             
