@@ -56,7 +56,7 @@ const getFriendRequestInDb = async (id, userType) => {
     try {
        
         if(userType === 'friend'){
-            const user = await FriendRequest.findOne({ 
+            const user = await FriendRequest.findAll({ 
                 where: { FriendRId: id }
             });
             if(user){
