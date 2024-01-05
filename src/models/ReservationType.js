@@ -11,6 +11,11 @@ module.exports = (dataBase) => {
         permanent: {
             type: DataTypes.BOOLEAN,
             allowNull: false
+        },
+        estado:{
+            type: DataTypes.BOOLEAN,
+            defaultValue: true,
+            allowNull: false
         }
        
     }, {timestamps: false})

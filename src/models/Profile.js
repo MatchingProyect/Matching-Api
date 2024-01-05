@@ -31,6 +31,11 @@ module.exports = (dataBase) => {
         categoryLvl:{
             type: DataTypes.INTEGER,
             allowNull: false
+        },
+        estado:{
+            type: DataTypes.BOOLEAN,
+            defaultValue: true,
+            allowNull: false
         }
     }, {timestamps: false})
 }

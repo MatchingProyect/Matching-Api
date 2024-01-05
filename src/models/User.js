@@ -54,6 +54,11 @@ module.exports = (dataBase) => {
         inLine: {
            type: DataTypes.BOOLEAN,
             defaultValue: false
+        },
+        estado:{
+            type: DataTypes.BOOLEAN,
+            defaultValue: true,
+            allowNull: false
         }
     }, {timestamps: false})
 }

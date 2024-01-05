@@ -23,6 +23,11 @@ module.exports = (dataBase) => {
        control: {
         type: DataTypes.INTEGER,
             allowNull: false
+       },
+       estado:{
+           type: DataTypes.BOOLEAN,
+           defaultValue: true,
+           allowNull: false
        }
        
     }, {timestamps: false})

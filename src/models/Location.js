@@ -31,6 +31,11 @@ module.exports = (dataBase) => {
         country: {
             type: DataTypes.STRING,
             allowNull: false
+        },
+        estado:{
+            type: DataTypes.BOOLEAN,
+            defaultValue: true,
+            allowNull: false
         }
     }, {timestamps: false})
 }

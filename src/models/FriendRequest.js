@@ -11,6 +11,11 @@ module.exports = (dataBase) => {
         status: {
             type: DataTypes.STRING,
             defaultValue: "pending"
+        },
+        estado:{
+            type: DataTypes.BOOLEAN,
+            defaultValue: true,
+            allowNull: false
         }
     }, {timestamps: false})
 }
