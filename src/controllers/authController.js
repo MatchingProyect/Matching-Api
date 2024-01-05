@@ -23,6 +23,18 @@ require('dotenv').config();
 
 
 
+const useAuthentication = () => {
+  // Lógica de autenticación
+  const isAuthenticated = !!auth.currentUser; 
+  const user = isAuthenticated ? auth.currentUser : null; 
+
+  return isAuthenticated ? user : null;
+};
+
+
+
+
+
 const saveGoogleUserToPostgres = async (userData) => {
   try {
     const query = 'INSERT INTO usuarios (google_id, display_name, email) VALUES ($1, $2, $3)';
@@ -107,10 +119,13 @@ const register = async (req, res) => {
 
 const logout = async (req, res) => {
   try {
-    
+    // Realizar el signOut
     await auth.signOut();
 
-    
+    // Limpiar el localStorage
+    localStorage.removeItem('userData');
+
+    // Enviar la respuesta al cliente
     res.status(200).json({ message: 'Logout successful' });
   } catch (error) {
     console.error('Error during logout:', error);
@@ -156,7 +171,8 @@ const logout = async (req, res) => {
 
 //     return res.status(400).json({ message });
 //   }
-// };
+// };\
+
 
 
 
