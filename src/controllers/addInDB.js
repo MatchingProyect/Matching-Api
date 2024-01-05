@@ -40,9 +40,9 @@ const addSportInDb = async (name) => {
     }
 }
 
-const addClubInDb = async (name, showers, grills, parking, security, SportId) => {
+const addClubInDb = async (name, showers, grills, parking, security, SportId, LocationId) => {
     try {
-        const addClub = await Club.create({ name, showers, grills, parking, security, SportId })
+        const addClub = await Club.create({ name, showers, grills, parking, security, SportId, LocationId })
         if (addClub) return addClub
     } catch (error) {
         throw error.message
