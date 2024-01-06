@@ -20,9 +20,9 @@ const putUser = async (id, admin, displayName, gender, dayBirth, email, phone, c
     }
 }
 
-const putUserEstado = async(id, inLine, estado) => {
+const putUserEstado = async(id,  estado) => {
     try {
-        const updatedUserEstado = await User.update({inLine, estado}, {where: {id}});
+        const updatedUserEstado = await User.update({ estado: estado}, {where: {id}});
         if(updatedUserEstado) return updatedUserEstado;
     } catch (error) {
         throw error.message;

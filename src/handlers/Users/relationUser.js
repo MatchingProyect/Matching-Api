@@ -60,10 +60,12 @@ const friendRequest = async (req, res) => {
 const addFriend = async (req, res) => {
     try {
         const { status, UserId, FriendId } = req.body;
+        
         if (status === "true") {
             
             const statusUpdated = await putStatusRequest(status, UserId, FriendId);
             const relationship = await createRelationshipInDb(UserId, FriendId);
+            console.log(relationship)
             
             if (relationship) {
                 return res.status(200).json({

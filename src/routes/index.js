@@ -66,6 +66,7 @@ const {relationUser, addFriend, friendRequest, getAllFriendsReq} = require('../h
 const {createOrder, notify} = require('../handlers/MercadoPago/createOrder');
 const updatePaymentStatus = require('../handlers/PaymentStatus/updatePaymentStatus');
 const updatePaymentType = require('../handlers/PaymentType/updatePaymentType');
+const borradoLogico = require('../handlers/Users/borradoLogico');
 
 const router = require("express").Router();
 
@@ -139,6 +140,7 @@ router.put('/courts/:id', updateCourt);
 router.put('/payments/:id', updatePayment);
 router.put('/paymentStatus/:id', updatePaymentStatus);
 router.put('/paymentType/:id', updatePaymentType);
+router.put('/userEstado/:id', borradoLogico)
 
 router.delete('/profiles/:id', deleteProfile);
 router.delete('/users/:id', deleteUser);
