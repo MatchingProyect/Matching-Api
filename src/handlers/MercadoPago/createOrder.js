@@ -37,8 +37,7 @@ const createOrder = async (req, res) => {
 
         if (response) return res.status(200).json({
             status: true,
-            urlPago,
-            paymentId: Payment.id
+            urlPago
         })
 
     } catch (error) {
