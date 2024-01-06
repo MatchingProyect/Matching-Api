@@ -1,6 +1,6 @@
 const { where } = require('sequelize')
 const dataBase = require('../dataBase/dataBase')
-const { User, Profile, Court, Payment, PaymentStatus, PaymentType, ReservationType, FriendRequest } = dataBase.models
+const { User, Profile, Court, Payment, PaymentStatus, PaymentType, ReservationType, FriendRequest, Location, Reservation, Sport, TeamMatch } = dataBase.models
 
 const putProfile = async (id, laterality, courtSide, matchType, dayPreference, timePreference, categoryLvl, SportId, UserId) => {
     try {
@@ -29,20 +29,38 @@ const putUserEstado = async(id,  estado) => {
     }
 }
 
-const putClubEstado = async(id,  estado) => {
+const putLocationEstado = async(id, estado) => {
     try {
-        const updatedClubEstado = await Club.update({ estado: estado}, {where: {id}});
-        if(updatedClubEstado) return updatedClubEstado;
+        const updatedLocationEstado = await Location.update({estado}, {where: {id}});
+        if(updatedLocationEstado) return updatedLocationEstado;
     } catch (error) {
         throw error.message;
     }
 }
 
-const putCourtEstado = async(id,  estado) => {
+const putReservationEstado = async(id, estado) => {
     try {
-        const updatedCourtEstado = await Court.update({ estado: estado}, {where: {id}});
-        if(updatedCourtEstado) return updatedCourtEstado;
-    }catch (error) {
+        const updatedReservationEstado = await Reservation.update({estado}, {where: {id}});
+        if(updatedReservationEstado) return updatedReservationEstado;
+    } catch (error) {
+        throw error.message;
+    }
+}
+
+const putSportEstado = async(id, estado) => {
+    try {
+        const updatedSportEstado = await Sport.update({estado}, {where: {id}});
+        if(updatedSportEstado) return updatedSportEstado;
+    } catch (error) {
+        throw error.message;
+    }
+}
+
+const putTeamMatchEstado = async(id, estado) => {
+    try {
+        const updatedTeamMatchEstado = await TeamMatch.update({estado}, {where: {id}});
+        if(updatedTeamMatchEstado) return updatedTeamMatchEstado;
+    } catch (error) {
         throw error.message;
     }
 }
@@ -82,6 +100,25 @@ const putPaymentTypeInDb = async(id, name) => {
         throw error.message;
     }
 }
+
+const putClubEstado = async(id, estado) => {
+    try {
+        const updatedClubEstado = await Club.update({estado}, {where: {id}});
+        if(updatedClubEstado) return updatedClubEstado;
+    } catch (error) {
+        throw error.message;
+    }
+};
+
+const putCourtEstado = async(id, estado) => {
+    try {
+        const updatedCourtEstado = await Court.update({estado}, {where: {id}});
+        if(updatedCourtEstado) return updatedCourtEstado;
+    }catch (error) {
+        throw error.message;
+    }
+};
+
 
 const putReservationType = async (reservationTypeId, updates) => {
     try {
@@ -128,6 +165,10 @@ module.exports = {
     putPaymentStatusInDb,
     putPaymentTypeInDb,
     putUserEstado,
-    putClubEstado,
-    putCourtEstado
+    putLocationEstado,
+    putReservationEstado,
+    putSportEstado,
+    putTeamMatchEstado,
+    putCourtEstado,
+    putClubEstado
 }
