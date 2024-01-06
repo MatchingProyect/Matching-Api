@@ -29,6 +29,24 @@ const putUserEstado = async(id,  estado) => {
     }
 }
 
+const putClubEstado = async(id,  estado) => {
+    try {
+        const updatedClubEstado = await Club.update({ estado: estado}, {where: {id}});
+        if(updatedClubEstado) return updatedClubEstado;
+    } catch (error) {
+        throw error.message;
+    }
+}
+
+const putCourtEstado = async(id,  estado) => {
+    try {
+        const updatedCourtEstado = await Court.update({ estado: estado}, {where: {id}});
+        if(updatedCourtEstado) return updatedCourtEstado;
+    }catch (error) {
+        throw error.message;
+    }
+}
+
 const putCourt = async (id, name, description, priceFee, warrantyReservation, grassType, lighting, doorsType, wallsType, reputation) => {
     try {
         const courtUpdated = await Court.update({ name, description, priceFee, warrantyReservation, grassType, lighting, doorsType, wallsType, reputation }, { where: { id } });
@@ -109,5 +127,7 @@ module.exports = {
     putStatusRequest,
     putPaymentStatusInDb,
     putPaymentTypeInDb,
-    putUserEstado
+    putUserEstado,
+    putClubEstado,
+    putCourtEstado
 }

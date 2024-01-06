@@ -195,7 +195,10 @@ const addFriendRequestInDb = async (status, UserId, FriendRId) => {
 const createRelationshipInDb = async(UserId, FriendId) => {
     try {
         const addRelationship = await UserFriends.create({UserId, FriendId});
-        if(addRelationship) return addRelationship;
+        if(addRelationship){
+            await FriendRequest.destroy({where: {FriendRId: FriendId, UserId: UserId}})
+            return addRelationship;
+        } 
 
     } catch (error) {
         throw error.message;

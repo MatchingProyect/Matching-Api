@@ -67,6 +67,8 @@ const {createOrder, notify} = require('../handlers/MercadoPago/createOrder');
 const updatePaymentStatus = require('../handlers/PaymentStatus/updatePaymentStatus');
 const updatePaymentType = require('../handlers/PaymentType/updatePaymentType');
 const borradoLogico = require('../handlers/Users/borradoLogico');
+const borradoLogicoClub = require('../handlers/Club/borradoLogico');
+const borradoLogicoCourt = require('../handlers/Court/borradoLogicoCourt');
 
 const router = require("express").Router();
 
@@ -141,6 +143,8 @@ router.put('/payments/:id', updatePayment);
 router.put('/paymentStatus/:id', updatePaymentStatus);
 router.put('/paymentType/:id', updatePaymentType);
 router.put('/userEstado/:id', borradoLogico)
+router.put('/clubEstado/:id', borradoLogicoClub)
+router.put('/courtEstado/:id', borradoLogicoCourt)
 
 router.delete('/profiles/:id', deleteProfile);
 router.delete('/users/:id', deleteUser);
