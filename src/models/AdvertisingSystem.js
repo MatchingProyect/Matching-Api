@@ -19,11 +19,6 @@ module.exports = (dataBase) => {
        pointsQuantityRedeem: {
         type: DataTypes.STRING,
             allowNull: false
-       },
-       estado:{
-           type: DataTypes.BOOLEAN,
-           defaultValue: true,
-           allowNull: false
        }
        
     }, {timestamps: false})

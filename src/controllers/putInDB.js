@@ -11,12 +11,21 @@ const putProfile = async (id, laterality, courtSide, matchType, dayPreference, t
     }
 }
 
-const putUser = async (id, admin, displayName, gender, dayBirth, email, phone, creditCardWarranty, avatarImg, password) => {
+const putUser = async (id, admin, displayName, gender, dayBirth, email, phone, creditCardWarranty, avatarImg, password, onLine) => {
     try {
-        const updatedUser = await User.update({ admin, displayName, gender, dayBirth, email, phone, creditCardWarranty, avatarImg, password }, { where: { id } })
+        const updatedUser = await User.update({ admin, displayName, gender, dayBirth, email, phone, creditCardWarranty, avatarImg, password, onLine }, { where: { id } })
         if (updatedUser) return updatedUser
     } catch (error) {
         throw error.message
+    }
+}
+
+const putUserEstado = async(id, inLine, estado) => {
+    try {
+        const updatedUserEstado = await User.update({inLine, estado}, {where: {id}});
+        if(updatedUserEstado) return updatedUserEstado;
+    } catch (error) {
+        throw error.message;
     }
 }
 
@@ -99,5 +108,6 @@ module.exports = {
     putReservationType,
     putStatusRequest,
     putPaymentStatusInDb,
-    putPaymentTypeInDb
+    putPaymentTypeInDb,
+    putUserEstado
 }
