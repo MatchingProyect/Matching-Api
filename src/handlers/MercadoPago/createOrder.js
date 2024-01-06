@@ -28,16 +28,17 @@ const createOrder = async (req, res) => {
                         id: id
                     }
                 ],
-                notification_url: 'https://3a12-2800-300-6a12-30d0-a966-4def-945a-802a.ngrok-free.app/notify'
+                // notification_url: 'https://2075-2800-300-6a12-30d0-e40d-bc5e-7cf9-2984.ngrok-free.app/notify'
             }
         });
 
         const urlPago = response.init_point;
-        // console.log(response)
+        console.log(response)
 
         if (response) return res.status(200).json({
             status: true,
-            urlPago
+            urlPago,
+            id: response.id
         })
 
     } catch (error) {
