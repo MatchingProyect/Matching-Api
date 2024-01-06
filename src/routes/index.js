@@ -66,7 +66,11 @@ const {relationUser, addFriend, friendRequest, getAllFriendsReq} = require('../h
 const {createOrder, notify} = require('../handlers/MercadoPago/createOrder');
 const updatePaymentStatus = require('../handlers/PaymentStatus/updatePaymentStatus');
 const updatePaymentType = require('../handlers/PaymentType/updatePaymentType');
-const borradoLogico = require('../handlers/Users/borradoLogico');
+const borradoLogicoUser = require('../handlers/Users/borradoLogico');
+const borradoLogicoLocation = require('../handlers/Location/borradoLogico');
+const borradoLogicoReservation = require('../handlers/Reservation/borradoLogico');
+const borradoLogicoSport = require('../handlers/Sport/borradoLogico');
+const borradoLogicoTeamMatch = require('../handlers/TeamMatch/borradoLogico');
 
 const router = require("express").Router();
 
@@ -140,7 +144,11 @@ router.put('/courts/:id', updateCourt);
 router.put('/payments/:id', updatePayment);
 router.put('/paymentStatus/:id', updatePaymentStatus);
 router.put('/paymentType/:id', updatePaymentType);
-router.put('/userEstado/:id', borradoLogico)
+router.put('/userEstado/:id', borradoLogicoUser);
+router.put('/location/:id', borradoLogicoLocation);
+router.put('/reservation/:id', borradoLogicoReservation);
+router.put('/sport/:id', borradoLogicoSport);
+router.put('/teamMatch/:id', borradoLogicoTeamMatch);
 
 router.delete('/profiles/:id', deleteProfile);
 router.delete('/users/:id', deleteUser);

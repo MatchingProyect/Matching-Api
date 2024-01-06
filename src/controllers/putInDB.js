@@ -1,6 +1,6 @@
 const { where } = require('sequelize')
 const dataBase = require('../dataBase/dataBase')
-const { User, Profile, Court, Payment, PaymentStatus, PaymentType, ReservationType, FriendRequest } = dataBase.models
+const { User, Profile, Court, Payment, PaymentStatus, PaymentType, ReservationType, FriendRequest, Location, Reservation, Sport, TeamMatch } = dataBase.models
 
 const putProfile = async (id, laterality, courtSide, matchType, dayPreference, timePreference, categoryLvl, SportId, UserId) => {
     try {
@@ -24,6 +24,42 @@ const putUserEstado = async(id,  estado) => {
     try {
         const updatedUserEstado = await User.update({ estado: estado}, {where: {id}});
         if(updatedUserEstado) return updatedUserEstado;
+    } catch (error) {
+        throw error.message;
+    }
+}
+
+const putLocationEstado = async(id, estado) => {
+    try {
+        const updatedLocationEstado = await Location.update({estado}, {where: {id}});
+        if(updatedLocationEstado) return updatedLocationEstado;
+    } catch (error) {
+        throw error.message;
+    }
+}
+
+const putReservationEstado = async(id, estado) => {
+    try {
+        const updatedReservationEstado = await Reservation.update({estado}, {where: {id}});
+        if(updatedReservationEstado) return updatedReservationEstado;
+    } catch (error) {
+        throw error.message;
+    }
+}
+
+const putSportEstado = async(id, estado) => {
+    try {
+        const updatedSportEstado = await Sport.update({estado}, {where: {id}});
+        if(updatedSportEstado) return updatedSportEstado;
+    } catch (error) {
+        throw error.message;
+    }
+}
+
+const putTeamMatchEstado = async(id, estado) => {
+    try {
+        const updatedTeamMatchEstado = await TeamMatch.update({estado}, {where: {id}});
+        if(updatedTeamMatchEstado) return updatedTeamMatchEstado;
     } catch (error) {
         throw error.message;
     }
@@ -109,5 +145,9 @@ module.exports = {
     putStatusRequest,
     putPaymentStatusInDb,
     putPaymentTypeInDb,
-    putUserEstado
+    putUserEstado,
+    putLocationEstado,
+    putReservationEstado,
+    putSportEstado,
+    putTeamMatchEstado
 }
