@@ -74,6 +74,7 @@ const borradoLogicoTeamMatch = require('../handlers/TeamMatch/borradoLogico');
 const borradoLogico = require('../handlers/Users/borradoLogico');
 const borradoLogicoClub = require('../handlers/Club/borradoLogico');
 const borradoLogicoCourt = require('../handlers/Court/borradoLogicoCourt');
+const getLocationsById = require('../handlers/Location/getLocationById');
 
 const router = require("express").Router();
 
@@ -86,6 +87,7 @@ router.get('/users', getAllUsers);
 router.get('/users/:id', getUser);
 router.get('/sports', getAllSport);
 router.get('/locations', getAllLocations);
+router.get('/locations/:id', getLocationsById);
 router.get('/courts', getAllCourts);
 router.get('/payments', getAllPayments);
 router.get('/payment', getPayment);
