@@ -25,11 +25,11 @@ module.exports = (dataBase) => {
             allowNull: false
         },
         timePreference:{
-            type: DataTypes.INTEGER,
+            type: DataTypes.STRING,
             allowNull: false
         },
         categoryLvl:{
-            type: DataTypes.INTEGER,
+            type: DataTypes.STRING,
             allowNull: false
         }
     }, {timestamps: false})
