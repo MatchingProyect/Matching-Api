@@ -22,9 +22,10 @@ const addProfileInDb = async (laterality, courtSide, matchType, dayPreference, t
     try {
 
         const newProfile = await Profile.create({ laterality, courtSide, matchType, dayPreference, timePreference, categoryLvl, SportId, UserId })
-
+        console.log("newProfile", newProfile)
         if (newProfile) return newProfile
     } catch (error) {
+        console.log(error.message)
         throw error.message
     }
 }
