@@ -1,6 +1,6 @@
 const { where } = require('sequelize')
 const dataBase = require('../dataBase/dataBase')
-const { User, Profile, Court, Payment, PaymentStatus, PaymentType, ReservationType, FriendRequest, Location, Reservation, Sport, TeamMatch } = dataBase.models
+const { User, Profile, Court,Club, Payment, PaymentStatus, PaymentType, ReservationType, FriendRequest, Location, Reservation, Sport, TeamMatch } = dataBase.models
 
 const putProfile = async (id, laterality, courtSide, matchType, dayPreference, timePreference, categoryLvl, SportId, UserId) => {
     try {
@@ -15,6 +15,15 @@ const putUser = async (id, admin, displayName, gender, dayBirth, email, phone, c
     try {
         const updatedUser = await User.update({ admin, displayName, gender, dayBirth, email, phone, creditCardWarranty, avatarImg, password, onLine }, { where: { id } })
         if (updatedUser) return updatedUser
+    } catch (error) {
+        throw error.message
+    }
+}
+
+const putUserOnLine = async(id, onLine) =>{
+    try {
+        const userOnlineInDb = await User.update({onLine}, {where: {id}})
+        if(userOnlineInDb) return userOnlineInDb
     } catch (error) {
         throw error.message
     }
@@ -103,8 +112,11 @@ const putPaymentTypeInDb = async(id, name) => {
 
 const putClubEstado = async(id, estado) => {
     try {
-        const updatedClubEstado = await Club.update({estado}, {where: {id}});
+        const updatedClubEstado = await Club.update({estado: estado}, {where: {id}});
+        
+        console.log(updatedClubEstado)
         if(updatedClubEstado) return updatedClubEstado;
+
     } catch (error) {
         throw error.message;
     }
@@ -154,6 +166,15 @@ const putStatusRequest = async (status, UserId, FriendId) => {
     }
 };
 
+const putUserAdmin = async(id, admin) =>{
+    try {
+        const adm = await User.update({admin}, {where: {id}});
+        if(adm) return adm;
+    } catch (error) {
+        
+    }
+}
+
 
 module.exports = {
     putProfile,
@@ -170,5 +191,6 @@ module.exports = {
     putSportEstado,
     putTeamMatchEstado,
     putCourtEstado,
-    putClubEstado
+    putClubEstado,
+    putUserOnLine
 }
