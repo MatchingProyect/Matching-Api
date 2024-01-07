@@ -94,14 +94,11 @@ const register = async (req, res) => {
         email: req.body.email,
         password: req.body.password,
       });
-      return res.json({
-        firebaseUid: userCred.uid,
-        postgresId: response.id,
-      });
+      res.status(200).json({ response });
     }
     else {
       console.log("registrado con exito")
-      res.status(200).json({ user });
+      res.status(200).json({ response });
     }
 
 
