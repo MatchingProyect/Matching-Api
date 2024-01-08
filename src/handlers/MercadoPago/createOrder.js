@@ -16,7 +16,7 @@ const createOrder = async (req, res) => {
         const response = await preference.create({
             body: {
                 back_urls: {
-                    success: 'https://matching-qdob.onrender.com/home',
+                    // success: 'https://matching-qdob.onrender.com/home',
                     pending: '',
                     failure: '',
                 },
@@ -29,7 +29,7 @@ const createOrder = async (req, res) => {
                     }
                 ],
                 notification_url: 'https://matching-qdob.onrender.com/notify',
-                auto_return: 'approved'
+                // auto_return: 'approved'
             }
         });
 
