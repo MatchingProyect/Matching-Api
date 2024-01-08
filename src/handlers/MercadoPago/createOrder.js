@@ -28,7 +28,7 @@ const createOrder = async (req, res) => {
                         id: id
                     }
                 ],
-                // notification_url: 'https://2075-2800-300-6a12-30d0-e40d-bc5e-7cf9-2984.ngrok-free.app/notify'
+                notification_url: 'https://matching-qdob.onrender.com//notify'
             }
         });
 
