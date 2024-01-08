@@ -23,46 +23,55 @@ const putUser = async (id, admin, displayName, gender, dayBirth, email, phone, c
     }
 }
 
-const putUserEstado = async(id,  estado) => {
+const putUserEstado = async (id, estado) => {
     try {
-        const updatedUserEstado = await User.update({ estado: estado}, {where: {id}});
-        if(updatedUserEstado) return updatedUserEstado;
+        const updatedUserEstado = await User.update({ estado: estado }, { where: { id } });
+        if (updatedUserEstado) return updatedUserEstado;
     } catch (error) {
         throw error.message;
     }
 }
 
-const putLocationEstado = async(id, estado) => {
+const putUserPassword = async (email, password) => {
     try {
-        const updatedLocationEstado = await Location.update({estado}, {where: {id}});
-        if(updatedLocationEstado) return updatedLocationEstado;
+        const updatedUserPassword = await User.update({ password: password }, { where: { email } });
+        if (updatedUserPassword) return updatedUserPassword;
     } catch (error) {
         throw error.message;
     }
 }
 
-const putReservationEstado = async(id, estado) => {
+const putLocationEstado = async (id, estado) => {
     try {
-        const updatedReservationEstado = await Reservation.update({estado}, {where: {id}});
-        if(updatedReservationEstado) return updatedReservationEstado;
+        const updatedLocationEstado = await Location.update({ estado }, { where: { id } });
+        if (updatedLocationEstado) return updatedLocationEstado;
     } catch (error) {
         throw error.message;
     }
 }
 
-const putSportEstado = async(id, estado) => {
+const putReservationEstado = async (id, estado) => {
     try {
-        const updatedSportEstado = await Sport.update({estado}, {where: {id}});
-        if(updatedSportEstado) return updatedSportEstado;
+        const updatedReservationEstado = await Reservation.update({ estado }, { where: { id } });
+        if (updatedReservationEstado) return updatedReservationEstado;
     } catch (error) {
         throw error.message;
     }
 }
 
-const putTeamMatchEstado = async(id, estado) => {
+const putSportEstado = async (id, estado) => {
     try {
-        const updatedTeamMatchEstado = await TeamMatch.update({estado}, {where: {id}});
-        if(updatedTeamMatchEstado) return updatedTeamMatchEstado;
+        const updatedSportEstado = await Sport.update({ estado }, { where: { id } });
+        if (updatedSportEstado) return updatedSportEstado;
+    } catch (error) {
+        throw error.message;
+    }
+}
+
+const putTeamMatchEstado = async (id, estado) => {
+    try {
+        const updatedTeamMatchEstado = await TeamMatch.update({ estado }, { where: { id } });
+        if (updatedTeamMatchEstado) return updatedTeamMatchEstado;
     } catch (error) {
         throw error.message;
     }
@@ -86,38 +95,38 @@ const putPayment = async (id, name, amount) => {
     }
 }
 
-const putPaymentStatusInDb = async(id, name) => {
+const putPaymentStatusInDb = async (id, name) => {
     try {
-        const paymentStatusUpdated = await PaymentStatus.update({name}, {where:{id}});
-        if(paymentStatusUpdated) return paymentStatusUpdated;
+        const paymentStatusUpdated = await PaymentStatus.update({ name }, { where: { id } });
+        if (paymentStatusUpdated) return paymentStatusUpdated;
     } catch (error) {
         throw error.message;
     }
 }
 
-const putPaymentTypeInDb = async(id, name) => {
+const putPaymentTypeInDb = async (id, name) => {
     try {
-        const paymentTypeUpdated = await PaymentType.update({name}, {where: {id}});
-        if(paymentTypeUpdated) return paymentTypeUpdated;
+        const paymentTypeUpdated = await PaymentType.update({ name }, { where: { id } });
+        if (paymentTypeUpdated) return paymentTypeUpdated;
     } catch (error) {
         throw error.message;
     }
 }
 
-const putClubEstado = async(id, estado) => {
+const putClubEstado = async (id, estado) => {
     try {
-        const updatedClubEstado = await Club.update({estado}, {where: {id}});
-        if(updatedClubEstado) return updatedClubEstado;
+        const updatedClubEstado = await Club.update({ estado }, { where: { id } });
+        if (updatedClubEstado) return updatedClubEstado;
     } catch (error) {
         throw error.message;
     }
 };
 
-const putCourtEstado = async(id, estado) => {
+const putCourtEstado = async (id, estado) => {
     try {
-        const updatedCourtEstado = await Court.update({estado}, {where: {id}});
-        if(updatedCourtEstado) return updatedCourtEstado;
-    }catch (error) {
+        const updatedCourtEstado = await Court.update({ estado }, { where: { id } });
+        if (updatedCourtEstado) return updatedCourtEstado;
+    } catch (error) {
         throw error.message;
     }
 };
@@ -142,7 +151,7 @@ const putReservationType = async (reservationTypeId, updates) => {
 
 const putStatusRequest = async (status, UserId, FriendId) => {
     try {
-        if(status === "rechazado") await FriendRequest.destroy({where: {FriendRId: FriendId, UserId: UserId}})
+        if (status === "rechazado") await FriendRequest.destroy({ where: { FriendRId: FriendId, UserId: UserId } })
         const statusUpdated = await FriendRequest.update(
             { status },
             {
@@ -173,5 +182,6 @@ module.exports = {
     putSportEstado,
     putTeamMatchEstado,
     putCourtEstado,
-    putClubEstado
+    putClubEstado,
+    putUserPassword
 }

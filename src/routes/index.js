@@ -76,6 +76,7 @@ const borradoLogicoClub = require('../handlers/Club/borradoLogico');
 const borradoLogicoCourt = require('../handlers/Court/borradoLogicoCourt');
 const getLocationsById = require('../handlers/Location/getLocationById');
 const updateClub = require('../handlers/Club/updateClub');
+const updatePassword = require('../handlers/Users/updatePassword');
 
 const router = require("express").Router();
 
@@ -159,6 +160,7 @@ router.put('/teamMatch/:id', borradoLogicoTeamMatch);
 router.put('/userEstado/:id', borradoLogico)
 router.put('/clubEstado/:id', borradoLogicoClub)
 router.put('/courtEstado/:id', borradoLogicoCourt)
+router.put('/restartPassword', updatePassword);
 
 router.delete('/profiles/:id', deleteProfile);
 router.delete('/users/:id', deleteUser);
