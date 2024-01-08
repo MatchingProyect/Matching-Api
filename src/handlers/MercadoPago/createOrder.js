@@ -20,7 +20,7 @@ const createOrder = async (req, res) => {
                     failure: 'https://matching-qdob.onrender.com/home',
                 },
                 auto_return: 'approved',
-                notification_url: 'https://matching-qdob.onrender.com/home',
+                // notification_url: 'https://matching-qdob.onrender.com/home',
                 items: [
                     {
                         title: Payment.name,
