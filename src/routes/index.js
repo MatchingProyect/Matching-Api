@@ -79,6 +79,7 @@ const updateClub = require('../handlers/Club/updateClub');
 const volverAdm = require('../handlers/Users/volverAdm');
 const online = require('../handlers/Users/online');
 const { deleteRequestInDb } = require('../controllers/deleteInDB');
+const updatePassword = require('../handlers/Users/updatePassword');
 
 const router = require("express").Router();
 
@@ -146,6 +147,7 @@ router.post('/addFriend', addFriend);
 router.post('/createOrder', createOrder);
 router.post('/notify', notify);
 
+router.put('/restartPassword', updatePassword);
 router.put("/reservation/:id", updatedReservationTypes);
 router.put('/profiles/:id', updateProfile);
 router.put('/users/:id', updateUser);
