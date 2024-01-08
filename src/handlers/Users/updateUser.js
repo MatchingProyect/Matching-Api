@@ -10,6 +10,7 @@ const updateUser = async(req, res)=>{
 
         const userUpdated = await putUser(id, admin, displayName, gender, dayBirth, email, phone, creditCardWarranty, avatarImg, password, onLine)
         console.log(userUpdated)
+        
         if(userUpdated) return res.status(200).json({status: true, userUpdated})
 
     } catch (error) {

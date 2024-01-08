@@ -13,10 +13,10 @@ const putProfile = async (id, laterality, courtSide, matchType, dayPreference, t
 
 const putUser = async (id, admin, displayName, gender, dayBirth, email, phone, creditCardWarranty, avatarImg, password, onLine) => {
     try {
-        console.log({ admin, displayName, gender, dayBirth, email, phone, creditCardWarranty, avatarImg, password, onLine })
-        const updatedUser = await User.update({ admin, displayName, gender, dayBirth, email, phone, creditCardWarranty, avatarImg, password, onLine }, { where: { id } })
+        const userUpdate = { admin, displayName, gender, dayBirth, email, phone, creditCardWarranty, avatarImg, password, onLine }
+        const updatedUser = await User.update(userUpdate, { where: { id } })
 
-        if (updatedUser) return updatedUser
+        if (updatedUser) return userUpdate
     } catch (error) {
         console.log(error)
         throw error.message
