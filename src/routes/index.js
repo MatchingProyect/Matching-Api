@@ -76,6 +76,9 @@ const borradoLogicoClub = require('../handlers/Club/borradoLogico');
 const borradoLogicoCourt = require('../handlers/Court/borradoLogicoCourt');
 const getLocationsById = require('../handlers/Location/getLocationById');
 const updateClub = require('../handlers/Club/updateClub');
+const volverAdm = require('../handlers/Users/volverAdm');
+const online = require('../handlers/Users/online');
+const { deleteRequestInDb } = require('../controllers/deleteInDB');
 const updatePassword = require('../handlers/Users/updatePassword');
 
 const router = require("express").Router();
@@ -144,6 +147,7 @@ router.post('/addFriend', addFriend);
 router.post('/createOrder', createOrder);
 router.post('/notify', notify);
 
+router.put('/restartPassword', updatePassword);
 router.put("/reservation/:id", updatedReservationTypes);
 router.put('/profiles/:id', updateProfile);
 router.put('/users/:id', updateUser);
@@ -160,7 +164,8 @@ router.put('/teamMatch/:id', borradoLogicoTeamMatch);
 router.put('/userEstado/:id', borradoLogico)
 router.put('/clubEstado/:id', borradoLogicoClub)
 router.put('/courtEstado/:id', borradoLogicoCourt)
-router.put('/restartPassword', updatePassword);
+router.put('/volverAdm/:id', volverAdm)
+router.put('/userOnline', online)
 
 router.delete('/profiles/:id', deleteProfile);
 router.delete('/users/:id', deleteUser);
@@ -170,5 +175,6 @@ router.delete('/reservations/:id', deleteReservation);
 router.delete('/teamMatches/:id', deleteTeamMatch);
 router.delete('/advertisingEvent/:id', deleteAdvertisingEvent);
 router.delete('/pointEvent/:id', deletePointEvent);
+router.delete('/friendRequest/:id', deleteRequestInDb)
 
 module.exports = router;
