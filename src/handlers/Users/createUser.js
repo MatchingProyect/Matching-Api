@@ -5,9 +5,9 @@ const createUser = async(req, res)=>{
     try {
         console.log("createUser", req.body)
 
-        const {admin,active,inLine, displayName, gender, dayBirth, email, phone, creditCardWarranty, avatarImg, password, description}= req.body
+        const {admin,active,onLine, displayName, gender, dayBirth, email, phone, creditCardWarranty, avatarImg, password, description}= req.body
         
-        const userCreated = await addUserInDb(admin,active,inLine, displayName,  gender, dayBirth, email, phone, creditCardWarranty, avatarImg, password, description)
+        const userCreated = await addUserInDb({admin,active,onLine, displayName,  gender, dayBirth, email, phone, creditCardWarranty, avatarImg, password, description})
         
         if(userCreated) return res.status(200).json({status: true, userCreated})
     } catch (error) {

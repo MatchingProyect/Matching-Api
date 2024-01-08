@@ -3,6 +3,7 @@ const { putUserPassword } = require("../../controllers/putInDB");
 const updatePassword = async (req, res) => {
     try {
         const { email, password } = req.body;
+        console.log(email, password)
         const userPasswordUpdated = await putUserPassword(email, password);
         console.log(userPasswordUpdated)
         if (userPasswordUpdated) {
