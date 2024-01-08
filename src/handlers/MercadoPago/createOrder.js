@@ -28,7 +28,8 @@ const createOrder = async (req, res) => {
                         id: id
                     }
                 ],
-                notification_url: 'https://matching-qdob.onrender.com/notify'
+                notification_url: 'https://matching-qdob.onrender.com/notify',
+                auto_return: 'approved'
             }
         });
 
