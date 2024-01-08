@@ -78,6 +78,7 @@ const getLocationsById = require('../handlers/Location/getLocationById');
 const updateClub = require('../handlers/Club/updateClub');
 const volverAdm = require('../handlers/Users/volverAdm');
 const online = require('../handlers/Users/online');
+const { deleteRequestInDb } = require('../controllers/deleteInDB');
 
 const router = require("express").Router();
 
@@ -172,5 +173,6 @@ router.delete('/reservations/:id', deleteReservation);
 router.delete('/teamMatches/:id', deleteTeamMatch);
 router.delete('/advertisingEvent/:id', deleteAdvertisingEvent);
 router.delete('/pointEvent/:id', deletePointEvent);
+router.delete('/friendRequest/:id', deleteRequestInDb)
 
 module.exports = router;
