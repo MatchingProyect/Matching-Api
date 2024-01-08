@@ -16,10 +16,11 @@ const createOrder = async (req, res) => {
         const response = await preference.create({
             body: {
                 back_urls: {
-                    // success: 'https://matching-qdob.onrender.com/home',
-                    pending: '',
-                    failure: '',
+                    success: 'https://matching-qdob.onrender.com/home',
+                    failure: 'https://matching-qdob.onrender.com/home',
                 },
+                auto_return: 'approved',
+                notification_url: 'https://matching-qdob.onrender.com/home',
                 items: [
                     {
                         title: Payment.name,
@@ -27,9 +28,7 @@ const createOrder = async (req, res) => {
                         quantity: 1,
                         id: id
                     }
-                ],
-                notification_url: 'https://matching-qdob.onrender.com/notify',
-                // auto_return: 'approved'
+                ]
             }
         });
 
