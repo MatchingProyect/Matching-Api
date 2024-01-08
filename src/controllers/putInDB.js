@@ -124,8 +124,7 @@ const putPaymentTypeInDb = async (id, name) => {
 
 const putClubEstado = async (id, estado) => {
     try {
-        const updatedClubEstado = await Club.update({ estado }, { where: { id } });
-        if (updatedClubEstado) return updatedClubEstado;
+       
         const updatedClubEstado = await Club.update({estado: estado}, {where: {id}});
         
         console.log(updatedClubEstado)
