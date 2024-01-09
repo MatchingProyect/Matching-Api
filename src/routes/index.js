@@ -62,7 +62,7 @@ const getScoreMatch = require('../handlers/ScoreMatch/getScoreMatch');
 const getAllClubs = require('../handlers/Club/getAllClubs');
 const createClub = require('../handlers/Club/createClub');
 const getClubById = require('../handlers/Club/getClubById');
-const {relationUser, addFriend, friendRequest, getAllFriendsReq} = require('../handlers/Users/relationUser');
+const {relationUser, addFriend, friendRequest, getAllFriendsReq, allFriends} = require('../handlers/Users/relationUser');
 const {createOrder, notify} = require('../handlers/MercadoPago/createOrder');
 const updatePaymentStatus = require('../handlers/PaymentStatus/updatePaymentStatus');
 const updatePaymentType = require('../handlers/PaymentType/updatePaymentType');
@@ -114,6 +114,7 @@ router.get("/paymentStatus", getPaymentStatus)
 router.get("/ratingUser", getRatingUser)
 router.get('/friendRequest/:id', friendRequest);
 router.get('/friendRequest', getAllFriendsReq)
+router.get('/friends',  allFriends)
 
 router.post('/logout', logout)
 router.post('/clubs', createClub)

@@ -84,6 +84,15 @@ const getFriendRequestInDb = async (id, userType) => {
     }
 }
 
+const allFriendsInDb = async() =>{
+    try {
+        const friends = await UserFriends.findAll()
+        if(friends) return friends
+    } catch (error) {
+        throw error.message;
+    }
+}
+
 const getAllFriendsReqInDb = async()=>{
     try {
         const allFriendsReque = await FriendRequest.findAll()
@@ -296,5 +305,6 @@ module.exports = {
     scoreMatchInDb,
     getAllReservationsInDb,
     getFriendRequestInDb,
-    getAllFriendsReqInDb
+    getAllFriendsReqInDb,
+    allFriendsInDb
 }
