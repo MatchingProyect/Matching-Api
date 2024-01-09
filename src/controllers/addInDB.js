@@ -186,7 +186,7 @@ const addShiftScheduleInDb = async (name, weekDay, timeStart, timeEnd, partnerPr
 
 const addFriendRequestInDb = async (status, UserId, FriendRId) => {
     try {
-        if(!UserId) return 'El UserID es null'
+        
         if(status === "rechazado") await FriendRequest.destroy({ where: { FriendRId: FriendRId, UserId: UserId } })
         const addFriendRequest = await FriendRequest.create({ status, UserId, FriendRId });
         if (addFriendRequest) return addFriendRequest;
@@ -199,7 +199,7 @@ const createRelationshipInDb = async(UserId, FriendId) => {
     try {
         const addRelationship = await UserFriends.create({UserId, FriendId});
         if(addRelationship){
-            await FriendRequest.destroy({where: {FriendRId: FriendId, UserId: UserId}})
+            await FriendRequest.destroy({where: {FriendRId: UserId, UserId: FriendId}})
             return addRelationship;
         } 
 

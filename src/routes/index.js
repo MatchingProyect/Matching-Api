@@ -80,6 +80,7 @@ const volverAdm = require('../handlers/Users/volverAdm');
 const online = require('../handlers/Users/online');
 const { deleteRequestInDb } = require('../controllers/deleteInDB');
 const updatePassword = require('../handlers/Users/updatePassword');
+const { getAllFriendsById } = require('../controllers/getInDB');
 
 const router = require("express").Router();
 
@@ -115,6 +116,7 @@ router.get("/ratingUser", getRatingUser)
 router.get('/friendRequest/:id', friendRequest);
 router.get('/friendRequest', getAllFriendsReq)
 router.get('/friends',  allFriends)
+router.get('/friends/:id', getAllFriendsById)
 
 router.post('/logout', logout)
 router.post('/clubs', createClub)

@@ -164,6 +164,53 @@ const getAllReservationsInDb = async (offset, limit) => {
     }
 }
 
+const getAllFriendsById = async (req, res) => {
+    try {
+        let friendsByU = []
+        let friendsByF = []
+        const { id } = req.params
+        const allFriendsU = await UserFriends.findAll({ where: { UserId: id } })
+        const allFriendsF = await UserFriends.findAll({ where: { FriendId: id } })
+        if (allFriendsU) {
+           await Promise.all(allFriendsU.map(async (friend) => {
+                try {
+                    
+                    const friendGet = await User.findOne({ where: { id: friend.FriendId } })
+                    if (friendGet){
+                        friendsByU.push(friendGet)
+                    } 
+                } catch (error) {
+                    return error.message
+                }
+            }))
+        }
+        
+        if (allFriendsF) {
+            await Promise.all(allFriendsF.map(async (friend) => {
+                try {
+                    const friendGet = await User.findOne({ where: { id: friend.UserId } })
+                    console.log('lucas',allFriendsF)
+                    if (friendGet) friendsByF.push(friendGet)
+                } catch (error) {
+                    return error.message
+                }
+            }))
+        }
+
+        const finalFriendsSend = [...friendsByU, ...friendsByF]
+        return res.status(200).json({
+            status: true,
+            friends: finalFriendsSend
+        })
+
+    } catch (error) {
+        return res.status(500).json({
+            status: true,
+            message: error.message
+        })
+    }
+}
+
 const getOneReservationInDb = async (id) => {
     try {
         const oneReservation = await Reservation.findOne({where: {id},
@@ -306,5 +353,6 @@ module.exports = {
     getAllReservationsInDb,
     getFriendRequestInDb,
     getAllFriendsReqInDb,
-    allFriendsInDb
+    allFriendsInDb,
+    getAllFriendsById
 }

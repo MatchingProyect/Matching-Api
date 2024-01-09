@@ -5,6 +5,7 @@ const { putStatusRequest } = require("../../controllers/putInDB");
 const relationUser = async (req, res) => {
     try {
         const { status, UserId, FriendRId } = req.body;
+        if(!UserId) return res.status(404).json({status: false, message: "UserId es igual a null"})
         const request = await addFriendRequestInDb(status, UserId, FriendRId);
         if (request) return res.status(200).json({
             status: true,
@@ -55,6 +56,7 @@ const friendRequest = async (req, res) => {
         })
     }
 }
+
 
 
 const addFriend = async (req, res) => {
@@ -128,5 +130,6 @@ module.exports = {
     addFriend,
     friendRequest,
     getAllFriendsReq,
-    allFriends
+    allFriends,
+    
 };
