@@ -60,6 +60,8 @@ const friendRequest = async (req, res) => {
 const addFriend = async (req, res) => {
     try {
         const { status, UserId, FriendId } = req.body;
+
+        
         
         if (status === "true") {
             
