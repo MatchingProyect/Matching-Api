@@ -1,5 +1,5 @@
 const dataBase = require('../dataBase/dataBase')
-const { User, Profile, Sport, Club, Location, Court, Payment, PaymentType, Reservation, ScoreMatch, TeamMatch, AdvertisingEvent, AdvertisingSystem, MatchResult, PointEvent, PointSystem, PaymentStatus, ReservationType, MatchType, RatingUser, ShiftSchedule, FriendRequest, UserFriends } = dataBase.models
+const { User, Profile, Sport, Club, Location, Court, Payment, PaymentType, Reservation, ScoreMatch, TeamMatch, AdvertisingEvent, AdvertisingSystem, MatchResult, PointEvent, PointSystem, PaymentStatus, ReservationType, MatchType, RatingUser, ShiftSchedule, FriendRequest, UserFriends, UserMatch, GuestReservation } = dataBase.models
 
 const addUserInDb = async ({admin, active,onLine, displayName, gender, dayBirth, email, phone, creditCardWarranty, avatarImg, password, description}) => {
     try {
@@ -68,22 +68,32 @@ const addCourtInDb = async (name, description, priceFee, warrantyReservation, gr
     }
 }
 
-const addReservationInDb = async (dateTimeStart, dateTimeEnd, totalCost, UserId, CourtId, MatchTypeId, ReservationTypeId) => {
+const addReservationInDb = async (dateTimeStart, dateTimeEnd, totalCost, teamMatch, UserId, CourtId, MatchTypeId, ReservationTypeId) => {
     try {
-        const addReservation = await Reservation.create({ dateTimeStart, dateTimeEnd, totalCost, UserId, CourtId, MatchTypeId, ReservationTypeId,
-         PaymentId: null
-        });
+        const addReservation = await Reservation.create({ dateTimeStart, dateTimeEnd, totalCost, teamMatch, UserId, CourtId, MatchTypeId, ReservationTypeId, PaymentId: null, TeamMatchId: null });
+        let addUserMatch;
+        
         const user = await User.findByPk(UserId);
         if (addReservation) {
+            const addTeamMatch = await TeamMatch.create({name: teamMatch});
+            
+            if(addTeamMatch) {
+                try {
+                    addUserMatch = await UserMatch.create({TeamMatchId: addTeamMatch.id, UserId});
+                } catch (error) {
+                    throw error.message;
+                }
+            }
             const addPaymentStatus = await PaymentStatus.create({name: 'pending'});
             const addPaymentType = await PaymentType.create({name: 'default'});
 
             const addPayment = await Payment.create({name: user.name, amount: totalCost, createdAt: addReservation.createdAt, updatedAt: null, PaymentStatusId: addPaymentStatus.id, PaymentTypeId: addPaymentType.id});
 
-            await addReservation.update({PaymentId: addPayment.id});
-            return {addReservation, addPayment, addPaymentStatus, addPaymentType}
+            await addReservation.update({PaymentId: addPayment.id, TeamMatchId: addTeamMatch.id});
+            return {addReservation, addPayment, addPaymentStatus, addPaymentType, addTeamMatch, addUserMatch}
         }
     } catch (error) {
+        console.error(error)
         throw error.message;
     }
 }
@@ -92,15 +102,6 @@ const addScoreMatchInDb = async (firstSet, secondSet, thirdSet) => {
     try {
         const addScoreMatch = await ScoreMatch.create({ firstSet, secondSet, thirdSet });
         if (addScoreMatch) return addScoreMatch;
-    } catch (error) {
-        throw error.message;
-    }
-}
-
-const addTeamMatchesInDb = async (name) => {
-    try {
-        const addTeamMatch = await TeamMatch.create({ name });
-        if (addTeamMatch) return addTeamMatch;
     } catch (error) {
         throw error.message;
     }
@@ -208,6 +209,15 @@ const createRelationshipInDb = async(UserId, FriendId) => {
     }
 }
 
+const addGuestReservationInDb = async({UserId, ReservationId, TeamMatchId}) => {
+    try {
+        const addGuestReservation = await GuestReservation.create({UserId, ReservationId, TeamMatchId});
+        if(addGuestReservation) return addGuestReservation;
+    } catch (error) {
+        throw error.message;
+    }
+}
+
 module.exports = {
     addUserInDb,
     addProfileInDb,
@@ -217,7 +227,6 @@ module.exports = {
     addCourtInDb,
     addReservationInDb,
     addScoreMatchInDb,
-    addTeamMatchesInDb,
     addAdvertisingEventInDb,
     addAdvertisingSystemInDb,
     addMatchResultInDb,
@@ -228,5 +237,6 @@ module.exports = {
     addReservationTypeInDb,
     addShiftScheduleInDb,
     addFriendRequestInDb,
-    createRelationshipInDb
+    createRelationshipInDb,
+    addGuestReservationInDb
 }

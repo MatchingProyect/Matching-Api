@@ -81,6 +81,7 @@ const online = require('../handlers/Users/online');
 const { deleteRequestInDb } = require('../controllers/deleteInDB');
 const updatePassword = require('../handlers/Users/updatePassword');
 const { getAllFriendsById } = require('../controllers/getInDB');
+const getAllGuestReservation = require('../handlers/GuestReservation/getOneGuestReservation');
 
 const router = require("express").Router();
 
@@ -117,6 +118,7 @@ router.get('/friendRequest/:id', friendRequest);
 router.get('/friendRequest', getAllFriendsReq)
 router.get('/friends',  allFriends)
 router.get('/friends/:id', getAllFriendsById)
+router.get('/guestReservations/:id', getAllGuestReservation);
 
 router.post('/logout', logout)
 router.post('/clubs', createClub)

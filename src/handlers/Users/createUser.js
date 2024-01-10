@@ -3,7 +3,6 @@ const {addUserInDb} = require("../../controllers/addInDB")
 
 const createUser = async(req, res)=>{
     try {
-        console.log("createUser", req.body)
 
         const {admin,active,onLine, displayName, gender, dayBirth, email, phone, creditCardWarranty, avatarImg, password, description}= req.body
         

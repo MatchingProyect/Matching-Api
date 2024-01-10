@@ -1,6 +1,6 @@
 const { Op } = require('sequelize')
 const dataBase = require('../dataBase/dataBase')
-const { User, Profile, Court, Payment, PaymentType, Reservation, ScoreMatch, TeamMatch, PointEvent, PointSystem, AdvertisingSystem, AdvertisingEvent, PaymentStatus, RatingUser, FriendRequest, UserFriends } = dataBase.models
+const { User, Profile, Court, Payment, PaymentType, Reservation, ScoreMatch, TeamMatch, PointEvent, PointSystem, AdvertisingSystem, AdvertisingEvent, PaymentStatus, RatingUser, FriendRequest, UserFriends, GuestReservation } = dataBase.models
 
 const getAllProfInDb = async () => {
     try {
@@ -328,6 +328,15 @@ const getAllPaymentStatusesFromDb = async () => {
     }
 };
 
+const getAllGuestReservationInDbByUserId = async (id) => {
+    try {
+        const oneGuestReservation = await GuestReservation.findAll({where: {UserId: id}});
+        if(oneGuestReservation.length > 0) return oneGuestReservation;
+    } catch (error) {
+        throw error.message;
+    }
+}
+
 
 module.exports = {
     getAllProfInDb,
@@ -354,5 +363,6 @@ module.exports = {
     getFriendRequestInDb,
     getAllFriendsReqInDb,
     allFriendsInDb,
-    getAllFriendsById
+    getAllFriendsById,
+    getAllGuestReservationInDbByUserId
 }

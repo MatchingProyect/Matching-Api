@@ -188,7 +188,6 @@ const putUserAdmin = async(id, admin) =>{
     }
 }
 
-
 module.exports = {
     putProfile,
     putUser,
@@ -204,5 +203,7 @@ module.exports = {
     putSportEstado,
     putTeamMatchEstado,
     putCourtEstado,
-    putClubEstado
+    putClubEstado,
+    putUserAdmin,
+    putUserPassword
 }
