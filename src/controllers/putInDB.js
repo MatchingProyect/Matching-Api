@@ -10,6 +10,15 @@ const putProfile = async (id, laterality, courtSide, matchType, dayPreference, t
         throw error.message
     }
 }
+const putSport = async (id, name) => {
+    try {
+        const updateSport = await Sport.update({name} , {where: {id}});
+        if(updateSport) return updateSport;
+    } catch (error) {
+        console.log(error)
+        throw error.message
+    }
+}
 
 const putUser = async (id, admin, displayName, gender, dayBirth, email, phone, creditCardWarranty, avatarImg, password, onLine) => {
     try {
@@ -191,6 +200,7 @@ const putUserAdmin = async(id, admin) =>{
 module.exports = {
     putProfile,
     putUser,
+    putSport,
     putCourt,
     putPayment,
     putReservationType,

@@ -81,6 +81,8 @@ const online = require('../handlers/Users/online');
 const { deleteRequestInDb } = require('../controllers/deleteInDB');
 const updatePassword = require('../handlers/Users/updatePassword');
 const { getAllFriendsById } = require('../controllers/getInDB');
+const bringSportsProfiles = require('../handlers/Users/bringSportProfiles');
+const updateSport = require('../handlers/Sport/updateSport');
 const getAllGuestReservation = require('../handlers/GuestReservation/getOneGuestReservation');
 
 const router = require("express").Router();
@@ -90,6 +92,7 @@ router.get('/clubs', getAllClubs)
 router.get('/clubs/:id', getClubById)
 router.get('/profiles', getAllProfiles);
 router.get('/profiles/:id', getProfile);
+router.get('/userProfiles/:id', bringSportsProfiles);
 router.get('/users', getAllUsers);
 router.get('/users/:id', getUser);
 router.get('/sports', getAllSport);
@@ -155,6 +158,7 @@ router.post('/notify', notify);
 router.put('/restartPassword', updatePassword);
 router.put("/reservation/:id", updatedReservationTypes);
 router.put('/profiles/:id', updateProfile);
+router.put('/updateSport/:id', updateSport);
 router.put('/users/:id', updateUser);
 router.put('/courts/:id', updateCourt);
 router.put('/clubs/:id', updateClub);
