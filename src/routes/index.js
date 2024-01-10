@@ -84,6 +84,7 @@ const { getAllFriendsById } = require('../controllers/getInDB');
 const bringSportsProfiles = require('../handlers/Users/bringSportProfiles');
 const updateSport = require('../handlers/Sport/updateSport');
 const getAllGuestReservation = require('../handlers/GuestReservation/getOneGuestReservation');
+const deleteMatchType = require('../handlers/MatchType/deleteMatchType');
 
 const router = require("express").Router();
 
@@ -185,5 +186,6 @@ router.delete('/teamMatches/:id', deleteTeamMatch);
 router.delete('/advertisingEvent/:id', deleteAdvertisingEvent);
 router.delete('/pointEvent/:id', deletePointEvent);
 router.delete('/friendRequest/:id', deleteRequestInDb)
+router.delete('/matchType/:id', deleteMatchType);
 
 module.exports = router;

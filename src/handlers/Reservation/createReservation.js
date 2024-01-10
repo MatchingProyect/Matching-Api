@@ -7,7 +7,6 @@ const createReservation = async (req, res) => {
 
         const {addReservation, addPayment, addPaymentStatus, addPaymentType, addTeamMatch, addUserMatch} = reservationCreated;
 
-        console.log('ID_RESERVATION_GET', addReservation.get('id'))
 
         if (reservationCreated) {
 

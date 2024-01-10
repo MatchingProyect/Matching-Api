@@ -1,75 +1,75 @@
 const dataBase = require('../dataBase/dataBase')
 
-const {User, Profile,FriendRequest, Court, Payment, Reservation, TeamMatch, PointEvent, PointSystem, ShiftSchedule} = dataBase.models
+const { User, Profile, FriendRequest, Court, Payment, Reservation, TeamMatch, PointEvent, MatchType, ShiftSchedule } = dataBase.models
 
-const deleteProfileInDb = async(id) =>{
+const deleteProfileInDb = async (id) => {
     try {
-        const deleted = await Profile.destroy({where: {id}})
-        if(deleted) return deleted
+        const deleted = await Profile.destroy({ where: { id } })
+        if (deleted) return deleted
     } catch (error) {
         throw error.message
     }
 }
 
-const deleteUserInDb = async(id) =>{
+const deleteUserInDb = async (id) => {
     try {
-        const deleting = await User.destroy({where: {id}})
-        if(deleting) return deleting
+        const deleting = await User.destroy({ where: { id } })
+        if (deleting) return deleting
     } catch (error) {
         throw error.message
     }
 }
 
-const deleteCourtInDb = async(id) => {
+const deleteCourtInDb = async (id) => {
     try {
-        const courtDeleted = await Court.destroy({where: {id}});
-        if(courtDeleted) return courtDeleted;
+        const courtDeleted = await Court.destroy({ where: { id } });
+        if (courtDeleted) return courtDeleted;
     } catch (error) {
         throw error.message;
     }
 }
 
-const deletePaymentInDb = async(id) => {
+const deletePaymentInDb = async (id) => {
     try {
-        const paymentDeleted = await Payment.destroy({where: {id}});
-        if(paymentDeleted) return paymentDeleted;
+        const paymentDeleted = await Payment.destroy({ where: { id } });
+        if (paymentDeleted) return paymentDeleted;
     } catch (error) {
         throw error.message
     }
 }
 
-const deleteReservationInDb = async(id) => {
+const deleteReservationInDb = async (id) => {
     try {
-        const reservationDeleted = await Reservation.destroy({where: {id}});
-        if(reservationDeleted) return reservationDeleted;
-        
+        const reservationDeleted = await Reservation.destroy({ where: { id } });
+        if (reservationDeleted) return reservationDeleted;
+
     } catch (error) {
         throw error.message
     }
 }
 
-const deleteTeamMatchInDb = async(id) => {
+const deleteTeamMatchInDb = async (id) => {
     try {
-        const teamMatchDeleted = await TeamMatch.destroy({where: {id}});
-        if(teamMatchDeleted) return teamMatchDeleted;
+        const teamMatchDeleted = await TeamMatch.destroy({ where: { id } });
+        if (teamMatchDeleted) return teamMatchDeleted;
     } catch (error) {
         throw error.message;
     }
 }
 
-const destroyPointEvent = async(id) =>{
+const destroyPointEvent = async (id) => {
     try {
-        const deletePoint = await PointEvent.destroy({where: {id}})
-        if(deletePoint) return deletePoint
+        const deletePoint = await PointEvent.destroy({ where: { id } })
+        if (deletePoint) return deletePoint
     } catch (error) {
         return error.message
     }
 }
 
-const deleteAdvertisingEventInDb = async(id)=>{
+const deleteAdvertisingEventInDb = async (id) => {
     try {
-        const deletedInDbAdvertising = await AdvertisingEvent.destroy({where: {id}})
-        if(deletedInDbAdvertising) return deletedInDbAdvertising
+        const deletedInDbAdvertising = await AdvertisingEvent.destroy({ where: { id } })
+        if (deletedInDbAdvertising) return deletedInDbAdvertising
     } catch (error) {
         return error.message
     }
@@ -77,38 +77,47 @@ const deleteAdvertisingEventInDb = async(id)=>{
 
 const deleteShiftScheduleFromDb = async (shiftScheduleId) => {
     try {
-   const deletedShiftSchedule = await ShiftSchedule.destroy({
+        const deletedShiftSchedule = await ShiftSchedule.destroy({
             where: {
                 id: shiftScheduleId
             }
         });
-        if(deletedShiftSchedule) return deletedShiftSchedule; 
+        if (deletedShiftSchedule) return deletedShiftSchedule;
     } catch (error) {
         throw new Error(error.message);
     }
 };
 
-const deleteRequestInDb = async(req, res)=>{
+const deleteRequestInDb = async (req, res) => {
     try {
-    const {id} = req.params
-    const deleted = await FriendRequest.destroy({where: {id}})
-    if(deleted) return res.status(200).json({status: true, deleted})
-        
+        const { id } = req.params
+        const deleted = await FriendRequest.destroy({ where: { id } })
+        if (deleted) return res.status(200).json({ status: true, deleted })
+
     } catch (error) {
-        return res.status(500).json({status: false, message: error.message})
+        return res.status(500).json({ status: false, message: error.message })
     }
 }
 
+const deleteMatchTypeInDb = async (id) => {
+    try {
+        const matchTypeDeleted = await MatchType.destroy({ where: { id } });
+        if (matchTypeDeleted) return matchTypeDeleted;
+    } catch (error) {
+        throw error.message;
+    }
+}
 
 module.exports = {
     deleteProfileInDb,
-     deleteUserInDb,
-     deleteCourtInDb,
-     deletePaymentInDb,
-     deleteReservationInDb,
-     deleteTeamMatchInDb,
-     destroyPointEvent,
-  deleteAdvertisingEventInDb,
-     deleteShiftScheduleFromDb,
-     deleteRequestInDb
+    deleteUserInDb,
+    deleteCourtInDb,
+    deletePaymentInDb,
+    deleteReservationInDb,
+    deleteTeamMatchInDb,
+    destroyPointEvent,
+    deleteAdvertisingEventInDb,
+    deleteShiftScheduleFromDb,
+    deleteRequestInDb,
+    deleteMatchTypeInDb
 }

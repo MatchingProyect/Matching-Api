@@ -4,12 +4,10 @@ const { User, Profile, Sport, Club, Location, Court, Payment, PaymentType, Reser
 const addUserInDb = async ({admin, active,onLine, displayName, gender, dayBirth, email, phone, creditCardWarranty, avatarImg, password, description}) => {
     try {
         if(!displayName || !email ) return `faltan datos`
-        console.log("add")
         const [newUser, create] = await User.findOrCreate({where: {displayName}, 
             defaults: {admin, active,onLine, displayName, gender, dayBirth, email, phone, creditCardWarranty, avatarImg, password, description}
         })
         
-        console.log(newUser, create)
         if (!create) return "este usuario ya existe"
 
         return newUser
@@ -23,10 +21,8 @@ const addProfileInDb = async (laterality, courtSide, matchType, dayPreference, t
     try {
 
         const newProfile = await Profile.create({ laterality, courtSide, matchType, dayPreference, timePreference, categoryLvl, SportId, UserId })
-        console.log("newProfile", newProfile)
         if (newProfile) return newProfile
     } catch (error) {
-        console.log(error.message)
         throw error.message
     }
 }
@@ -93,7 +89,6 @@ const addReservationInDb = async (dateTimeStart, dateTimeEnd, totalCost, teamMat
             return {addReservation, addPayment, addPaymentStatus, addPaymentType, addTeamMatch, addUserMatch}
         }
     } catch (error) {
-        console.error(error)
         throw error.message;
     }
 }

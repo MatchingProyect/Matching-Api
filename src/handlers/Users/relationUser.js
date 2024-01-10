@@ -69,7 +69,6 @@ const addFriend = async (req, res) => {
             
             const statusUpdated = await putStatusRequest(status, UserId, FriendId);
             const relationship = await createRelationshipInDb(UserId, FriendId);
-            console.log(relationship)
             
             if (relationship) {
                 return res.status(200).json({

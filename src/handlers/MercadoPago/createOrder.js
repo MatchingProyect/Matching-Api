@@ -1,6 +1,6 @@
 const mercadopago = require('mercadopago');
 const { getOneReservationInDb } = require('../../controllers/getInDB');
-const { putPaymentStatusInDb, putPaymentTypeInDb, putPayment } = require('../../controllers/putInDB');
+const { putPaymentStatusInDb, putPaymentTypeInDb } = require('../../controllers/putInDB');
 
 const client = new mercadopago.MercadoPagoConfig({ accessToken: 'TEST-4709112992835701-123015-5120ca87916dd20b33ad177adf129588-1615194691' });
 const preference = new mercadopago.Preference(client);
