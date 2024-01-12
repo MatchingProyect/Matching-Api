@@ -85,6 +85,8 @@ const bringSportsProfiles = require('../handlers/Users/bringSportProfiles');
 const updateSport = require('../handlers/Sport/updateSport');
 const getAllGuestReservation = require('../handlers/GuestReservation/getOneGuestReservation');
 const deleteMatchType = require('../handlers/MatchType/deleteMatchType');
+const getTeamMatchByUser = require('../handlers/TeamMatch/getTeamMatchByUser');
+const getReservationByTeamMatch = require('../handlers/Reservation/getReservationByTeamMatch');
 
 const router = require("express").Router();
 
@@ -108,7 +110,8 @@ router.get('/reservations/:id', getReservation);
 router.get('/scoreMatches', getAllScoreMatches);
 router.get('/scoreMatches/:id', getScoreMatch)
 router.get('/teamMatches', getAllTeamMatches);
-router.get('/teamMatch', getTeamMatch);
+router.get('/teamMatch/:id', getTeamMatch);
+router.get('/teamMatchByUser/:id', getTeamMatchByUser);
 router.get('/advertisingEvent', getAdvertisingEvent);
 router.get('/advertisingSystem', getAdvertisingSystem);
 router.get('/matchResult', getMatchResult);
@@ -123,6 +126,7 @@ router.get('/friendRequest', getAllFriendsReq)
 router.get('/friends',  allFriends)
 router.get('/friends/:id', getAllFriendsById)
 router.get('/guestReservations/:id', getAllGuestReservation);
+router.get('/reservationTeamMatch/:id', getReservationByTeamMatch)
 
 router.post('/logout', logout)
 router.post('/clubs', createClub)

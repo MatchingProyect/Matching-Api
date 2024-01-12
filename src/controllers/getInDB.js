@@ -1,6 +1,6 @@
 const { Op } = require('sequelize')
 const dataBase = require('../dataBase/dataBase')
-const { User, Profile, Court, Payment, PaymentType, Reservation, ScoreMatch, TeamMatch, PointEvent, PointSystem, AdvertisingSystem, AdvertisingEvent, PaymentStatus, RatingUser, FriendRequest, UserFriends, GuestReservation } = dataBase.models
+const { User, Profile, Court, Payment, PaymentType, Reservation, ScoreMatch, TeamMatch, PointEvent, PointSystem, AdvertisingSystem, AdvertisingEvent, PaymentStatus, RatingUser, FriendRequest, UserFriends, GuestReservation, UserMatch } = dataBase.models
 
 const getAllProfInDb = async () => {
     try {
@@ -252,6 +252,15 @@ const getAllTeamMatchesInDb = async () => {
     }
 }
 
+const getTeamMatchByUserId = async (id) => {
+    try {
+        const teamMatchesByUser = await UserMatch.findAll({where: {UserId: id}});
+        if (teamMatchesByUser) return teamMatchesByUser;
+    } catch (error) {
+        throw error.message;
+    }
+}
+
 const getOneTeamMatchInDb = async (id) => {
     try {
         const teamMatch = await TeamMatch.findOne({ where: { id } });
@@ -333,6 +342,15 @@ const getAllGuestReservationInDbByUserId = async (id) => {
     }
 }
 
+const getReservationByTeamMatchInDb = async(id) => {
+    try {
+        const reservation = await Reservation.findAll({where: {TeamMatchId: id}});
+        if(reservation) return reservation;
+    } catch (error) {
+        throw error.message;
+    }
+}
+
 
 module.exports = {
     getAllProfInDb,
@@ -360,5 +378,7 @@ module.exports = {
     getAllFriendsReqInDb,
     allFriendsInDb,
     getAllFriendsById,
-    getAllGuestReservationInDbByUserId
+    getAllGuestReservationInDbByUserId,
+    getTeamMatchByUserId,
+    getReservationByTeamMatchInDb
 }
