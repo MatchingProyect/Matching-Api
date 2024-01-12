@@ -43,7 +43,6 @@ const getUserInDb = async (id) => {
             include: FriendRequest })
             if (user && friends){
             const info = {friends, user}
-            console.log(friends)
             return info;
         } 
 
@@ -59,7 +58,6 @@ const getFriendRequestInDb = async (id, userType) => {
             const user = await FriendRequest.findAll({ 
                 where: { FriendRId: id }
             });
-            console.log(user)
             if(user){
                 return user
 
@@ -71,7 +69,6 @@ const getFriendRequestInDb = async (id, userType) => {
             });
             
             if(user){
-                console.log('entro a este')
                 const userQueRecibe = await User.findOne({
                     where: {id: user.FriendRId}
                 })
@@ -189,7 +186,6 @@ const getAllFriendsById = async (req, res) => {
             await Promise.all(allFriendsF.map(async (friend) => {
                 try {
                     const friendGet = await User.findOne({ where: { id: friend.UserId } })
-                    console.log('lucas',allFriendsF)
                     if (friendGet) friendsByF.push(friendGet)
                 } catch (error) {
                     return error.message
