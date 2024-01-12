@@ -3,6 +3,7 @@ const { addReservationInDb, addGuestReservationInDb } = require("../../controlle
 const createReservation = async (req, res) => {
     try {
         const { dateTimeStart, dateTimeEnd, totalCost, teamMatch, UserId, CourtId, MatchTypeId, ReservationTypeId } = req.body;
+       
         const reservationCreated = await addReservationInDb(dateTimeStart, dateTimeEnd, totalCost, teamMatch, UserId, CourtId, MatchTypeId, ReservationTypeId);
 
         const {addReservation, addPayment, addPaymentStatus, addPaymentType, addTeamMatch, addUserMatch} = reservationCreated;
@@ -25,6 +26,7 @@ const createReservation = async (req, res) => {
         } else console.log('No se creó 404')
         
     } catch (error) {
+        console.log('holi',req.body)
         res.status(500).json({
             error: console.error(error),
             status: false,
