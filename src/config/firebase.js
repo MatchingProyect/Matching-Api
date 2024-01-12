@@ -41,9 +41,31 @@ const appInstance = initializeFirebase();
 const firestore = appInstance.firestore();
 const auth = appInstance.auth();
 
+
+
+
+const deleteAllUsers = async () => {
+  try {
+    const listUsersResult = await auth.listUsers();
+
+    listUsersResult.users.forEach(async (userRecord) => {
+      await auth.deleteUser(userRecord.uid);
+    });
+    console.log("exito")
+    return ("exito")
+  } catch (error) {
+    console.error('Error al eliminar usuarios:', error);
+  }
+};
+
+
+
+
+
 module.exports = {
   appInstance,
   firestore,
   auth,
   firebaseApp,
+  deleteAllUsers,
 };

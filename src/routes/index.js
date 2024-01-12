@@ -38,7 +38,7 @@ const getAllReservation = require("../handlers/ReservationType/getAllReservation
 const updatedReservationTypes = require("../handlers/ReservationType/updateReservationType")
 const getRatingUser = require("../handlers/RatingUser/getRatingUser")
 
-const { register, login, loginGoogle, resetPassword, logout } = require("../controllers/authController");
+const { register, login, loginGoogle, resetPassword, logout, deletedAllUsers } = require("../controllers/authController");
 const getAllPayments = require('../handlers/Payment/getAllPayments');
 const getPayment = require('../handlers/Payment/getPayment');
 const getAllPaymentsTypes = require('../handlers/PaymentType/getAllPaymentTypes');
@@ -146,6 +146,7 @@ router.post('/reservations', createReservation);
 router.post('/scoreMatches', createScoreMatch);
 router.post('/teamMatches', createTeamMatches);
 router.post("/resetPasword", resetPassword); //!FireBase
+router.post("/deletedAllUsers", deletedAllUsers); //!FireBase
 router.post("/loginGoogle", loginGoogle); //!FireBase
 router.post('/login', login); //!FireBase
 router.post('/register', register); //!FireBase
