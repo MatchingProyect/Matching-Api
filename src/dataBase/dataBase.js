@@ -205,11 +205,11 @@ PaymentStatus.hasMany(Payment, {foreignKey: 'PaymentStatusId'}); //?
 Payment.belongsTo(PaymentStatus, {foreignKey: 'PaymentStatusId'}); //?
 
 // TeamMatch relationships
-TeamMatch.hasOne(MatchResult); //?
-MatchResult.belongsTo(TeamMatch); //?
+TeamMatch.hasOne(MatchResult, { onDelete: 'CASCADE' });
+MatchResult.belongsTo(TeamMatch);
 
-TeamMatch.hasOne(ScoreMatch); //?
-ScoreMatch.belongsTo(TeamMatch); //?
+MatchResult.hasOne(ScoreMatch, { onDelete: 'CASCADE' });
+ScoreMatch.belongsTo(MatchResult);
 
 TeamMatch.hasOne(GuestReservation, {foreignKey: 'TeamMatchId'});
 GuestReservation.belongsTo(TeamMatch, {foreignKey: 'TeamMatchId'});

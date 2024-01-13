@@ -18,6 +18,33 @@ const addUserInDb = async ({ admin, active, onLine, displayName, gender, dayBirt
     }
 }
 
+
+
+const crearMatchResultYScoreMatch = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { name, firstSet, secondSet, thirdSet } = req.body;
+
+
+    const nuevoMatchResult = await MatchResult.create({ name, TeamMatchId: id });
+
+    
+    const nuevoScoreMatch = await ScoreMatch.create({ firstSet, secondSet, thirdSet, MatchResultId: nuevoMatchResult.id });
+
+    return res.status(201).json({
+      matchResult: nuevoMatchResult,
+      scoreMatch: nuevoScoreMatch,
+      mensaje: 'MatchResult y ScoreMatch creados exitosamente y vinculados al TeamMatch.',
+    });
+  } catch (error) {
+    console.error('Error al crear MatchResult y ScoreMatch:', error);
+    return res.status(500).json({ mensaje: 'Error interno del servidor' });
+  }
+};
+
+
+
+
 const addValoracionInDb = async(id, valoracion) =>{
     try {
         const newValo = await Valoraciones.create({
@@ -256,5 +283,6 @@ module.exports = {
     addFriendRequestInDb,
     createRelationshipInDb,
     addGuestReservationInDb,
-    addValoracionInDb
+    addValoracionInDb,
+    crearMatchResultYScoreMatch
 }

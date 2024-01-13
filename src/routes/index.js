@@ -91,6 +91,8 @@ const getValoracionesByUserId = require('../handlers/Valoraciones/valoracionesBy
 const createValoracion = require('../handlers/Valoraciones/crearValoraciones');
 const usersByTeamMatch = require('../handlers/Users/usersByTeamMatch');
 const obtenerReservasPorTipo = require('../handlers/Reservation/reservaByMatchType');
+const { crearMatchResultYScoreMatch } = require('../controllers/addInDB');
+
 
 const router = require("express").Router();
 
@@ -168,6 +170,7 @@ router.post('/friendRequest', relationUser);
 router.post('/addFriend', addFriend);
 router.post('/createOrder', createOrder);
 router.post('/notify', notify);
+router.post('/resultadoMarcador/:id', crearMatchResultYScoreMatch)
 
 router.put('/restartPassword', updatePassword);
 router.put("/reservation/:id", updatedReservationTypes);
