@@ -51,8 +51,14 @@ const addValoracionInDb = async(id, valoracion) =>{
             valoracion,
             userIdBeingRated: {id},
           });
-          if(newValo) return newValo
+          console.log(newValo)
+          if(newValo) {
+            return newValo
+             }else{
+                console.log('else')
+             }
     } catch (error) {
+        console.log('error controller')
         throw error.message
     }
 }
