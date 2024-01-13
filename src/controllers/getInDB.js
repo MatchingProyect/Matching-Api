@@ -28,10 +28,14 @@ const getReservaByMatchType = async(id) =>{
 
 const valoracionesByUserInDb = async(id)=>{
     try {
-       const userFound =await Valoraciones.findAll({
-        where: { userIdBeingRated: {id} },
-      });
-       if(userFound) return userFound
+        const user = User.findByPk(id);
+
+        if(user){
+            const userFound =await Valoraciones.findAll({
+             where: { userIdBeingRated: id },
+           });
+            if(userFound) return userFound
+        }
     } catch (error) {
          throw error.message
     }

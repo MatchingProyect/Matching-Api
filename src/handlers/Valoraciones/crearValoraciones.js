@@ -18,7 +18,7 @@ const createValoracion = async (req, res) => {
   
      
     } catch (error) {
-        console.log("a")
+        console.log(error)
       return res.status(500).json({status: false, message: error.message})
     }
   };
