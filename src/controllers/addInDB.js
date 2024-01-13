@@ -18,6 +18,16 @@ const addUserInDb = async ({ admin, active, onLine, displayName, gender, dayBirt
     }
 }
 
+const createRelationUserByTeam = async(req, res)=>{
+    try {
+        const {UserId, TeamMatchId} = req.query
+        const userAgregado = await UserMatch.create({ TeamMatchId, UserId })
+        if(userAgregado) return res.status(200).json({status: true, userAgregado})
+    } catch (error) {
+        return res.status(500).json({status: false, message: error.message})
+    }
+}
+
 
 
 const crearMatchResultYScoreMatch = async (req, res) => {
@@ -288,5 +298,6 @@ module.exports = {
     createRelationshipInDb,
     addGuestReservationInDb,
     addValoracionInDb,
-    crearMatchResultYScoreMatch
+    crearMatchResultYScoreMatch,
+    createRelationUserByTeam
 }
