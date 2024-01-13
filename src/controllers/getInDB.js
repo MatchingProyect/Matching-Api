@@ -166,6 +166,15 @@ const getAllCourtsInDb = async (offset, limit) => {
     }
 }
 
+const getOneCourtInDb = async(id) => {
+    try {
+        const courtFound = await Court.findOne({where: {id}});
+        if(courtFound) return courtFound;
+    } catch (error) {
+        throw error.message;
+    }
+}
+
 const getAllPaymentsInDb = async () => {
     try {
         const payments = await Payment.findAll();
@@ -433,5 +442,6 @@ module.exports = {
     getTeamMatchByUserId,
     getReservationByTeamMatchInDb,
     getUserByTeamMatchId,
-    getReservaByMatchType 
+    getReservaByMatchType ,
+    getOneCourtInDb
 }
