@@ -15,7 +15,6 @@ const putSport = async (id, name) => {
         const updateSport = await Sport.update({name} , {where: {id}});
         if(updateSport) return updateSport;
     } catch (error) {
-        console.log(error)
         throw error.message
     }
 }
@@ -27,7 +26,6 @@ const putUser = async (id, admin, displayName, gender, dayBirth, email, phone, c
 
         if (updatedUser) return userUpdate
     } catch (error) {
-        console.log(error)
         throw error.message
     }
 }
@@ -136,7 +134,6 @@ const putClubEstado = async (id, estado) => {
        
         const updatedClubEstado = await Club.update({estado: estado}, {where: {id}});
         
-        console.log(updatedClubEstado)
         if(updatedClubEstado) return updatedClubEstado;
 
     } catch (error) {

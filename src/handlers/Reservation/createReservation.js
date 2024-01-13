@@ -2,11 +2,10 @@ const { addReservationInDb, addGuestReservationInDb } = require("../../controlle
 
 const createReservation = async (req, res) => {
     try {
-        const { dateTimeStart, dateTimeEnd, totalCost, teamMatch, UserId, CourtId, MatchTypeId, ReservationTypeId } = req.body;
-       
-        const reservationCreated = await addReservationInDb(dateTimeStart, dateTimeEnd, totalCost, teamMatch, UserId, CourtId, MatchTypeId, ReservationTypeId);
+        const { dateTimeStart, dateTimeEnd, totalCost, teamMatch, UserId, CourtId, MatchTypeId, FriendsId } = req.body;
+        const reservationCreated = await addReservationInDb(dateTimeStart, dateTimeEnd, totalCost, teamMatch, UserId, CourtId, MatchTypeId, FriendsId);
 
-        const {addReservation, addPayment, addPaymentStatus, addPaymentType, addTeamMatch, addUserMatch} = reservationCreated;
+        const {addReservation, addPayment, addPaymentStatus, addPaymentType, addTeamMatch} = reservationCreated;
 
 
         if (reservationCreated) {
@@ -20,7 +19,6 @@ const createReservation = async (req, res) => {
                 addPaymentStatus,
                 addPaymentType,
                 addTeamMatch,
-                addUserMatch,
                 idReserva: addReservation.get('id')
             });
         } else console.log('No se creó 404')
@@ -28,7 +26,6 @@ const createReservation = async (req, res) => {
     } catch (error) {
         console.log('holi',req.body)
         res.status(500).json({
-            error: console.error(error),
             status: false,
             message: error.message
         })

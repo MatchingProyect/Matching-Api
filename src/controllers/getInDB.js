@@ -1,6 +1,6 @@
 const { Op } = require('sequelize')
 const dataBase = require('../dataBase/dataBase')
-const { User, Profile, Court, Payment, PaymentType, Reservation, ScoreMatch, TeamMatch, PointEvent, PointSystem, AdvertisingSystem, AdvertisingEvent, PaymentStatus, RatingUser, FriendRequest, UserFriends, GuestReservation } = dataBase.models
+const { User, Profile, Court, Payment, PaymentType, Reservation, ScoreMatch, TeamMatch, PointEvent, PointSystem, AdvertisingSystem, AdvertisingEvent, PaymentStatus, RatingUser, FriendRequest, UserFriends, GuestReservation, UserMatch } = dataBase.models
 
 const getAllProfInDb = async () => {
     try {
@@ -43,7 +43,6 @@ const getUserInDb = async (id) => {
             include: FriendRequest })
             if (user && friends){
             const info = {friends, user}
-            console.log(friends)
             return info;
         } 
 
@@ -59,7 +58,6 @@ const getFriendRequestInDb = async (id, userType) => {
             const user = await FriendRequest.findAll({ 
                 where: { FriendRId: id }
             });
-            console.log(user)
             if(user){
                 return user
 
@@ -71,7 +69,6 @@ const getFriendRequestInDb = async (id, userType) => {
             });
             
             if(user){
-                console.log('entro a este')
                 const userQueRecibe = await User.findOne({
                     where: {id: user.FriendRId}
                 })
@@ -189,7 +186,6 @@ const getAllFriendsById = async (req, res) => {
             await Promise.all(allFriendsF.map(async (friend) => {
                 try {
                     const friendGet = await User.findOne({ where: { id: friend.UserId } })
-                    console.log('lucas',allFriendsF)
                     if (friendGet) friendsByF.push(friendGet)
                 } catch (error) {
                     return error.message
@@ -251,6 +247,15 @@ const getAllTeamMatchesInDb = async () => {
     try {
         const teamMatches = await TeamMatch.findAll();
         if (teamMatches) return teamMatches;
+    } catch (error) {
+        throw error.message;
+    }
+}
+
+const getTeamMatchByUserId = async (id) => {
+    try {
+        const teamMatchesByUser = await UserMatch.findAll({where: {UserId: id}});
+        if (teamMatchesByUser) return teamMatchesByUser;
     } catch (error) {
         throw error.message;
     }
@@ -337,6 +342,15 @@ const getAllGuestReservationInDbByUserId = async (id) => {
     }
 }
 
+const getReservationByTeamMatchInDb = async(id) => {
+    try {
+        const reservation = await Reservation.findAll({where: {TeamMatchId: id}});
+        if(reservation) return reservation;
+    } catch (error) {
+        throw error.message;
+    }
+}
+
 
 module.exports = {
     getAllProfInDb,
@@ -364,5 +378,7 @@ module.exports = {
     getAllFriendsReqInDb,
     allFriendsInDb,
     getAllFriendsById,
-    getAllGuestReservationInDbByUserId
+    getAllGuestReservationInDbByUserId,
+    getTeamMatchByUserId,
+    getReservationByTeamMatchInDb
 }

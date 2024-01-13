@@ -161,8 +161,8 @@ Reservation.belongsTo(MatchType);
 Reservation.hasOne(GuestReservation, {foreignKey: 'ReservationId'});
 GuestReservation.belongsTo(Reservation, {foreignKey: 'ReservationId'});
 
-ReservationType.hasMany(Reservation);
-Reservation.belongsTo(ReservationType);
+// ReservationType.hasMany(Reservation);
+// Reservation.belongsTo(ReservationType);
 
 Reservation.hasMany(RatingUser);
 RatingUser.belongsTo(Reservation);

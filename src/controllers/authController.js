@@ -10,6 +10,7 @@ const {User,  FriendRequest, UserFriends} = dataBase.models
 const pgp = require('pg-promise')();
 const { getAuth, signInWithEmailAndPassword } = require("firebase/auth");
 const { Users } = dataBase.models
+const {deleteAllUsers} = require("../config/firebase.js");
 
 require('dotenv').config();
     const db = pgp({
@@ -247,11 +248,23 @@ const resetPassword = async (req, res) => {
 };
 
 
+const deletedAllUsers = async (req, res) => {
+  try {
+    const response = await deleteAllUsers()
+
+    return res.json({ mensaje: 'BORRADO EXITOSO', response });
+  } catch (error) {
+    return handleError(res, error);
+  }  
+};
+
+
 
 module.exports = {
   register,
   login,
   loginGoogle,
   resetPassword,
-  logout
+  logout,
+  deletedAllUsers
 };

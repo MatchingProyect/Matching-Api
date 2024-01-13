@@ -1,13 +1,14 @@
 const dataBase = require('../dataBase/dataBase')
 const { User, Profile, Sport, Club, Location, Court, Payment, PaymentType, Reservation, ScoreMatch, TeamMatch, AdvertisingEvent, AdvertisingSystem, MatchResult, PointEvent, PointSystem, PaymentStatus, ReservationType, MatchType, RatingUser, ShiftSchedule, FriendRequest, UserFriends, UserMatch, GuestReservation } = dataBase.models
 
-const addUserInDb = async ({admin, active,onLine, displayName, gender, dayBirth, email, phone, creditCardWarranty, avatarImg, password, description}) => {
+const addUserInDb = async ({ admin, active, onLine, displayName, gender, dayBirth, email, phone, creditCardWarranty, avatarImg, password, description }) => {
     try {
-        if(!displayName || !email ) return `faltan datos`
-        const [newUser, create] = await User.findOrCreate({where: {displayName}, 
-            defaults: {admin, active,onLine, displayName, gender, dayBirth, email, phone, creditCardWarranty, avatarImg, password, description}
+        if (!displayName || !email) return `faltan datos`
+        const [newUser, create] = await User.findOrCreate({
+            where: { displayName },
+            defaults: { admin, active, onLine, displayName, gender, dayBirth, email, phone, creditCardWarranty, avatarImg, password, description }
         })
-        
+
         if (!create) return "este usuario ya existe"
 
         return newUser
@@ -55,38 +56,46 @@ const addLocationInDb = async (name, adress, city, state, postalCode, country) =
     }
 }
 
-const addCourtInDb = async (name, description, priceFee, warrantyReservation, grassType, lighting, doorsType, wallsType, reputation, SportId , LocationId, ClubId) => {
+const addCourtInDb = async (name, description, priceFee, warrantyReservation, grassType, lighting, doorsType, wallsType, reputation, SportId, LocationId, ClubId) => {
     try {
-        const addCourt = await Court.create({ name, description, priceFee, warrantyReservation, grassType, lighting, doorsType, wallsType, reputation, SportId , LocationId, ClubId })
+        const addCourt = await Court.create({ name, description, priceFee, warrantyReservation, grassType, lighting, doorsType, wallsType, reputation, SportId, LocationId, ClubId })
         if (addCourt) return addCourt;
     } catch (error) {
         throw error.message;
     }
 }
 
-const addReservationInDb = async (dateTimeStart, dateTimeEnd, totalCost, teamMatch, UserId, CourtId, MatchTypeId, ReservationTypeId) => {
+const addReservationInDb = async (dateTimeStart, dateTimeEnd, totalCost, teamMatch, UserId, CourtId, MatchTypeId, FriendsId) => {
     try {
-        const addReservation = await Reservation.create({ dateTimeStart, dateTimeEnd, totalCost, teamMatch, UserId, CourtId, MatchTypeId, ReservationTypeId, PaymentId: null, TeamMatchId: null });
-        let addUserMatch;
-        
+        const addReservation = await Reservation.create({ dateTimeStart, dateTimeEnd, totalCost, teamMatch, UserId, CourtId, MatchTypeId, PaymentId: null, TeamMatchId: null });
+
         const user = await User.findByPk(UserId);
         if (addReservation) {
-            const addTeamMatch = await TeamMatch.create({name: teamMatch});
-            
-            if(addTeamMatch) {
+            const addTeamMatch = await TeamMatch.create({ name: teamMatch });
+
+            if (addTeamMatch) {
                 try {
-                    addUserMatch = await UserMatch.create({TeamMatchId: addTeamMatch.id, UserId});
+                    const addUserMatch = await UserMatch.create({ TeamMatchId: addTeamMatch.id, UserId });
+                    console.log('ADD_USER_MATCH', addUserMatch)
+                    console.log(FriendsId)
+                    if (FriendsId.length > 0) {
+                        const addFriendsMatch = await Promise.all(FriendsId.map(async (friend) => {
+                            const friendMatch = await UserMatch.create({ TeamMatchId: addTeamMatch.id, UserId: friend });
+                            return friendMatch;
+                        }));
+                        console.log('ADD_FRIENDS_MATCH -->', addFriendsMatch)
+                    }
                 } catch (error) {
                     throw error.message;
                 }
             }
-            const addPaymentStatus = await PaymentStatus.create({name: 'pending'});
-            const addPaymentType = await PaymentType.create({name: 'default'});
+            const addPaymentStatus = await PaymentStatus.create({ name: 'pending' });
+            const addPaymentType = await PaymentType.create({ name: 'default' });
 
-            const addPayment = await Payment.create({name: user.name, amount: totalCost, createdAt: addReservation.createdAt, updatedAt: null, PaymentStatusId: addPaymentStatus.id, PaymentTypeId: addPaymentType.id});
+            const addPayment = await Payment.create({ name: user.name, amount: totalCost, createdAt: addReservation.createdAt, updatedAt: null, PaymentStatusId: addPaymentStatus.id, PaymentTypeId: addPaymentType.id });
 
-            await addReservation.update({PaymentId: addPayment.id, TeamMatchId: addTeamMatch.id});
-            return {addReservation, addPayment, addPaymentStatus, addPaymentType, addTeamMatch, addUserMatch}
+            await addReservation.update({ PaymentId: addPayment.id, TeamMatchId: addTeamMatch.id }, {where: {id: addReservation.id}});
+            return { addReservation, addPayment, addPaymentStatus, addPaymentType, addTeamMatch }
         }
     } catch (error) {
         throw error.message;
@@ -182,8 +191,8 @@ const addShiftScheduleInDb = async (name, weekDay, timeStart, timeEnd, partnerPr
 
 const addFriendRequestInDb = async (status, UserId, FriendRId) => {
     try {
-        
-        if(status === "rechazado") await FriendRequest.destroy({ where: { FriendRId: FriendRId, UserId: UserId } })
+
+        if (status === "rechazado") await FriendRequest.destroy({ where: { FriendRId: FriendRId, UserId: UserId } })
         const addFriendRequest = await FriendRequest.create({ status, UserId, FriendRId });
         if (addFriendRequest) return addFriendRequest;
     } catch (error) {
@@ -191,23 +200,23 @@ const addFriendRequestInDb = async (status, UserId, FriendRId) => {
     }
 }
 
-const createRelationshipInDb = async(UserId, FriendId) => {
+const createRelationshipInDb = async (UserId, FriendId) => {
     try {
-        const addRelationship = await UserFriends.create({UserId, FriendId});
-        if(addRelationship){
-            await FriendRequest.destroy({where: {FriendRId: UserId, UserId: FriendId}})
+        const addRelationship = await UserFriends.create({ UserId, FriendId });
+        if (addRelationship) {
+            await FriendRequest.destroy({ where: { FriendRId: UserId, UserId: FriendId } })
             return addRelationship;
-        } 
+        }
 
     } catch (error) {
         throw error.message;
     }
 }
 
-const addGuestReservationInDb = async({UserId, ReservationId, TeamMatchId}) => {
+const addGuestReservationInDb = async ({ UserId, ReservationId, TeamMatchId }) => {
     try {
-        const addGuestReservation = await GuestReservation.create({UserId, ReservationId, TeamMatchId});
-        if(addGuestReservation) return addGuestReservation;
+        const addGuestReservation = await GuestReservation.create({ UserId, ReservationId, TeamMatchId });
+        if (addGuestReservation) return addGuestReservation;
     } catch (error) {
         throw error.message;
     }
