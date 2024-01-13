@@ -4,7 +4,7 @@ const getAllReservations = async(req, res) => {
 try {
     const { page, oneReservation } = req.query;
     const pageNumber = Number(page) || 1;
-    const limit = 2
+    const limit = 50
     const offset = (pageNumber - 1) * limit;
     
     if(oneReservation){
