@@ -136,6 +136,7 @@ router.get('/reservationTeamMatch/:id', getReservationByTeamMatch)
 router.get('/valoraciones/:id', getValoracionesByUserId)
 router.get('/usersByTeam/:id', usersByTeamMatch)
 router.get('/reservaByMatchType/:id', obtenerReservasPorTipo)
+router.get('/resultadoMarcador/:id', )
 
 router.post('/valoraciones/:id', createValoracion)
 router.post('/logout', logout)

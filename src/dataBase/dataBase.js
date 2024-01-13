@@ -208,8 +208,8 @@ Payment.belongsTo(PaymentStatus, {foreignKey: 'PaymentStatusId'}); //?
 TeamMatch.hasOne(MatchResult, { onDelete: 'CASCADE' });
 MatchResult.belongsTo(TeamMatch);
 
-MatchResult.hasOne(ScoreMatch, { onDelete: 'CASCADE' });
-ScoreMatch.belongsTo(MatchResult);
+MatchResult.hasOne(ScoreMatch, { foreignKey: 'TeamMatchId' });
+ScoreMatch.belongsTo(MatchResult, { foreignKey: 'MatchResultId' });
 
 TeamMatch.hasOne(GuestReservation, {foreignKey: 'TeamMatchId'});
 GuestReservation.belongsTo(TeamMatch, {foreignKey: 'TeamMatchId'});

@@ -1,6 +1,6 @@
 const { Op } = require('sequelize')
 const dataBase = require('../dataBase/dataBase')
-const { User, Profile, Court,Valoraciones, Payment, PaymentType, Reservation, ScoreMatch, TeamMatch, PointEvent, PointSystem, AdvertisingSystem, AdvertisingEvent, PaymentStatus, RatingUser, FriendRequest, UserFriends, GuestReservation, UserMatch } = dataBase.models
+const { User, Profile, Court,Valoraciones, Payment, PaymentType, Reservation, ScoreMatch, TeamMatch, PointEvent, PointSystem, AdvertisingSystem, AdvertisingEvent, PaymentStatus, RatingUser, FriendRequest, UserFriends, GuestReservation, UserMatch, MatchResult } = dataBase.models
 
 const getAllProfInDb = async () => {
     try {
@@ -10,6 +10,18 @@ const getAllProfInDb = async () => {
         }
     } catch (error) {
         throw error.message
+    }
+}
+
+const getResultMatch = async(req, res) => {
+    try {
+        const {id} = req.params;
+        const resultFound = await MatchResult.findOne({where: {TeamMatchId: id}});
+        if(resultFound){
+            const scoreFound = await ScoreMatch.findOne({where: {MatchResultId}})
+        }
+    } catch (error) {
+        
     }
 }
 
