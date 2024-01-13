@@ -52,6 +52,10 @@ module.exports = (dataBase) => {
             type: DataTypes.BOOLEAN,
             defaultValue: true,
             allowNull: false
+        },
+        horario:{
+            type: DataTypes.DATE,
+            allowNull: false
         }
     }, {timestamps: false})
 }
