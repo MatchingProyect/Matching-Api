@@ -47,16 +47,14 @@ const crearMatchResultYScoreMatch = async (req, res) => {
 
 const addValoracionInDb = async(id, valoracion) =>{
     try {
-        const newValo = await Valoraciones.create({
-            valoracion,
-            userIdBeingRated: {id},
-          });
-          console.log(newValo)
-          if(newValo) {
-            return newValo
-             }else{
-                console.log('else')
-             }
+        const user = await User.findByPk(id);
+        if(user){
+            const newValo = await Valoraciones.create({
+                valoracion,
+                userIdBeingRated: id,
+              });
+              if(newValo) return newValo
+        }
     } catch (error) {
         console.log('error controller')
         throw error.message

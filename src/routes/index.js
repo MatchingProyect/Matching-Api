@@ -92,6 +92,7 @@ const createValoracion = require('../handlers/Valoraciones/crearValoraciones');
 const usersByTeamMatch = require('../handlers/Users/usersByTeamMatch');
 const obtenerReservasPorTipo = require('../handlers/Reservation/reservaByMatchType');
 const { crearMatchResultYScoreMatch } = require('../controllers/addInDB');
+const getCourt = require('../handlers/Court/getCourt');
 
 
 const router = require("express").Router();
@@ -108,6 +109,7 @@ router.get('/sports', getAllSport);
 router.get('/locations', getAllLocations);
 router.get('/locations/:id', getLocationsById);
 router.get('/courts', getAllCourts);
+router.get('/courts/:id', getCourt);
 router.get('/payments', getAllPayments);
 router.get('/payment', getPayment);
 router.get('/paymentsTypes', getAllPaymentsTypes);
@@ -136,6 +138,7 @@ router.get('/reservationTeamMatch/:id', getReservationByTeamMatch)
 router.get('/valoraciones/:id', getValoracionesByUserId)
 router.get('/usersByTeam/:id', usersByTeamMatch)
 router.get('/reservaByMatchType/:id', obtenerReservasPorTipo)
+router.get('/resultadoMarcador/:id', )
 
 router.post('/valoraciones/:id', createValoracion)
 router.post('/logout', logout)

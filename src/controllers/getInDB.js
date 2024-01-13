@@ -1,6 +1,6 @@
 const { Op } = require('sequelize')
 const dataBase = require('../dataBase/dataBase')
-const { User, Profile, Court,Valoraciones, Payment, PaymentType, Reservation, ScoreMatch, TeamMatch, PointEvent, PointSystem, AdvertisingSystem, AdvertisingEvent, PaymentStatus, RatingUser, FriendRequest, UserFriends, GuestReservation, UserMatch } = dataBase.models
+const { User, Profile, Court,Valoraciones, Payment, PaymentType, Reservation, ScoreMatch, TeamMatch, PointEvent, PointSystem, AdvertisingSystem, AdvertisingEvent, PaymentStatus, RatingUser, FriendRequest, UserFriends, GuestReservation, UserMatch, MatchResult } = dataBase.models
 
 const getAllProfInDb = async () => {
     try {
@@ -10,6 +10,18 @@ const getAllProfInDb = async () => {
         }
     } catch (error) {
         throw error.message
+    }
+}
+
+const getResultMatch = async(req, res) => {
+    try {
+        const {id} = req.params;
+        const resultFound = await MatchResult.findOne({where: {TeamMatchId: id}});
+        if(resultFound){
+            const scoreFound = await ScoreMatch.findOne({where: {MatchResultId}})
+        }
+    } catch (error) {
+        
     }
 }
 
@@ -28,10 +40,14 @@ const getReservaByMatchType = async(id) =>{
 
 const valoracionesByUserInDb = async(id)=>{
     try {
-       const userFound =await Valoraciones.findAll({
-        where: { userIdBeingRated: {id} },
-      });
-       if(userFound) return userFound
+        const user = User.findByPk(id);
+
+        if(user){
+            const userFound =await Valoraciones.findAll({
+             where: { userIdBeingRated: id },
+           });
+            if(userFound) return userFound
+        }
     } catch (error) {
          throw error.message
     }
@@ -145,6 +161,15 @@ const getAllCourtsInDb = async (offset, limit) => {
     try {
         const courts = await Court.findAll({ offset: offset, limit: limit });
         if (courts) return courts;
+    } catch (error) {
+        throw error.message;
+    }
+}
+
+const getOneCourtInDb = async(id) => {
+    try {
+        const courtFound = await Court.findOne({where: {id}});
+        if(courtFound) return courtFound;
     } catch (error) {
         throw error.message;
     }
@@ -417,5 +442,6 @@ module.exports = {
     getTeamMatchByUserId,
     getReservationByTeamMatchInDb,
     getUserByTeamMatchId,
-    getReservaByMatchType 
+    getReservaByMatchType ,
+    getOneCourtInDb
 }
