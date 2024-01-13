@@ -75,10 +75,13 @@ const addReservationInDb = async (dateTimeStart, dateTimeEnd, totalCost, teamMat
 
             if (addTeamMatch) {
                 try {
-                    const addUserMatch = await UserMatch.create({ TeamMatchId: addTeamMatch.id, UserId });
-                    console.log('ADD_USER_MATCH', addUserMatch)
-                    console.log(FriendsId)
-                    if (FriendsId.length > 0) {
+                    if(!FriendsId.length){
+                        const addUserMatch = await UserMatch.create({ TeamMatchId: addTeamMatch.id, UserId });
+                        console.log('ADD_USER_MATCH', addUserMatch)
+                        console.log(FriendsId)
+
+                    }
+                    else {
                         const addFriendsMatch = await Promise.all(FriendsId.map(async (friend) => {
                             const friendMatch = await UserMatch.create({ TeamMatchId: addTeamMatch.id, UserId: friend });
                             return friendMatch;
