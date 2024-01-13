@@ -13,6 +13,19 @@ const getAllProfInDb = async () => {
     }
 }
 
+const getReservaByMatchType = async(id) =>{
+    try {
+        const reservaByType = await Reservation.findAll({
+            where: {
+              MatchTypeId: id
+            },
+          });
+          if(reservaByType) return reservaByType
+    } catch (error) {
+        throw error.message
+    }
+}
+
 const valoracionesByUserInDb = async(id)=>{
     try {
        const userFound =await Valoraciones.findAll({
@@ -403,5 +416,6 @@ module.exports = {
     getAllGuestReservationInDbByUserId,
     getTeamMatchByUserId,
     getReservationByTeamMatchInDb,
-    getUserByTeamMatchId
+    getUserByTeamMatchId,
+    getReservaByMatchType 
 }
