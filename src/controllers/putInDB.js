@@ -93,9 +93,9 @@ const putTeamMatchEstado = async (id, estado) => {
     }
 }
 
-const putCourt = async (id, name, description, priceFee, warrantyReservation, grassType, lighting, doorsType, wallsType, reputation) => {
+const putCourt = async (id, name, description, priceFee, warrantyReservation, grassType, lighting, doorsType, wallsType, reputation, imgClub) => {
     try {
-        const courtUpdated = await Court.update({ name, description, priceFee, warrantyReservation, grassType, lighting, doorsType, wallsType, reputation }, { where: { id } });
+        const courtUpdated = await Court.update({ name, description, priceFee, warrantyReservation, grassType, lighting, doorsType, wallsType, reputation, imgClub }, { where: { id } });
         if (courtUpdated) return courtUpdated;
     } catch (error) {
         throw error.message;

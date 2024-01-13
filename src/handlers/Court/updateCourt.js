@@ -3,8 +3,9 @@ const { putCourt } = require("../../controllers/putInDB");
 const updateCourt = async(req, res) => {
     try {
         const {id} = req.params;
-        const {name, description, priceFee, warrantyReservation, grassType, lighting, doorsType, wallsType, reputation} = req.body;
-        const courtUpdated = await putCourt(id, name, description, priceFee, warrantyReservation, grassType, lighting, doorsType, wallsType, reputation);
+        const {name, description, priceFee, warrantyReservation, grassType, lighting, doorsType, wallsType, reputation, imgClub} = req.body;
+        console.log(imgClub);
+        const courtUpdated = await putCourt(id, name, description, priceFee, warrantyReservation, grassType, lighting, doorsType, wallsType, reputation, imgClub);
 
         if(courtUpdated) return res.status(200).json({
             status: true,
