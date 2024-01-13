@@ -16,8 +16,8 @@ const createOrder = async (req, res) => {
         const response = await preference.create({
             body: {
                 back_urls: {
-                    success: 'https://matching-qdob.onrender.com/home',
-                    failure: 'https://matching-qdob.onrender.com/home',
+                    success: 'http://localhost:5173/home',
+                    failure: 'http://localhost:5173/home',
                 },
                 auto_return: 'approved',
                 notification_url: 'https://matching-qdob.onrender.com/home',

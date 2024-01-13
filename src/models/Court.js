@@ -46,7 +46,7 @@ module.exports = (dataBase) => {
         },
         imgClub: {
             type: DataTypes.STRING,
-            defaultValue: 'https://res.cloudinary.com/dbffmtz0y/image/upload/v1704318585/360_F_332320458_OFW95fppmZAYYs3lT8CwDfK2HdQLF7RU_gmvtja.jpg'
+            defaultValue: 'https://res.cloudinary.com/dbffmtz0y/image/upload/v1705117918/campi-da-padel.i13627-kQvmQQH-w1000-h1000-l1-n1_eobpys.jpg'
         },
         estado:{
             type: DataTypes.BOOLEAN,
