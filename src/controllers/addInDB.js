@@ -75,18 +75,18 @@ const addReservationInDb = async (dateTimeStart, dateTimeEnd, totalCost, teamMat
 
             if (addTeamMatch) {
                 try {
-                    if(!FriendsId.length){
+                    if(FriendsId.length > 0){
+                        const addFriendsMatch = await Promise.all(FriendsId.map(async (friend) => {
+                            const friendMatch = await UserMatch.create({ TeamMatchId: addTeamMatch.id, UserId: friend });
+                            console.log('ADD_FRIENDS_MATCH -->', addFriendsMatch)
+                            return friendMatch;
+                        }));
+                        
+                    }
+                    else{
                         const addUserMatch = await UserMatch.create({ TeamMatchId: addTeamMatch.id, UserId });
                         console.log('ADD_USER_MATCH', addUserMatch)
                         console.log(FriendsId)
-
-                    }
-                    else {
-                        const addFriendsMatch = await Promise.all(FriendsId.map(async (friend) => {
-                            const friendMatch = await UserMatch.create({ TeamMatchId: addTeamMatch.id, UserId: friend });
-                            return friendMatch;
-                        }));
-                        console.log('ADD_FRIENDS_MATCH -->', addFriendsMatch)
                     }
                 } catch (error) {
                     throw error.message;
