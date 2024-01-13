@@ -53,7 +53,7 @@ const dataBase = new Sequelize( DB_CONNECTION, {
       ssl: {
         require: true,
         rejectUnauthorized: false
-      }    
+      }
     },
   })
 // const dataBase = new Sequelize(`postgres:${DB_USERNAME}:${DB_PASSWORD}@localhost:${DB_PORT}/${DB_NAME}`, {logging: false});
