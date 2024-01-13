@@ -87,6 +87,9 @@ const getAllGuestReservation = require('../handlers/GuestReservation/getOneGuest
 const deleteMatchType = require('../handlers/MatchType/deleteMatchType');
 const getTeamMatchByUser = require('../handlers/TeamMatch/getTeamMatchByUser');
 const getReservationByTeamMatch = require('../handlers/Reservation/getReservationByTeamMatch');
+const getValoracionesByUserId = require('../handlers/Valoraciones/valoracionesById');
+const createValoracion = require('../handlers/Valoraciones/crearValoraciones');
+const usersByTeamMatch = require('../handlers/Users/usersByTeamMatch');
 
 const router = require("express").Router();
 
@@ -127,7 +130,10 @@ router.get('/friends',  allFriends)
 router.get('/friends/:id', getAllFriendsById)
 router.get('/guestReservations/:id', getAllGuestReservation);
 router.get('/reservationTeamMatch/:id', getReservationByTeamMatch)
+router.get('/valoraciones/:id', getValoracionesByUserId)
+router.get('/usersByTeam/:id', usersByTeamMatch)
 
+router.post('/valoraciones/:id', createValoracion)
 router.post('/logout', logout)
 router.post('/clubs', createClub)
 router.post("/paymentStatus", createPaymentStatus)

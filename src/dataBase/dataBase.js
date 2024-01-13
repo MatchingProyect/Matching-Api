@@ -20,6 +20,7 @@ const CourtModel = require('../models/Court')
 const PaymentModel = require('../models/Payment')
 const PaymentTypeModel = require('../models/PaymentType')
 const FriendRequestModel = require('../models/FriendRequest');
+const ValoracionesModel = require('../models/Valoraciones')
 
 // const {admin, auth} = require('../config/firebase');
 
@@ -56,7 +57,7 @@ const dataBase = new Sequelize( DB_CONNECTION, {
       }    
     },
   })
-// const dataBase = new Sequelize(`postgres:${DB_USERNAME}:${DB_PASSWORD}@localhost:${DB_PORT}/${DB_NAME}`, {logging: false});
+ //const dataBase = new Sequelize(`postgres:${DB_USERNAME}:${DB_PASSWORD}@localhost:${DB_PORT}/${DB_NAME}`, {logging: false});
 
 UserModel(dataBase);
 ReservationModel(dataBase);
@@ -81,6 +82,7 @@ MatchTypeModel(dataBase);
 // PointSystemModel(dataBase);
 // AdvertisingSystemModel(dataBase);
 FriendRequestModel(dataBase);
+ValoracionesModel(dataBase)
 
 
 const {User,
@@ -91,6 +93,7 @@ const {User,
     Profile,
     Sport,
     Payment,
+    Valoraciones,
     Court,
     Club,
     ScoreMatch,
@@ -110,6 +113,9 @@ Club.belongsToMany(Sport, { through: 'ClubSport' });
 
 Sport.belongsToMany(Club, { through: 'ClubSport' }); // Un Sport pertenece a muchos Club
 Sport.hasMany(Court);
+
+User.hasMany(Valoraciones, { foreignKey: 'userIdBeingRated' });
+Valoraciones.belongsTo(User, { foreignKey: 'userIdBeingRated' });
 
 Court.belongsTo(Club); 
 Court.belongsTo(Sport);

@@ -1,5 +1,5 @@
 const dataBase = require('../dataBase/dataBase')
-const { User, Profile, Sport, Club, Location, Court, Payment, PaymentType, Reservation, ScoreMatch, TeamMatch, AdvertisingEvent, AdvertisingSystem, MatchResult, PointEvent, PointSystem, PaymentStatus, ReservationType, MatchType, RatingUser, ShiftSchedule, FriendRequest, UserFriends, UserMatch, GuestReservation } = dataBase.models
+const { User,Valoraciones, Profile, Sport, Club, Location, Court, Payment, PaymentType, Reservation, ScoreMatch, TeamMatch, AdvertisingEvent, AdvertisingSystem, MatchResult, PointEvent, PointSystem, PaymentStatus, ReservationType, MatchType, RatingUser, ShiftSchedule, FriendRequest, UserFriends, UserMatch, GuestReservation } = dataBase.models
 
 const addUserInDb = async ({ admin, active, onLine, displayName, gender, dayBirth, email, phone, creditCardWarranty, avatarImg, password, description }) => {
     try {
@@ -13,6 +13,18 @@ const addUserInDb = async ({ admin, active, onLine, displayName, gender, dayBirt
 
         return newUser
 
+    } catch (error) {
+        throw error.message
+    }
+}
+
+const addValoracionInDb = async(id, valoracion) =>{
+    try {
+        const newValo = await Valoraciones.create({
+            valoracion,
+            userIdBeingRated: {id},
+          });
+          if(newValo) return newValo
     } catch (error) {
         throw error.message
     }
@@ -242,5 +254,6 @@ module.exports = {
     addShiftScheduleInDb,
     addFriendRequestInDb,
     createRelationshipInDb,
-    addGuestReservationInDb
+    addGuestReservationInDb,
+    addValoracionInDb
 }

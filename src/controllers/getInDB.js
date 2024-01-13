@@ -1,6 +1,6 @@
 const { Op } = require('sequelize')
 const dataBase = require('../dataBase/dataBase')
-const { User, Profile, Court, Payment, PaymentType, Reservation, ScoreMatch, TeamMatch, PointEvent, PointSystem, AdvertisingSystem, AdvertisingEvent, PaymentStatus, RatingUser, FriendRequest, UserFriends, GuestReservation, UserMatch } = dataBase.models
+const { User, Profile, Court,Valoraciones, Payment, PaymentType, Reservation, ScoreMatch, TeamMatch, PointEvent, PointSystem, AdvertisingSystem, AdvertisingEvent, PaymentStatus, RatingUser, FriendRequest, UserFriends, GuestReservation, UserMatch } = dataBase.models
 
 const getAllProfInDb = async () => {
     try {
@@ -12,6 +12,18 @@ const getAllProfInDb = async () => {
         throw error.message
     }
 }
+
+const valoracionesByUserInDb = async(id)=>{
+    try {
+       const userFound =await Valoraciones.findAll({
+        where: { userIdBeingRated: {id} },
+      });
+       if(userFound) return userFound
+    } catch (error) {
+         throw error.message
+    }
+}
+
 
 const getProfileInDb = async (id) => {
     try {
@@ -261,6 +273,15 @@ const getTeamMatchByUserId = async (id) => {
     }
 }
 
+const getUserByTeamMatchId = async (id) => {
+    try {
+        const userByTeamMatch = await UserMatch.findAll({where: {TeamMatchId: id}});
+        if (userByTeamMatch) return userByTeamMatch;
+    } catch (error) {
+        throw error.message;
+    }
+}
+
 const getOneTeamMatchInDb = async (id) => {
     try {
         const teamMatch = await TeamMatch.findOne({ where: { id } });
@@ -356,6 +377,7 @@ module.exports = {
     getAllProfInDb,
     getAllUsersInDb,
     getUserInDb,
+    valoracionesByUserInDb,
     getProfileInDb,
     searchByName,
     getAllCourtsInDb,
@@ -380,5 +402,6 @@ module.exports = {
     getAllFriendsById,
     getAllGuestReservationInDbByUserId,
     getTeamMatchByUserId,
-    getReservationByTeamMatchInDb
+    getReservationByTeamMatchInDb,
+    getUserByTeamMatchId
 }
