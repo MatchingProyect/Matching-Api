@@ -125,7 +125,7 @@ const addCourtInDb = async (name, description, priceFee, warrantyReservation, gr
 const addReservationInDb = async (dateTimeStart, dateTimeEnd, totalCost, teamMatch, UserId, CourtId, MatchTypeId, FriendsId) => {
     try {
         const addReservation = await Reservation.create({ dateTimeStart, dateTimeEnd, totalCost, teamMatch, UserId, CourtId, MatchTypeId, PaymentId: null, TeamMatchId: null });
-
+        
         const user = await User.findByPk(UserId);
         if (addReservation) {
 
