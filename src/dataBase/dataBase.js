@@ -108,13 +108,14 @@ const {User,
     MatchResult,
     ReservationType,
     MatchType,
+    
     FriendRequest} = dataBase.models;
 
 
 
-  // Reservation.drop()
+  // UserMatch.drop()
   // .then(() => {
-  //   Reservation.sync({ force: true })
+  //   UserMatch.sync({ force: true })
   //     .then(() => {
   //       console.log('Tabla Reservations recreada con éxito (con force)');
   //     })
@@ -126,7 +127,7 @@ const {User,
   //   console.error('Error al borrar la tabla Reservations:', error);
   // });
 
-// User relationships
+//User relationships
 
 
 

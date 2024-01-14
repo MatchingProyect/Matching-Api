@@ -4,6 +4,9 @@ const createReservation = async (req, res) => {
     try {
         const { dateTimeStart, dateTimeEnd, totalCost, teamMatch, UserId, CourtId, MatchTypeId, FriendsId } = req.body;
 
+
+        console.log('bros',FriendsId)
+
         if(!FriendsId && MatchTypeId !== "d81fe1b8-345a-4b4c-97b9-6e64b1116aec" && !Array.isArray(FriendsId)) return res.status(404).json({status: false, message: 'amigos no agregados'})
 
         const reservationCreated = await addReservationInDb(dateTimeStart, dateTimeEnd, totalCost, teamMatch, UserId, CourtId, MatchTypeId, FriendsId);
