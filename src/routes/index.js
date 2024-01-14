@@ -93,6 +93,7 @@ const usersByTeamMatch = require('../handlers/Users/usersByTeamMatch');
 const obtenerReservasPorTipo = require('../handlers/Reservation/reservaByMatchType');
 const { crearMatchResultYScoreMatch } = require('../controllers/addInDB');
 const getCourt = require('../handlers/Court/getCourt');
+const updateLocation = require('../handlers/Location/updateLocation');
 
 
 const router = require("express").Router();
@@ -179,6 +180,7 @@ router.put('/restartPassword', updatePassword);
 router.put("/reservation/:id", updatedReservationTypes);
 router.put('/profiles/:id', updateProfile);
 router.put('/updateSport/:id', updateSport);
+router.put('/updateLocation/:id', updateLocation);
 router.put('/users/:id', updateUser);
 router.put('/courts/:id', updateCourt);
 router.put('/clubs/:id', updateClub);

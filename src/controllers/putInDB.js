@@ -56,6 +56,14 @@ const putUserPassword = async (email, password) => {
         throw error.message;
     }
 }
+const putLocation = async (id, name, adress, city, state, postalCode, country) => {
+    try {
+        const updatedLocation = await Location.update( { name, adress, city, state, postalCode, country }, { where: { id } } );
+        if(updatedLocation) return updatedLocation;
+    } catch (error) {
+        throw error.message;
+    }
+}
 
 const putLocationEstado = async (id, estado) => {
     try {
@@ -205,6 +213,7 @@ module.exports = {
     putPaymentStatusInDb,
     putPaymentTypeInDb,
     putUserEstado,
+    putLocation,
     putLocationEstado,
     putReservationEstado,
     putSportEstado,
