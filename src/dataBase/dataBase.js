@@ -112,14 +112,13 @@ const {User,
 
 
 
-  Court.sync({ alter: true })
+  Court.sync({ force: true })
   .then(() => {
-    console.log('Tabla Courts sincronizada con éxito (con alter)');
+    console.log('Tabla Courts recreada con éxito (con force)');
   })
   .catch((error) => {
-    console.error('Error al sincronizar la tabla Courts:', error);
+    console.error('Error al recrear la tabla Courts:', error);
   });
-
 // User relationships
 
 Club.hasMany(Court); // Un Club tiene muchas Court
