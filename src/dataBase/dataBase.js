@@ -112,19 +112,19 @@ const {User,
 
 
 
-  Court.drop()
-  .then(() => {
-    Court.sync({ force: true })
-      .then(() => {
-        console.log('Tabla Courts recreada con éxito (con force)');
-      })
-      .catch((error) => {
-        console.error('Error al recrear la tabla Courts:', error);
-      });
-  })
-  .catch((error) => {
-    console.error('Error al borrar la tabla Courts:', error);
-  });
+  // Court.drop()
+  // .then(() => {
+  //   Court.sync({ force: true })
+  //     .then(() => {
+  //       console.log('Tabla Courts recreada con éxito (con force)');
+  //     })
+  //     .catch((error) => {
+  //       console.error('Error al recrear la tabla Courts:', error);
+  //     });
+  // })
+  // .catch((error) => {
+  //   console.error('Error al borrar la tabla Courts:', error);
+  // });
 
 // User relationships
 
