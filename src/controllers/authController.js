@@ -180,14 +180,15 @@ const login = async (req, res) => {
 
     // Buscar al usuario por correo electrónico
     const userFound = await User.findOne({ where: { email: emailValue } });
+    if (!userFound)  return res.status(400).json({ email: 'El email que ingresaste no está conectado a una cuenta' });
 
     const userObject = userFound.dataValues
-    console.log(userObject.email == emailValue && userObject.password == password)
 
     if(userObject.email == emailValue && userObject.password == password ) {
       console.log("true user")
       return res.status(200).json(userObject);
     }
+    return res.status(400).json({ pass: 'La contraseña es incorrecta' });
 
   } catch (error) {
     // Manejar cualquier error y devolver una respuesta de error al cliente
