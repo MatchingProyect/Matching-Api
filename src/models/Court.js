@@ -53,7 +53,11 @@ module.exports = (dataBase) => {
             defaultValue: true,
             allowNull: false
         },
-        horario:{
+        horarioInicio:{
+            type: DataTypes.DATE,
+            allowNull: true
+        },
+        horarioCierre:{
             type: DataTypes.DATE,
             allowNull: true
         }
