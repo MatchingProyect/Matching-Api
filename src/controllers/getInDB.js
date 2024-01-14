@@ -13,17 +13,36 @@ const getAllProfInDb = async () => {
     }
 }
 
-const getResultMatch = async(req, res) => {
+const getResultMatch = async (req, res) => {
     try {
-        const {id} = req.params;
-        const resultFound = await MatchResult.findOne({where: {TeamMatchId: id}});
-        if(resultFound){
-            const scoreFound = await ScoreMatch.findOne({where: {MatchResultId}})
+      const { id } = req.params;
+      
+  
+      const resultFound = await MatchResult.findOne({ where: { TeamMatchId: id } });
+
+      
+      
+      if(resultFound){
+        try {
+    
+            const scoreFound = await ScoreMatch.findOne({ where: { MatchResultId: resultFound.id } });
+
+            console.log(scoreFound)
+    
+            return res.status(200).json({status: true, resultado:{resultFound, scoreFound}})
+            
+        } catch (error) {
+            console.log('f')
         }
+  
+      }
+      
     } catch (error) {
-        
+      console.error('Error al obtener resultados del partido:', error);
+      return res.status(500).json({ status: false, message: error.message });
     }
-}
+  };
+  
 
 const getReservaByMatchType = async(id) =>{
     try {
@@ -443,5 +462,6 @@ module.exports = {
     getReservationByTeamMatchInDb,
     getUserByTeamMatchId,
     getReservaByMatchType ,
-    getOneCourtInDb
+    getOneCourtInDb,
+    getResultMatch
 }
