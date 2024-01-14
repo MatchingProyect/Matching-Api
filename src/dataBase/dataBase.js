@@ -63,6 +63,7 @@ const dataBase = new Sequelize( DB_CONNECTION, {
 CourtModel(dataBase);
 
 
+
 UserModel(dataBase);
 ReservationModel(dataBase);
 GuestReservationModel(dataBase);
@@ -108,6 +109,16 @@ const {User,
     ReservationType,
     MatchType,
     FriendRequest} = dataBase.models;
+
+
+
+  Court.sync({ alter: true })
+  .then(() => {
+    console.log('Tabla Courts sincronizada con éxito (con alter)');
+  })
+  .catch((error) => {
+    console.error('Error al sincronizar la tabla Courts:', error);
+  });
 
 // User relationships
 

@@ -55,7 +55,11 @@ module.exports = (dataBase) => {
         },
         horario:{
             type: DataTypes.DATE,
-            allowNull: false
-        }
+            allowNull: true
+        },
+        clubid: {
+            type: DataTypes.STRING,
+            allowNull: true
+        },
     }, {timestamps: false})
 }

@@ -109,9 +109,9 @@ const addLocationInDb = async (name, adress, city, state, postalCode, country) =
     }
 }
 
-const addCourtInDb = async (name, description, priceFee, warrantyReservation, grassType, lighting, doorsType, wallsType, reputation, horario, SportId, LocationId, ClubId) => {
+const addCourtInDb = async (name, description, priceFee, warrantyReservation, grassType, lighting, doorsType, wallsType, reputation, horario, SportId, LocationId, clubid) => {
     try {
-        const addCourt = await Court.create({ name, description, priceFee, warrantyReservation, grassType, lighting, doorsType, wallsType, reputation, horario, SportId, LocationId, ClubId })
+        const addCourt = await Court.create({ name, description, priceFee, warrantyReservation, grassType, lighting, doorsType, wallsType, reputation, horario, SportId, LocationId, clubid })
         if (addCourt) return addCourt;
     } catch (error) {
         console.log(error)
