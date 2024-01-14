@@ -24,10 +24,9 @@ const createReservation = async (req, res) => {
         } else console.log('No se creó 404')
         
     } catch (error) {
-        console.log('holi',req.body)
         res.status(500).json({
             status: false,
-            message: error.message
+            message: console.log(error)
         })
     }
 }

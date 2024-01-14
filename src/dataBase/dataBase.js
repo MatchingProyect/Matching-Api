@@ -112,18 +112,18 @@ const {User,
 
 
 
-  // Court.drop()
+  // Reservation.drop()
   // .then(() => {
-  //   Court.sync({ force: true })
+  //   Reservation.sync({ force: true })
   //     .then(() => {
-  //       console.log('Tabla Courts recreada con éxito (con force)');
+  //       console.log('Tabla Reservations recreada con éxito (con force)');
   //     })
   //     .catch((error) => {
-  //       console.error('Error al recrear la tabla Courts:', error);
+  //       console.error('Error al recrear la tabla Reservations:', error);
   //     });
   // })
   // .catch((error) => {
-  //   console.error('Error al borrar la tabla Courts:', error);
+  //   console.error('Error al borrar la tabla Reservations:', error);
   // });
 
 // User relationships
