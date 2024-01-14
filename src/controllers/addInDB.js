@@ -111,8 +111,11 @@ const addLocationInDb = async (name, adress, city, state, postalCode, country) =
 
 const addCourtInDb = async (name, description, priceFee, warrantyReservation, grassType, lighting, doorsType, wallsType, reputation, horarioInicio, horarioCierre, SportId, LocationId, ClubId) => {
     try {
-        const addCourt = await Court.create({ name, description, priceFee, warrantyReservation, grassType, lighting, doorsType, wallsType, reputation, horarioInicio, horarioCierre, SportId, LocationId, ClubId })
-        if (addCourt) return addCourt;
+        const addCourt = await Court.findOrCreate({ 
+            where:{name},
+            defaults: {name, description, priceFee, warrantyReservation, grassType, lighting, doorsType, wallsType, reputation, horarioInicio, horarioCierre, SportId, LocationId, ClubId}
+        })
+        if (addCourt) return addCourt[0];
     } catch (error) {
         console.log(error)
         throw error.message;
