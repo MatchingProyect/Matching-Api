@@ -59,6 +59,10 @@ const dataBase = new Sequelize( DB_CONNECTION, {
   })
 //  const dataBase = new Sequelize(`postgres:${DB_USERNAME}:${DB_PASSWORD}@localhost:${DB_PORT}/${DB_NAME}`, {logging: false});
 
+
+CourtModel(dataBase);
+
+
 UserModel(dataBase);
 ReservationModel(dataBase);
 GuestReservationModel(dataBase);
@@ -69,7 +73,6 @@ SportModel(dataBase);
 // PointEventModel(dataBase);
 // AdvertisingEventModel(dataBase);
 PaymentModel(dataBase);
-CourtModel(dataBase);
 ClubModel(dataBase);
 ScoreMatchModel(dataBase);
 ShiftScheduleModel(dataBase);

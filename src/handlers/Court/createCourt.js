@@ -4,6 +4,8 @@ const createCourt = async(req, res) => {
     try {
         const {name, description, priceFee, warrantyReservation, grassType, lighting, doorsType, wallsType, reputation, horario, SportId, LocationId, ClubId} = req.body;
         
+        console.log(req.body)
+
         const courtCreated = await addCourtInDb(name, description, priceFee, warrantyReservation, grassType, lighting, doorsType, wallsType, reputation, horario, SportId, LocationId, ClubId);
 
         if(courtCreated) return res.status(200).json({
