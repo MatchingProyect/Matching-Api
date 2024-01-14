@@ -54,11 +54,11 @@ module.exports = (dataBase) => {
             allowNull: false
         },
         horarioInicio:{
-            type: DataTypes.DATE,
+            type: DataTypes.TIME,
             allowNull: true
         },
         horarioCierre:{
-            type: DataTypes.DATE,
+            type: DataTypes.TIME,
             allowNull: true
         }
     }, {timestamps: false})
