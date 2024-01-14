@@ -80,7 +80,7 @@ const volverAdm = require('../handlers/Users/volverAdm');
 const online = require('../handlers/Users/online');
 const { deleteRequestInDb } = require('../controllers/deleteInDB');
 const updatePassword = require('../handlers/Users/updatePassword');
-const { getAllFriendsById } = require('../controllers/getInDB');
+const { getAllFriendsById, getResultMatch } = require('../controllers/getInDB');
 const bringSportsProfiles = require('../handlers/Users/bringSportProfiles');
 const updateSport = require('../handlers/Sport/updateSport');
 const getAllGuestReservation = require('../handlers/GuestReservation/getOneGuestReservation');
@@ -140,7 +140,7 @@ router.get('/reservationTeamMatch/:id', getReservationByTeamMatch)
 router.get('/valoraciones/:id', getValoracionesByUserId)
 router.get('/usersByTeam/:id', usersByTeamMatch)
 router.get('/reservaByMatchType/:id', obtenerReservasPorTipo)
-router.get('/resultadoMarcador/:id', )
+router.get('/resultadoMarcador/:id', getResultMatch)
 
 router.post('/valoraciones/:id', createValoracion)
 router.post('/logout', logout)

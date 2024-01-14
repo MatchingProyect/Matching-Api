@@ -128,6 +128,8 @@ const {User,
 
 // User relationships
 
+
+
 Club.hasMany(Court); // Un Club tiene muchas Court
 Club.belongsToMany(Sport, { through: 'ClubSport' });
 
