@@ -91,7 +91,7 @@ const getValoracionesByUserId = require('../handlers/Valoraciones/valoracionesBy
 const createValoracion = require('../handlers/Valoraciones/crearValoraciones');
 const usersByTeamMatch = require('../handlers/Users/usersByTeamMatch');
 const obtenerReservasPorTipo = require('../handlers/Reservation/reservaByMatchType');
-const { crearMatchResultYScoreMatch } = require('../controllers/addInDB');
+const { crearMatchResultYScoreMatch, createRelationUserByTeam } = require('../controllers/addInDB');
 const getCourt = require('../handlers/Court/getCourt');
 const updateLocation = require('../handlers/Location/updateLocation');
 
@@ -110,7 +110,9 @@ router.get('/sports', getAllSport);
 router.get('/locations', getAllLocations);
 router.get('/locations/:id', getLocationsById);
 router.get('/courts', getAllCourts);
+
 router.get('/courts/:id', getCourt);
+
 router.get('/payments', getAllPayments);
 router.get('/payment', getPayment);
 router.get('/paymentsTypes', getAllPaymentsTypes);
@@ -175,6 +177,7 @@ router.post('/addFriend', addFriend);
 router.post('/createOrder', createOrder);
 router.post('/notify', notify);
 router.post('/resultadoMarcador/:id', crearMatchResultYScoreMatch)
+router.post('/addUserInTeam', createRelationUserByTeam)
 
 router.put('/restartPassword', updatePassword);
 router.put("/reservation/:id", updatedReservationTypes);

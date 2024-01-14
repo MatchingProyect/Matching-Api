@@ -59,6 +59,11 @@ const dataBase = new Sequelize( DB_CONNECTION, {
   })
 //  const dataBase = new Sequelize(`postgres:${DB_USERNAME}:${DB_PASSWORD}@localhost:${DB_PORT}/${DB_NAME}`, {logging: false});
 
+
+CourtModel(dataBase);
+
+
+
 UserModel(dataBase);
 ReservationModel(dataBase);
 GuestReservationModel(dataBase);
@@ -69,7 +74,6 @@ SportModel(dataBase);
 // PointEventModel(dataBase);
 // AdvertisingEventModel(dataBase);
 PaymentModel(dataBase);
-CourtModel(dataBase);
 ClubModel(dataBase);
 ScoreMatchModel(dataBase);
 ShiftScheduleModel(dataBase);
@@ -105,6 +109,22 @@ const {User,
     ReservationType,
     MatchType,
     FriendRequest} = dataBase.models;
+
+
+
+  // Court.drop()
+  // .then(() => {
+  //   Court.sync({ force: true })
+  //     .then(() => {
+  //       console.log('Tabla Courts recreada con éxito (con force)');
+  //     })
+  //     .catch((error) => {
+  //       console.error('Error al recrear la tabla Courts:', error);
+  //     });
+  // })
+  // .catch((error) => {
+  //   console.error('Error al borrar la tabla Courts:', error);
+  // });
 
 // User relationships
 
@@ -208,7 +228,7 @@ Payment.belongsTo(PaymentStatus, {foreignKey: 'PaymentStatusId'}); //?
 TeamMatch.hasOne(MatchResult, { onDelete: 'CASCADE' });
 MatchResult.belongsTo(TeamMatch);
 
-MatchResult.hasOne(ScoreMatch, { foreignKey: 'TeamMatchId' });
+MatchResult.hasOne(ScoreMatch, { foreignKey: 'MatchResultId' });
 ScoreMatch.belongsTo(MatchResult, { foreignKey: 'MatchResultId' });
 
 TeamMatch.hasOne(GuestReservation, {foreignKey: 'TeamMatchId'});

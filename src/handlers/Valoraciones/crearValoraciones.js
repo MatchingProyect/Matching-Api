@@ -9,6 +9,7 @@ const createValoracion = async (req, res) => {
   
 
       const nuevaValoracion = await addValoracionInDb(id, valoracion)
+      console.log(nuevaValoracion)
       if(nuevaValoracion){
         return  res.status(200).json({status: true, nuevaValoracion});
       }else{

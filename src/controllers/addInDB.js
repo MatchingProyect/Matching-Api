@@ -18,6 +18,16 @@ const addUserInDb = async ({ admin, active, onLine, displayName, gender, dayBirt
     }
 }
 
+const createRelationUserByTeam = async(req, res)=>{
+    try {
+        const {UserId, TeamMatchId} = req.query
+        const userAgregado = await UserMatch.create({ TeamMatchId, UserId })
+        if(userAgregado) return res.status(200).json({status: true, userAgregado})
+    } catch (error) {
+        return res.status(500).json({status: false, message: error.message})
+    }
+}
+
 
 
 const crearMatchResultYScoreMatch = async (req, res) => {
@@ -56,6 +66,7 @@ const addValoracionInDb = async(id, valoracion) =>{
               if(newValo) return newValo
         }
     } catch (error) {
+        console.log('error controller')
         throw error.message
     }
 }
@@ -98,11 +109,12 @@ const addLocationInDb = async (name, adress, city, state, postalCode, country) =
     }
 }
 
-const addCourtInDb = async (name, description, priceFee, warrantyReservation, grassType, lighting, doorsType, wallsType, reputation, SportId, LocationId, ClubId) => {
+const addCourtInDb = async (name, description, priceFee, warrantyReservation, grassType, lighting, doorsType, wallsType, reputation, horarioInicio, horarioCierre, SportId, LocationId, ClubId) => {
     try {
-        const addCourt = await Court.create({ name, description, priceFee, warrantyReservation, grassType, lighting, doorsType, wallsType, reputation, SportId, LocationId, ClubId })
+        const addCourt = await Court.create({ name, description, priceFee, warrantyReservation, grassType, lighting, doorsType, wallsType, reputation, horarioInicio, horarioCierre, SportId, LocationId, ClubId })
         if (addCourt) return addCourt;
     } catch (error) {
+        console.log(error)
         throw error.message;
     }
 }
@@ -287,5 +299,6 @@ module.exports = {
     createRelationshipInDb,
     addGuestReservationInDb,
     addValoracionInDb,
-    crearMatchResultYScoreMatch
+    crearMatchResultYScoreMatch,
+    createRelationUserByTeam
 }
