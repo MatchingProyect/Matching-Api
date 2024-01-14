@@ -29,7 +29,7 @@ const getResultMatch = async (req, res) => {
 
             console.log(scoreFound)
     
-            return res.status(200).json({status: true, resultFound, scoreFound})
+            return res.status(200).json({status: true, resultado:{resultFound, scoreFound}})
             
         } catch (error) {
             console.log('f')
