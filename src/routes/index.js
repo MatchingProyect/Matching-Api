@@ -94,10 +94,12 @@ const obtenerReservasPorTipo = require('../handlers/Reservation/reservaByMatchTy
 const { crearMatchResultYScoreMatch, createRelationUserByTeam } = require('../controllers/addInDB');
 const getCourt = require('../handlers/Court/getCourt');
 const updateLocation = require('../handlers/Location/updateLocation');
+const userByEmail = require('../handlers/Users/userByEmail');
 
 
 const router = require("express").Router();
 
+router.get('/userByEmail', userByEmail)
 router.get('/clubs', getAllClubs)
 router.get('/clubs', getAllClubs)
 router.get('/clubs/:id', getClubById)

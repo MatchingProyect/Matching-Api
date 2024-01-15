@@ -431,9 +431,21 @@ const getReservationByTeamMatchInDb = async(id) => {
     }
 }
 
+const userByEmailInDB = async(email) =>{
+    console.log('controller', email)
+    try {
+        const userEmail = await User.findOne({ where: { email: email } });
+        console.log(userEmail)
+        if(userEmail) return userEmail
+    } catch (error) {
+        
+    }
+}
+
 
 module.exports = {
     getAllProfInDb,
+    userByEmailInDB,
     getAllUsersInDb,
     getUserInDb,
     valoracionesByUserInDb,
