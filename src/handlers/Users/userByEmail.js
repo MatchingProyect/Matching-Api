@@ -2,7 +2,7 @@ const { userByEmailInDB } = require("../../controllers/getInDB")
 
 const userByEmail = async(req, res) =>{
     try {
-        const {email} = req.body 
+        const {email} = req.query 
         console.log('handler', email)
         const userByEmailFound = await userByEmailInDB(email);
         if(userByEmailFound) return res.status(200).json({status: true, userByEmailFound})
