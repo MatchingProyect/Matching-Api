@@ -323,12 +323,13 @@ const getAllTeamMatchesInDb = async () => {
 
 const getTeamMatchByUserId = async (id) => {
     try {
-        const teamMatchesByUser = await UserMatch.findAll({where: {UserId: id}});
-        if (teamMatchesByUser) return teamMatchesByUser;
+        const teamMatchesByUser = await UserMatch.findAll({ where: { UserId: id } });
+        return teamMatchesByUser.length > 0 ? teamMatchesByUser : null;
     } catch (error) {
         throw error.message;
     }
 }
+
 
 const getUserByTeamMatchId = async (id) => {
     try {
