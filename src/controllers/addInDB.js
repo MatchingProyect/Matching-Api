@@ -125,7 +125,7 @@ const addCourtInDb = async (name, description, priceFee, warrantyReservation, gr
 const addReservationInDb = async (dateTimeStart, dateTimeEnd, totalCost, teamMatch, UserId, CourtId, MatchTypeId, FriendsId) => {
     try {
         const addReservation = await Reservation.create({ dateTimeStart, dateTimeEnd, totalCost, teamMatch, UserId, CourtId, MatchTypeId, PaymentId: null, TeamMatchId: null });
-
+        
         const user = await User.findByPk(UserId);
         if (addReservation) {
 
@@ -139,7 +139,8 @@ const addReservationInDb = async (dateTimeStart, dateTimeEnd, totalCost, teamMat
                     await UserMatch.create({ TeamMatchId: addTeamMatch.id, UserId });
                     if (FriendsId.length > 0) {
                         await Promise.all(FriendsId.map(async (friend) => {
-                            await UserMatch.create({ TeamMatchId: addTeamMatch.id, UserId: friend });
+                            const friendMatch = await UserMatch.create({ TeamMatchId: addTeamMatch.id, UserId: friend });
+                            console.log('bro2', friendMatch)
                             return friendMatch;
                         }));
                     }

@@ -3,6 +3,7 @@ const { getReservationByTeamMatchInDb } = require("../../controllers/getInDB");
 const getReservationByTeamMatch = async(req, res) => {
  try {
     const {id} = req.params;
+
     const reservation = await getReservationByTeamMatchInDb(id);
     if(reservation) return res.status(200).json({
         status: true,
