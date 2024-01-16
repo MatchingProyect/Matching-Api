@@ -22,6 +22,7 @@ const createRelationUserByTeam = async(req, res)=>{
     try {
         const {UserId, TeamMatchId} = req.query
         const userAgregado = await UserMatch.create({ TeamMatchId, UserId })
+        console.log('relacion user', userAgregado);
         if(userAgregado) return res.status(200).json({status: true, userAgregado})
     } catch (error) {
         return res.status(500).json({status: false, message: error.message})
