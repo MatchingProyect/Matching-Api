@@ -113,9 +113,9 @@ const {User,
 
 
 
-  // UserMatch.drop()
+  // Reservation.drop()
   // .then(() => {
-  //   UserMatch.sync({ force: true })
+  //   Reservation.sync({ force: true })
   //     .then(() => {
   //       console.log('Tabla Reservations recreada con éxito (con force)');
   //     })
