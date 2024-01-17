@@ -16,11 +16,11 @@ const createOrder = async (req, res) => {
         const response = await preference.create({
             body: {
                 back_urls: {
-                    success: 'https://matchingweb.onrender.com/',
-                    failure: 'https://matchingweb.onrender.com/',
+                    success: 'https://matchingweb.onrender.com/home',
+                    failure: 'https://matchingweb.onrender.com/home',
                 },
                 auto_return: 'approved',
-                notification_url: 'https://matchingweb.onrender.com/',
+                notification_url: 'https://matchingweb.onrender.com/home',
                 items: [
                     {
                         title: Payment.name,
