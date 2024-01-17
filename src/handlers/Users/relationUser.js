@@ -84,7 +84,7 @@ const addFriend = async (req, res) => {
                 });
             }
         } else  {
-            
+            console.log('estuvo aca')
             const deletedRequest = await putStatusRequest(status, UserId, FriendId);
             
             if (deletedRequest) {

@@ -178,7 +178,11 @@ const putReservationType = async (reservationTypeId, updates) => {
 
 const putStatusRequest = async (status, UserId, FriendId) => {
     try {
-        if (status === "rechazado") await FriendRequest.destroy({ where: { FriendRId: FriendId, UserId: UserId } })
+        if (status === "rechazado") {
+           const deleteado = await FriendRequest.destroy({ where: { FriendRId: FriendId, UserId: UserId } })
+           console.log('llego al controller', deleteado)
+           if(deleteado) return deleteado
+        }
         const statusUpdated = await FriendRequest.update(
             { status },
             {
