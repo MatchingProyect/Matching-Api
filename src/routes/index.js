@@ -205,7 +205,7 @@ router.put('/volverAdm/:id', volverAdm)
 router.put('/userOnline', online)
 
 router.delete('/profiles/:id', deleteProfile);
-router.delete('/sport/:id', deleteSport);
+router.delete('/sports/:id', deleteSport);
 router.delete('/users/:id', deleteUser);
 router.delete('/courts/:id', deleteCourt);
 router.delete('/payments/:id', deletePayment);
