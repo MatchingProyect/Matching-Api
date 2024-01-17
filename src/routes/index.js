@@ -95,6 +95,7 @@ const { crearMatchResultYScoreMatch, createRelationUserByTeam } = require('../co
 const getCourt = require('../handlers/Court/getCourt');
 const updateLocation = require('../handlers/Location/updateLocation');
 const userByEmail = require('../handlers/Users/userByEmail');
+const deleteSport = require('../handlers/Sport/deleteSport');
 
 
 const router = require("express").Router();
@@ -204,6 +205,7 @@ router.put('/volverAdm/:id', volverAdm)
 router.put('/userOnline', online)
 
 router.delete('/profiles/:id', deleteProfile);
+router.delete('/sport/:id', deleteSport);
 router.delete('/users/:id', deleteUser);
 router.delete('/courts/:id', deleteCourt);
 router.delete('/payments/:id', deletePayment);

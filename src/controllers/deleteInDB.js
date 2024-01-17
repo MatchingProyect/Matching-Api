@@ -1,10 +1,19 @@
 const dataBase = require('../dataBase/dataBase')
 
-const { User, Profile, FriendRequest, Court, Payment, Reservation, TeamMatch, PointEvent, MatchType, ShiftSchedule } = dataBase.models
+const { User, Profile, FriendRequest, Court, Payment, Sport, Reservation, TeamMatch, PointEvent, MatchType, ShiftSchedule } = dataBase.models
 
 const deleteProfileInDb = async (id) => {
     try {
         const deleted = await Profile.destroy({ where: { id } })
+        if (deleted) return deleted
+    } catch (error) {
+        throw error.message
+    }
+}
+
+const deleteSportInDb = async(id) => {
+    try {
+        const deleted = await Sport.destroy({ where: { id } })
         if (deleted) return deleted
     } catch (error) {
         throw error.message
@@ -110,6 +119,7 @@ const deleteMatchTypeInDb = async (id) => {
 
 module.exports = {
     deleteProfileInDb,
+    deleteSportInDb,
     deleteUserInDb,
     deleteCourtInDb,
     deletePaymentInDb,
