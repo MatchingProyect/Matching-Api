@@ -424,9 +424,9 @@ const getAllGuestReservationInDbByUserId = async (id) => {
 const getReservationByTeamMatchInDb = async(id) => {
     try {
         const reserva = await Reservation.findOne({where: {TeamMatchId: id}});
-        console.log('todos iguales', id)
         if(reserva) return reserva;
     } catch (error) {
+        console.log(error)
         throw error.message;
     }
 }
