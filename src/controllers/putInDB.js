@@ -19,9 +19,9 @@ const putSport = async (id, name) => {
     }
 }
 
-const putUser = async (id, admin, displayName, gender, dayBirth, email, phone, creditCardWarranty, avatarImg, password, onLine) => {
+const putUser = async (id, admin, displayName, gender, dayBirth, email, phone, creditCardWarranty, avatarImg, password, description,  onLine) => {
     try {
-        const userUpdate = { admin, displayName, gender, dayBirth, email, phone, creditCardWarranty, avatarImg, password, onLine }
+        const userUpdate = { admin, displayName, gender, dayBirth, email, phone, creditCardWarranty, avatarImg, password, description, onLine }
         const updatedUser = await User.update(userUpdate, { where: { id } })
 
         if (updatedUser) return userUpdate
