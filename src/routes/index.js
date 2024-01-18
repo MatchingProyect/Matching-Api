@@ -96,6 +96,7 @@ const getCourt = require('../handlers/Court/getCourt');
 const updateLocation = require('../handlers/Location/updateLocation');
 const userByEmail = require('../handlers/Users/userByEmail');
 const deleteSport = require('../handlers/Sport/deleteSport');
+const deleteClub = require('../handlers/Club/deleteClub');
 
 
 const router = require("express").Router();
@@ -204,6 +205,7 @@ router.put('/courtEstado/:id', borradoLogicoCourt)
 router.put('/volverAdm/:id', volverAdm)
 router.put('/userOnline', online)
 
+router.delete('/clubs/:id', deleteClub);
 router.delete('/profiles/:id', deleteProfile);
 router.delete('/sports/:id', deleteSport);
 router.delete('/users/:id', deleteUser);
